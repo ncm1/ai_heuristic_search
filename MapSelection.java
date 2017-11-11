@@ -105,12 +105,10 @@ public class MapSelection extends JFrame implements ActionListener{
 
           if(source == confirm){
               String selectedMap = (String)mapSelection.getSelectedItem();
-              String selectedVariant = (String)variantSelection.getSelectedItem();
-
-              System.out.println(selectedMap + "-" + selectedVariant);
+              String selectedVariant = (String)variantSelection.getSelectedItem();  
               setVisible(false);
               //TODO: RunMVCTest(pass map and variant);
-              RunMVCTest runMVC = new RunMVCTest();
+              RunMVCTest runMVC = new RunMVCTest(selectedMap, selectedVariant);
               //onSelected(selected);
           }
           else if(source == back){

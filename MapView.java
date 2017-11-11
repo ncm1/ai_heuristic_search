@@ -23,7 +23,9 @@ class MapView implements ChangeListener
 
   private JLabel columnLabel = new JLabel("column-null", SwingConstants.CENTER);
   private JLabel rowLabel    = new JLabel("row-null", SwingConstants.CENTER);
-
+  private JLabel fLabel      = new JLabel("f-value: null", SwingConstants.CENTER);
+  private JLabel gLabel      = new JLabel("g-value: null", SwingConstants.CENTER);
+  private JLabel hLabel      = new JLabel("h-value: null", SwingConstants.CENTER);
 
   public MapView(ButtonGridView bgv)
   {
@@ -37,9 +39,18 @@ class MapView implements ChangeListener
     JPanel titlePanel = new JPanel(new GridLayout(0,3));
     JLabel title = new JLabel("Input coordinates: ", SwingConstants.CENTER);
     title.setVerticalAlignment(SwingConstants.CENTER);
+
+    //Setting fonts of JLabels
     Font font = new Font("Cambria", Font.BOLD, 30);
     title.setFont(font);
+    columnLabel.setFont(font);
+    rowLabel.setFont(font);
+    fLabel.setFont(font);
+    gLabel.setFont(font);
+    hLabel.setFont(font);
+    //
 
+    //TODO: Add action listener to jb so user can alternatively enter cell coordinates
     JTextField jtf = new JTextField ("");
     JButton jb = new JButton("Retrieve Cell Data");
     titlePanel.add(title);
@@ -47,6 +58,7 @@ class MapView implements ChangeListener
     titlePanel.add(jb);
 
     map = bgv;
+    //TODO: Implement partial MapViews to allow splitting the map into quadrants
     /*q1 = new ButtonGridView(60,80);
     q2 = new ButtonGridView(60,80);
     q3 = new ButtonGridView(60,80);
@@ -65,9 +77,12 @@ class MapView implements ChangeListener
     tabPane.addTab("Map - Q4", q4.getContentPane());
     */
 
-    JPanel cellpane = new JPanel(new GridLayout(3,0));
+    JPanel cellpane = new JPanel(new GridLayout(5,0));
     cellpane.add(rowLabel);
     cellpane.add(columnLabel);
+    cellpane.add(fLabel);
+    cellpane.add(gLabel);
+    cellpane.add(hLabel);
     tabPane.addTab("Cell Data", cellpane);
 
     tabPane.addChangeListener(this);
@@ -85,6 +100,18 @@ class MapView implements ChangeListener
     rowLabel.setText("row - " + r);
   }
 
+  public void set_f_Label(int f){
+    fLabel.setText("f-value: " + f);
+  }
+
+  public void set_g_label(int g){
+    gLabel.setText("g-value: " + g);
+  }
+
+  public void set_h_label(int h){
+    hLabel.setText("h-value: " + h);
+  }
+
   public void stateChanged(ChangeEvent e) {
     JTabbedPane tabbedPane = (JTabbedPane) e.getSource();
     int selectedIndex = tabbedPane.getSelectedIndex();
@@ -96,5 +123,5 @@ class MapView implements ChangeListener
       System.exit(0);
     } //windowClosing()
   } //CloseListener
-  
+
 }//end of MapView.java
