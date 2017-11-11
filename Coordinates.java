@@ -1,0 +1,18 @@
+import java.util.*;
+
+public class Coordinates{
+  private int x;
+  private int y;
+  Coordinates(int x, int y){
+    this.x = x;
+    this.y = y;
+  }
+
+  public int get_x_coordinate(){
+    return x;
+  }
+
+  public int get_y_coordinate(){
+    return y;
+  }
+}
