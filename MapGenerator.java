@@ -760,7 +760,7 @@ public class MapGenerator extends JFrame{
               MapGenerator puzzleGen = new MapGenerator(120,160);//makes new ButtonGrid with 2 parameters
               puzzleGen.generateMap();
               puzzleGen.showMap();
-              puzzleGen.writeGridToFile("./Maps/PredefinedMaps/Map" + 4+"/" + "map-" + 4);
+              puzzleGen.writeGridToFile("./Maps/PredefinedMaps/Map" + 0+"/" + "map-" + 0);
         }
 }
 //reference: https://www.wikihow.com/Make-a-GUI-Grid-in-Java
