@@ -72,7 +72,7 @@ public class MapGenerator extends JFrame{
           ArrayList<Coordinates> tempHighway = new ArrayList<Coordinates>();
 
           Boolean isInside;
-          for(int i = 0; i < 2; i++)
+          for(int i = 0; i < 4; i++)
           {
 
             //Select the bound to start the highway
@@ -161,7 +161,7 @@ public class MapGenerator extends JFrame{
             System.out.println("---------------------------");
             highway.add(newCoordinate);
           }
-            if(highway.size() >= 5)
+            if(highway.size() >= 6)
               return highway;
             else
               return startWalking(move, x, y);
@@ -266,20 +266,53 @@ public class MapGenerator extends JFrame{
           int next_temp_x_coord;
           int next_temp_y_coord;
 
-          for(int i = 0; i < tempSize; i++)
+          int tempMin;
+          int tempMax;
+
+          //Closed list
+          for(int i = 0; i < tempSize - 1; i++)
           {
             curr_temp_x_coord = temp.get(i).get_x_coordinate();
             curr_temp_y_coord = temp.get(i).get_y_coordinate();
 
-            //next_temp_x_coord = temp.get(i + 1).get_x_coordinate();
-            //next_temp_y_coord = temp.get(i + 1).get_y_coordinate();
+            next_temp_x_coord = temp.get(i + 1).get_x_coordinate();
+            next_temp_y_coord = temp.get(i + 1).get_y_coordinate();
+
             for(int j = 0; j < clSize; j++)
             {
               cl_x_coord = cl.get(j).get_x_coordinate();
               cl_y_coord = cl.get(j).get_y_coordinate();
 
-              System.out.println("cl_x_coord:" + cl_x_coord + " cl_y_coord: " + cl_y_coord);
-              System.out.println("curr_temp_x_coord: " + curr_temp_x_coord + " curr_temp_y_coord: " + curr_temp_y_coord);
+              //x is constant, y values change, update accordingly
+              if(curr_temp_x_coord == next_temp_x_coord)
+              {
+                tempMax = getMax(curr_temp_y_coord, next_temp_y_coord);
+                tempMin = getMin(curr_temp_y_coord, next_temp_y_coord);
+
+                while(tempMin <= tempMax)
+                {
+                    if(tempMin == cl_y_coord && curr_temp_x_coord == cl_x_coord)
+                      return true;
+                    tempMin++;
+                }
+              }
+
+              //y is constant, x values change, update accordingly
+              else if(curr_temp_y_coord == next_temp_y_coord)
+              {
+                tempMax = getMax(curr_temp_x_coord, next_temp_x_coord);
+                tempMin = getMin(curr_temp_x_coord, next_temp_x_coord);
+
+                while(tempMin <= tempMax)
+                {
+                    if(tempMin == cl_x_coord && curr_temp_y_coord == cl_y_coord)
+                      return true;
+                    tempMin++;
+                }
+              }
+
+              //System.out.println("cl_x_coord:" + cl_x_coord + " cl_y_coord: " + cl_y_coord);
+              //System.out.println("curr_temp_x_coord: " + curr_temp_x_coord + " curr_temp_y_coord: " + curr_temp_y_coord);
               if(cl_x_coord == curr_temp_x_coord && cl_y_coord == curr_temp_y_coord)
                 return true;
             }
