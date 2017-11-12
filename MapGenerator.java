@@ -47,7 +47,7 @@ public class MapGenerator extends JFrame{
           for(int i = 0; i < 8; i++){
             x_rand = randy.nextInt(row);
             y_rand = randy.nextInt(column);
-            //System.out.println("x_rand: " + x_rand + " y_rand: " + y_rand);
+
             coordinateArray.add(new Coordinates(x_rand,y_rand));
             placeHardTraversalCells(x_rand,y_rand);
           }
@@ -119,13 +119,10 @@ public class MapGenerator extends JFrame{
                 else
                   move_direction = LEFT;
               }
-              //System.out.println("move_direction: " + move_direction + " x_rand: " + x_rand + " y_rand: " + y_rand);
 
               tempHighway = startWalking(move_direction,x_rand,y_rand);
               isInside    = isInsideClosedList(closedList,tempHighway);
               isSelfColliding = isSelfColliding(tempHighway);
-              //System.out.println("isInside: " + isInside);
-              //System.out.println("isSelfColliding: " + isSelfColliding);
 
               while(isInside || isSelfColliding)
               {
@@ -133,8 +130,7 @@ public class MapGenerator extends JFrame{
                 //Return valid highway and add it to the array list
                 isInside        = isInsideClosedList(closedList,tempHighway);
                 isSelfColliding = isSelfColliding(tempHighway);
-                //System.out.println("isInside: " + isInside);
-                //System.out.println("tot_attempts: " + tot_attempts);
+
                 tot_attempts++;
                 if(tot_attempts > MAX_ITERATIONS)
                   break;
@@ -163,7 +159,6 @@ public class MapGenerator extends JFrame{
           Coordinates newC = getNewCoordinates(move,x,y);
           highway.add(newC);
 
-          //System.out.println("newC: " + " x: " + newC.get_x_coordinate() + " y: " + newC.get_y_coordinate());
           Boolean bound_hit = false;
 
           String newDirection;
@@ -175,7 +170,7 @@ public class MapGenerator extends JFrame{
           while(!bound_hit)
           {
             q = randy.nextDouble();
-            //System.out.println("q: " + q);
+
             if(q < 0.6)
               newDirection = lastDirection;
             else
@@ -185,16 +180,13 @@ public class MapGenerator extends JFrame{
             lastDirection = newDirection;
             tempX = newCoordinate.get_x_coordinate();
             tempY = newCoordinate.get_y_coordinate();
-            //System.out.println("newDirection: " + newDirection + " newCoordinate: " + " x: " + tempX + " y: " + tempY);
-            //System.out.println("!areCoordinatesInBound(newCoordinate): " + Boolean.toString(!areCoordinatesInBound(newCoordinate)));
+
             if(!areCoordinatesInBound(newCoordinate)){
               newCoordinate = adjustCoordinate(newCoordinate);
               tempX = newCoordinate.get_x_coordinate();
               tempY = newCoordinate.get_y_coordinate();
               bound_hit = true;
-              //System.out.println("updated coordinates: " + " x: " + tempX + " y: " + tempY);
             }
-            //System.out.println("---------------------------");
             highway.add(newCoordinate);
           }
             if(highway.size() >= 6)
@@ -219,7 +211,6 @@ public class MapGenerator extends JFrame{
 
           int highwaySize = highway.size();
 
-          //System.out.println("closedList size: " + closedList.size() + " highwaySize: " + highwaySize);
           for(int j = 0; j < highwaySize - 1; j++)
           {
             currCoordinate = highway.get(j);
@@ -256,9 +247,7 @@ public class MapGenerator extends JFrame{
                   tempMin++;
               }
             }
-            //System.out.println("Closed list x_coord: " + curr_x_coord + " y_coord: " + curr_y_coord);
-            }
-            //System.out.println("----------------------------");
+          }
           return closedList;
         }
 
@@ -538,15 +527,10 @@ public class MapGenerator extends JFrame{
                    }
                 else
                 {
-                  System.out.println("Start: " + temp_start.get_x_coordinate() + " " + temp_start.get_y_coordinate());
-                  System.out.println("Goal: "  + temp_goal.get_x_coordinate()  + " " + temp_goal.get_y_coordinate());
-                  System.out.println("---------------------------------");
                   tempStartGoalPair = new ArrayList<Coordinates>();
                   tempStartGoalPair.add(temp_start);
                   tempStartGoalPair.add(temp_goal);
                   startGoal.add(tempStartGoalPair);
-                  System.out.println("StartGoal.size(): "  + startGoal.size());
-                  System.out.println("---------------------------------");
                   isValid = true;
                   generated++;
                 }
@@ -558,12 +542,6 @@ public class MapGenerator extends JFrame{
               temp_start = getRandomStartGoalCell();
               temp_goal  = getRandomStartGoalCell();
             }
-          }
-
-          for(int i = 0; i < 10; i++){
-            System.out.println("Printing all start-goal pairs...");
-            System.out.println(startGoal.get(i).get(0).get_x_coordinate() + " " + startGoal.get(i).get(0).get_y_coordinate());
-            System.out.println(startGoal.get(i).get(1).get_x_coordinate() + " " + startGoal.get(i).get(1).get_y_coordinate());
           }
         }
 
@@ -637,7 +615,7 @@ public class MapGenerator extends JFrame{
         }
 
         public int max_x(int x){
-          int temp = x + 30;
+          int temp = x + 16;
           if(temp > (row - 1))
             return row;
           else
@@ -645,7 +623,7 @@ public class MapGenerator extends JFrame{
         }
 
         public int min_x(int x){
-          int temp = x - 30;
+          int temp = x - 15;
           if(temp < 0)
             return 0;
           else
@@ -653,7 +631,7 @@ public class MapGenerator extends JFrame{
         }
 
         public int max_y(int y){
-          int temp = y + 30;
+          int temp = y + 16;
           if(temp > (column - 1))
             return column;
           else
@@ -661,7 +639,7 @@ public class MapGenerator extends JFrame{
         }
 
         public int min_y(int y){
-          int temp = y - 30;
+          int temp = y - 15;
           if(temp < 0)
             return 0;
           else
@@ -688,7 +666,10 @@ public class MapGenerator extends JFrame{
           pane.setLayout(new GridLayout(row,column)); //set layout
           //declare the border color to be used in each of the jlabels
           Border border = BorderFactory.createLineBorder(Color.BLACK);
+          Color brown = new Color(153,76,0);
 
+          int center_x;
+          int center_y;
           for(int x = 0; x < row; x++)
           {
             for(int y = 0; y < column; y++)
@@ -698,17 +679,32 @@ public class MapGenerator extends JFrame{
               /*if(char_grid[x][y] == '1'){
                   temp.setBackground(Color.r);
                   temp.setOpaque(true);
-              }
-              if(char_grid[x][y] == '2'){
-                temp.setBackground(Color.gray);
-                temp.setOpaque(true);
               }*/
-              /*if(char_grid[x][y] == '0'){
-                temp.setBackground(Color.black);
+              //char_grid[coordinateArray.get(x).get_x_coordinate()][coordinateArray.get(x).get_y_coordinate()] = ;
+              /*grid[][coordinateArray.get(x).get_y_coordinate()] = temp;
+              pane.add(grid[coordinateArray.get(x).get_x_coordinate()][coordinateArray.get(x).get_y_coordinate()]);
+
+              if(x == coordinateArray.get(x).get_x_coordinate() && )
+              {
+                temp.setBackground(Color.magenta);
                 temp.setOpaque(true);
               }*/
 
-              if(char_grid[x][y] == 'a' || char_grid[x][y] == 'b'){
+
+              if(char_grid[x][y] == '2'){
+                temp.setBackground(brown);
+                temp.setOpaque(true);
+              }
+              if(char_grid[x][y] == '0'){
+                temp.setBackground(Color.black);
+                temp.setOpaque(true);
+              }
+
+              if(char_grid[x][y] == 'a' ){
+                temp.setBackground(Color.cyan);
+                temp.setOpaque(true);
+              }
+              if(char_grid[x][y] == 'b' ){
                 temp.setBackground(Color.blue);
                 temp.setOpaque(true);
               }
@@ -717,6 +713,7 @@ public class MapGenerator extends JFrame{
               pane.add(grid[x][y]); //adds button to grid
             }
           }
+
           pack();
           setExtendedState(JFrame.MAXIMIZED_BOTH);
           setLocationRelativeTo(null);
@@ -754,6 +751,8 @@ public class MapGenerator extends JFrame{
                 mapFile.write("\n");
               }
               mapFile.write("\n");
+              mapFile.flush();
+              mapFile.close();
             }
           }
 
