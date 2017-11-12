@@ -1,3 +1,5 @@
+package views;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -52,7 +54,7 @@ public class ButtonGridView extends JFrame{
           getContentPane().add(pane);
         }
 
-        void addCellListener(ActionListener cellListener){
+        public void addCellListener(ActionListener cellListener){
           for (int i = 0; i < rowSize; i++) {
             for (int j = 0; j < columnSize; j++) {
               grid[i][j].addActionListener(cellListener);

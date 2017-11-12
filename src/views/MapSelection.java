@@ -1,3 +1,7 @@
+package views;
+
+import views.MainMenu;
+import main.RunMVCTest;
 import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;

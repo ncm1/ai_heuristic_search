@@ -1,3 +1,5 @@
+package views;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.lang.*;
@@ -10,7 +12,7 @@ import java.util.Observable;
 import javax.swing.event.*;
 
 
-class MapView implements ChangeListener
+public class MapView implements ChangeListener
 {
   //Create main tabePane object where each of the tabs will be place
   JTabbedPane tabPane;

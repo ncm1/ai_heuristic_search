@@ -1,3 +1,8 @@
+package controllers;
+
+import models.MapModel;
+import views.ButtonGridView;
+import views.MapView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -10,7 +15,7 @@ public class MapController {
 	private ButtonGridView theBGView;
 	private MapModel theModel;
 
-	  MapController(ButtonGridView theBGView, MapView theMapView, MapModel theModel) {
+	 public MapController(ButtonGridView theBGView, MapView theMapView, MapModel theModel) {
 		this.theMapView = theMapView;
 		this.theBGView  = theBGView;
 		this.theModel   = theModel;

@@ -1,6 +1,13 @@
+package main;
+
+import models.MapModel;
+import controllers.MapController;
+import views.ButtonGridView;
+import views.MapView;
+
 public class RunMVCTest {
 
-    RunMVCTest(String map, String variant){
+    public RunMVCTest(String map, String variant){
       System.out.println("RunMVCTest()");
       System.out.println(map + "-" + variant);
       //The map and variant will be passed to buttonGridView
