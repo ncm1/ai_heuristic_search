@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import java.io.*;
+import java.lang.*;
 import javax.swing.border.Border;
 
 public class MapGenerator extends JFrame{
@@ -10,6 +11,7 @@ public class MapGenerator extends JFrame{
         JButton[][] grid; //names the grid of buttons
         char[][] char_grid;
         ArrayList<Coordinates> coordinateArray = new ArrayList<Coordinates>();
+        ArrayList<ArrayList<Coordinates>> startGoal = new ArrayList<ArrayList<Coordinates>>();
         JFrame self;
         JButton temp;
         JPanel pane;
@@ -40,6 +42,7 @@ public class MapGenerator extends JFrame{
         public void generateMap(){
           int x_rand = -1;
           int y_rand = -1;
+          ArrayList<Coordinates> highways = new ArrayList<Coordinates>();
 
           for(int i = 0; i < 8; i++){
             x_rand = randy.nextInt(row);
@@ -49,9 +52,18 @@ public class MapGenerator extends JFrame{
             placeHardTraversalCells(x_rand,y_rand);
           }
 
+          //Boolean isHighwayGenerated = false;
+          //while(!isHighwayGenerated)
           //TODO: Implement highway method
-          generateHighways();
+          int closedListSize = 0;
+          while(closedListSize == 0)
+          {
+            highways = generateHighways();
+            closedListSize = highways.size();
+          }
+          addHighways(highways);
           placeBlockedCells();
+          generateStartGoalCells();
         }
 
         final String UP    = "Up";
@@ -59,7 +71,8 @@ public class MapGenerator extends JFrame{
         final String LEFT  = "Left";
         final String RIGHT = "Right";
 
-        public void generateHighways(){
+        public ArrayList<Coordinates> generateHighways()
+        {
           int x_rand, y_rand;
           double bound;
 
@@ -68,55 +81,78 @@ public class MapGenerator extends JFrame{
           Coordinates coord;
 
           ArrayList<ArrayList<Coordinates>> highways = new ArrayList<ArrayList<Coordinates>>();
-          ArrayList<Coordinates> closedList = new ArrayList<Coordinates>();
-          ArrayList<Coordinates> tempHighway = new ArrayList<Coordinates>();
+          ArrayList<Coordinates> closedList          = new ArrayList<Coordinates>();
+          ArrayList<Coordinates> tempHighway         = new ArrayList<Coordinates>();
 
-          Boolean isInside;
-          for(int i = 0; i < 4; i++)
+          Boolean isInside, isSelfColliding;
+
+          long tot_attempts = 0;
+          long MAX_ITERATIONS = 100000;
+          int TOTAL_HIGHWAYS = 4;
+          while(tot_attempts < MAX_ITERATIONS)
           {
-
-            //Select the bound to start the highway
-            bound = randy.nextDouble();
-            if(bound < 0.5){
-              x_rand = getRandomBound(0, row);
-              y_rand = randy.nextInt(column);
-              //Move DOWN
-              if(x_rand == 0)
-                move_direction = DOWN;
-              //Move UP
-              else
-                move_direction = UP;
-            }
-
-            else{
-              y_rand = getRandomBound(0, column);
-              x_rand = randy.nextInt(row);
-              //Move RIGHT
-              if(y_rand == 0)
-                move_direction = RIGHT;
-              //Move LEFT
-              else
-                move_direction = LEFT;
-            }
-            //
-            System.out.println("move_direction: " + move_direction + " x_rand: " + x_rand + " y_rand: " + y_rand);
-
-            tempHighway = startWalking(move_direction,x_rand,y_rand);
-            isInside    = isInsideClosedList(closedList,tempHighway);
-            System.out.println("isInside: " + isInside);
-            while(isInside)
+            for(int i = 0; i < TOTAL_HIGHWAYS; i++)
             {
-              tempHighway = startWalking(move_direction,x_rand,y_rand);
-              //Return valid highway and add it to the array list
-              isInside    = isInsideClosedList(closedList,tempHighway);
-              System.out.println("isInside: " + isInside);
-            }
-            isInside = false;
-            highways.add(tempHighway);
-            closedList = addHighwayToClosedList(closedList, tempHighway);//closedList.add
-          }
-          addHighways(closedList);
 
+              //Select the bound to start the highway
+              bound = randy.nextDouble();
+              if(bound < 0.5)
+              {
+                x_rand = getRandomBound(0, row);
+                y_rand = randy.nextInt(column);
+                //Move DOWN
+                if(x_rand == 0)
+                  move_direction = DOWN;
+                //Move UP
+                else
+                  move_direction = UP;
+              }
+
+              else
+              {
+                y_rand = getRandomBound(0, column);
+                x_rand = randy.nextInt(row);
+                //Move RIGHT
+                if(y_rand == 0)
+                  move_direction = RIGHT;
+                //Move LEFT
+                else
+                  move_direction = LEFT;
+              }
+              //System.out.println("move_direction: " + move_direction + " x_rand: " + x_rand + " y_rand: " + y_rand);
+
+              tempHighway = startWalking(move_direction,x_rand,y_rand);
+              isInside    = isInsideClosedList(closedList,tempHighway);
+              isSelfColliding = isSelfColliding(tempHighway);
+              //System.out.println("isInside: " + isInside);
+              //System.out.println("isSelfColliding: " + isSelfColliding);
+
+              while(isInside || isSelfColliding)
+              {
+                tempHighway = startWalking(move_direction,x_rand,y_rand);
+                //Return valid highway and add it to the array list
+                isInside        = isInsideClosedList(closedList,tempHighway);
+                isSelfColliding = isSelfColliding(tempHighway);
+                //System.out.println("isInside: " + isInside);
+                //System.out.println("tot_attempts: " + tot_attempts);
+                tot_attempts++;
+                if(tot_attempts > MAX_ITERATIONS)
+                  break;
+              }//end while loop
+              if(tot_attempts > MAX_ITERATIONS)
+                break;
+              isInside = false;
+              highways.add(tempHighway);
+              closedList = addHighwayToClosedList(closedList, tempHighway);//closedList.add
+            }//end for loop
+          }//end while loop
+
+          if(highways.size() < TOTAL_HIGHWAYS)
+            return new ArrayList<Coordinates>();
+          else if(highways.size() > TOTAL_HIGHWAYS)
+            return new ArrayList<Coordinates>();
+
+          return closedList;
         }
 
         public ArrayList<Coordinates> startWalking(String move, int x, int y){
@@ -127,7 +163,7 @@ public class MapGenerator extends JFrame{
           Coordinates newC = getNewCoordinates(move,x,y);
           highway.add(newC);
 
-          System.out.println("newC: " + " x: " + newC.get_x_coordinate() + " y: " + newC.get_y_coordinate());
+          //System.out.println("newC: " + " x: " + newC.get_x_coordinate() + " y: " + newC.get_y_coordinate());
           Boolean bound_hit = false;
 
           String newDirection;
@@ -149,16 +185,16 @@ public class MapGenerator extends JFrame{
             lastDirection = newDirection;
             tempX = newCoordinate.get_x_coordinate();
             tempY = newCoordinate.get_y_coordinate();
-            System.out.println("newDirection: " + newDirection + " newCoordinate: " + " x: " + tempX + " y: " + tempY);
-            System.out.println("!areCoordinatesInBound(newCoordinate): " + Boolean.toString(!areCoordinatesInBound(newCoordinate)));
+            //System.out.println("newDirection: " + newDirection + " newCoordinate: " + " x: " + tempX + " y: " + tempY);
+            //System.out.println("!areCoordinatesInBound(newCoordinate): " + Boolean.toString(!areCoordinatesInBound(newCoordinate)));
             if(!areCoordinatesInBound(newCoordinate)){
               newCoordinate = adjustCoordinate(newCoordinate);
               tempX = newCoordinate.get_x_coordinate();
               tempY = newCoordinate.get_y_coordinate();
               bound_hit = true;
-              System.out.println("updated coordinates: " + " x: " + tempX + " y: " + tempY);
+              //System.out.println("updated coordinates: " + " x: " + tempX + " y: " + tempY);
             }
-            System.out.println("---------------------------");
+            //System.out.println("---------------------------");
             highway.add(newCoordinate);
           }
             if(highway.size() >= 6)
@@ -226,7 +262,6 @@ public class MapGenerator extends JFrame{
           return closedList;
         }
 
-        //TODO: Instead pass the closed list
         public void addHighways(ArrayList<Coordinates> closedList){
           int clSize = closedList.size();
 
@@ -311,8 +346,37 @@ public class MapGenerator extends JFrame{
                 }
               }
 
-              //System.out.println("cl_x_coord:" + cl_x_coord + " cl_y_coord: " + cl_y_coord);
-              //System.out.println("curr_temp_x_coord: " + curr_temp_x_coord + " curr_temp_y_coord: " + curr_temp_y_coord);
+              if(cl_x_coord == curr_temp_x_coord && cl_y_coord == curr_temp_y_coord)
+                return true;
+            }
+          }
+          return false;
+        }
+
+        //TODO: Implement method to prevent the highway from colliding with itself
+        public Boolean isSelfColliding(ArrayList<Coordinates> coordinateList){
+          int coordinateListSize = coordinateList.size();
+
+          int curr_temp_x_coord;
+          int curr_temp_y_coord;
+
+          int cl_x_coord;
+          int cl_y_coord;
+
+          int tempMin;
+          int tempMax;
+
+          //Closed list
+          for(int i = 0; i < coordinateListSize - 1; i++)
+          {
+            curr_temp_x_coord = coordinateList.get(i).get_x_coordinate();
+            curr_temp_y_coord = coordinateList.get(i).get_y_coordinate();
+
+            for(int j = coordinateListSize - 1; j > i; j--)
+            {
+              cl_x_coord = coordinateList.get(j).get_x_coordinate();
+              cl_y_coord = coordinateList.get(j).get_y_coordinate();
+
               if(cl_x_coord == curr_temp_x_coord && cl_y_coord == curr_temp_y_coord)
                 return true;
             }
@@ -436,13 +500,140 @@ public class MapGenerator extends JFrame{
               if(prob_q <= 0.5)
                 char_grid[current_x][current_y] = '2';
               current_y += 1;
-              //System.out.println("current_x " + current_x + " current_y " + current_y);
             }
-            //System.out.println("current_x " + current_x + " current_y " + current_y);
             current_x += 1;
             current_y = min_y;
             counter   +=1;
           }
+        }
+
+        public void generateStartGoalCells()
+        {
+          int generated = 0;
+
+          Boolean isValid;
+
+          Coordinates temp_start;
+          Coordinates temp_goal;
+          ArrayList<Coordinates> tempStartGoalPair = new ArrayList<Coordinates>();
+          while(generated < 10)
+          {
+
+            temp_start = getRandomStartGoalCell();
+            temp_goal  = getRandomStartGoalCell();
+            isValid = false;
+            while(!isValid)
+            {
+              if(getEuclideanDistance(temp_start, temp_goal) >= 100)
+              {
+                //Cells should not be on blocked, or highways
+                if(char_grid[temp_start.get_x_coordinate()][temp_start.get_y_coordinate()] == 'a' ||
+                   char_grid[temp_start.get_x_coordinate()][temp_start.get_y_coordinate()] == 'b' ||
+                   char_grid[temp_start.get_x_coordinate()][temp_start.get_y_coordinate()] == '0' ||
+                   char_grid[temp_goal.get_x_coordinate()][temp_goal.get_y_coordinate()]   == 'a' ||
+                   char_grid[temp_goal.get_x_coordinate()][temp_goal.get_y_coordinate()]   == 'b' ||
+                   char_grid[temp_goal.get_x_coordinate()][temp_goal.get_y_coordinate()]   == '0')
+                   {
+                            isValid = false;
+                   }
+                else
+                {
+                  System.out.println("Start: " + temp_start.get_x_coordinate() + " " + temp_start.get_y_coordinate());
+                  System.out.println("Goal: "  + temp_goal.get_x_coordinate()  + " " + temp_goal.get_y_coordinate());
+                  System.out.println("---------------------------------");
+                  tempStartGoalPair = new ArrayList<Coordinates>();
+                  tempStartGoalPair.add(temp_start);
+                  tempStartGoalPair.add(temp_goal);
+                  startGoal.add(tempStartGoalPair);
+                  System.out.println("StartGoal.size(): "  + startGoal.size());
+                  System.out.println("---------------------------------");
+                  isValid = true;
+                  generated++;
+                }
+              }
+
+              else
+                isValid = false;
+              //Try again!
+              temp_start = getRandomStartGoalCell();
+              temp_goal  = getRandomStartGoalCell();
+            }
+          }
+
+          for(int i = 0; i < 10; i++){
+            System.out.println("Printing all start-goal pairs...");
+            System.out.println(startGoal.get(i).get(0).get_x_coordinate() + " " + startGoal.get(i).get(0).get_y_coordinate());
+            System.out.println(startGoal.get(i).get(1).get_x_coordinate() + " " + startGoal.get(i).get(1).get_y_coordinate());
+          }
+        }
+
+        public int getEuclideanDistance(Coordinates p, Coordinates q)
+        {
+          double d = 0.0;
+          double sub_x = (double)(q.get_x_coordinate() - p.get_x_coordinate());
+          double sub_y = (double)(q.get_y_coordinate() - p.get_y_coordinate());
+
+          double sqr_x = sub_x * sub_x;
+          double sqr_y = sub_y * sub_y;
+          d = Math.sqrt(sqr_x + sqr_y);
+
+          return (int) d;
+        }
+
+        public Coordinates getRandomStartGoalCell(){
+          Random rand = new Random();
+          double q = randy.nextDouble();
+
+          Coordinates newCoordinate;
+          if(q < 0.25)
+            newCoordinate = randomTopCell();
+          else if(q >= 0.25 && q < 0.5)
+            newCoordinate = randomBottomCell();
+          else if(q >= 0.5 && q < 0.75)
+            newCoordinate = randomLeftCell();
+          else
+            newCoordinate = randomRightCell();
+
+          return newCoordinate;
+
+        }
+
+        public Coordinates randomTopCell(){
+          Random rand = new Random();
+          int rand_x = randy.nextInt(20);
+          int rand_y = randy.nextInt(column);
+
+          return new Coordinates(rand_x, rand_y);
+        }
+
+        public Coordinates randomBottomCell(){
+          Random rand = new Random();
+
+          int max = row - 1;
+          int min = row - 21;
+
+          int rand_x = randy.nextInt(max - min + 1) + min;
+          int rand_y = randy.nextInt(column);
+
+          return new Coordinates(rand_x, rand_y);
+        }
+
+        public Coordinates randomLeftCell(){
+          Random rand = new Random();
+          int rand_x = randy.nextInt(row);
+          int rand_y = randy.nextInt(20);
+
+          return new Coordinates(rand_x, rand_y);
+        }
+
+        public Coordinates randomRightCell(){
+          Random rand = new Random();
+          int max = column - 1;
+          int min = column - 21;
+          int rand_x = randy.nextInt(row);
+          int rand_y = randy.nextInt(max - min + 1) + min;
+
+          return new Coordinates(rand_x, rand_y);
         }
 
         public int max_x(int x){
@@ -507,15 +698,16 @@ public class MapGenerator extends JFrame{
               /*if(char_grid[x][y] == '1'){
                   temp.setBackground(Color.r);
                   temp.setOpaque(true);
-              }*/
-              /*if(char_grid[x][y] == '2'){
+              }
+              if(char_grid[x][y] == '2'){
                 temp.setBackground(Color.gray);
                 temp.setOpaque(true);
-              }
-              if(char_grid[x][y] == '0'){
+              }*/
+              /*if(char_grid[x][y] == '0'){
                 temp.setBackground(Color.black);
                 temp.setOpaque(true);
               }*/
+
               if(char_grid[x][y] == 'a' || char_grid[x][y] == 'b'){
                 temp.setBackground(Color.blue);
                 temp.setOpaque(true);
@@ -532,10 +724,44 @@ public class MapGenerator extends JFrame{
           setVisible(true);
         }
 
+        public void writeGridToFile(String filename){
+            PrintWriter mapFile = null;
+
+            for(int k = 0; k < 10; k++)
+            {
+              try{
+                    mapFile = new PrintWriter(new FileWriter(filename + "-v" + k + ".txt"));
+                  }catch (IOException i) {
+                    // TODO Auto-generated catch block
+                    i.printStackTrace();
+                  }
+              //First two lines provide start, and end goal
+              mapFile.write(startGoal.get(k).get(0).get_x_coordinate() + " " + startGoal.get(k).get(0).get_y_coordinate());
+              mapFile.write("\n");
+              mapFile.write(startGoal.get(k).get(1).get_x_coordinate() + " " + startGoal.get(k).get(1).get_y_coordinate());
+              mapFile.write("\n");
+              //Next eight lines provide the centers of the hard to traverse regions
+              for(int x = 0; x < 8; x++)
+                mapFile.write(coordinateArray.get(x).get_x_coordinate() + " " + coordinateArray.get(x).get_y_coordinate() + "\n");
+
+              //Map as a char_grid printed to file
+              for(int i = 0; i < row; i++)
+              {
+                for(int j = 0; j < column; j++)
+                {
+                  mapFile.write(char_grid[i][j] + " ");
+                }
+                mapFile.write("\n");
+              }
+              mapFile.write("\n");
+            }
+          }
+
         public static void main(String[] args) {
-                MapGenerator puzzleGen = new MapGenerator(120,160);//makes new ButtonGrid with 2 parameters
-                puzzleGen.generateMap();
-                puzzleGen.showMap();
+              MapGenerator puzzleGen = new MapGenerator(120,160);//makes new ButtonGrid with 2 parameters
+              puzzleGen.generateMap();
+              puzzleGen.showMap();
+              puzzleGen.writeGridToFile("./Maps/PredefinedMaps/Map" + 4+"/" + "map-" + 4);
         }
 }
 //reference: https://www.wikihow.com/Make-a-GUI-Grid-in-Java
