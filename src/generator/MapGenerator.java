@@ -1,10 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.util.*;
 import java.io.*;
 import java.lang.*;
 import javax.swing.border.Border;
+import util.Coordinates;
 
 public class MapGenerator extends JFrame{
 
