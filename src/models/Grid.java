@@ -13,38 +13,38 @@ import util.Node;
  */
 public class Grid {
     
-    static int MAX_COLS = 160; // width
-    static int MAX_ROWS = 120; // height
+    static int MAX_COLS = Graph.MAX_COLS; // width
+    static int MAX_ROWS = Graph.MAX_ROWS; // height
     Graph g;
     
+    /**
+         * Creates a graph object that represents the grid from a given character array describing
+         * 
+         * Args:   arr     the character array that represents the type of terrain at each coordinate
+         * Precondition:
+         *      The character array fulfills all the requirements of the terrain mapping.
+         *      All values in the character array have a value. (no coordinate left blank)
+         * Postcondition:
+         *      All edge weights and types will be filled accordingly.
+        */ 
     public Grid(char[][] arr) throws Exception{
-        /*
-        Creates a graph object that represents the grid from a given character array describing
-        
-        Args:   arr     the character array that represents the type of terrain at each coordinate
-        
-        Precondition:
-            The character array fulfills all the requirements of the terrain mapping.
-            All values in the character array have a value. (no coordinate left blank)
-        Postcondition:
-            All edge weights and types will be filled accordingly.
-        */
-        Node[][] list = g.list;
+        //TODO: note the start and end states
+        Graph g = new Graph(MAX_ROWS,MAX_COLS);
         int rmin, rmax, cmin, cmax;
         double w = 0;
         for (int r = 0; r < MAX_ROWS; ++r){
             for (int c = 0; c < MAX_COLS; ++c){
-                list[r][c] = new Node();
-                list[r][c].setType(arr[r][c]);
+                //g.list[r][c] = new Node();
+                g.list[r][c].setType(arr[r][c]);
                 
                 rmin = (r-1 < 0) ? 0 : r-1;
                 rmax = (r+1 >= MAX_ROWS) ? MAX_ROWS-1 : r+1;
                 cmin = (c-1 < 0) ? 0 : c-1;
                 cmax = (c+1 >= MAX_COLS) ? MAX_COLS-1 : r+1;
-                for (;rmin <= rmax; ++rmin){
+                for (;rmin <= rmax; ++rmin){ //get each adjacent node and calculate weight based on type
                     for(; cmin <= cmax; ++cmin){
                         w = getWeightByTypeAndCoord(r,c,rmin,cmin,arr[r][c],arr[rmin][cmin]);
-                        list[r][c].AdjacencyList.add(new Edge(r,c,rmin,cmin,w));
+                        g.addEdge(r,c,rmin,cmin,w);
                     }
                 }
                 
@@ -108,6 +108,8 @@ public class Grid {
         }
         
     }
+    
+
     
     @Override
     public String toString(){

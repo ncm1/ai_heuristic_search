@@ -3,9 +3,11 @@ package util;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.PriorityQueue;
 
 public class Graph {
-    static int MAX_COLS = 160;
+    public static int MAX_COLS = 160;
+    public static int MAX_ROWS = 120;
     
     public Node list[][];
     int rows;
@@ -18,17 +20,19 @@ public class Graph {
             list[i] = new Node();
     }
 */
+    
     public Graph(int r, int c){
         this.rows = r;
         this.cols = c;
         list = new Node[r][c];
         for (int i = 0; i < r; i++){
-            for (int j = 0; j < c; j++)
-                list[i][j] = new Node();
+            for (int j = 0; j < c; j++){
+                list[i][j] = new Node(i,j);
+            }
         }
     }
     
-    public void addEdge(int sr,int sc,int dr,int dc,int w){
+    public void addEdge(int sr,int sc,int dr,int dc,double w){
         list[sr][sc].AdjacencyList.add(new Edge(sr,sc,dr,dc,w));
     }
 
@@ -129,4 +133,36 @@ public int[][] bfs(int r,int c)
     }//end for
     return visited;
   }
+
+public int[] uniformCostSearch(Graph g, int[] start){
+        int r,c ; // end indices
+        PriorityQueue<Node> pq = new PriorityQueue<Node>(10,new NodePathCostComparator());
+        int[][] explored = new int[MAX_ROWS][MAX_COLS];
+        int[] tmp; double pathCost;
+        Node parentNode = list[start[1]][start[0]];
+        parentNode.g = 0;
+        Node edgeNode;
+        for (long l = 0; l < 1000000000; ++l){
+            if (pq.isEmpty()) 
+                return new int[]{-1,-1};
+            parentNode = pq.poll();
+            if (parentNode.goal = true)
+                break;
+            tmp = parentNode.coord;
+            explored[tmp[1]][tmp[0]] = 1;
+            for (Edge edge: parentNode.AdjacencyList){ // each edge at node
+                tmp = edge.getDestination();
+                edgeNode = list[tmp[1]][tmp[0]];
+                pathCost = edge.weight + parentNode.g;
+                if (!pq.contains(edgeNode) && explored[tmp[1]][tmp[0]] == 0){
+                    edgeNode.g = pathCost;
+                    pq.add(edgeNode);
+                }
+                if (pq.contains(edgeNode) && edgeNode.g > pathCost)
+                    edgeNode.g = pathCost;
+            }
+        }
+        return parentNode.coord;
+    }
+
 }
