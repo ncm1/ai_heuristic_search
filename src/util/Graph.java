@@ -6,10 +6,11 @@ import java.util.List;
 import java.util.PriorityQueue;
 
 public class Graph {
-    public static int MAX_COLS = 160;
     public static int MAX_ROWS = 120;
+    public static int MAX_COLS = 160;
     
     public Node list[][];
+    int[][] traceNodes;
     int rows;
     int cols;
 /*
@@ -134,27 +135,32 @@ public int[][] bfs(int r,int c)
     return visited;
   }
 
-public int[] uniformCostSearch(Graph g, int[] start){
+public int[] uniformCostSearch(int[] start){
         int r,c ; // end indices
         PriorityQueue<Node> pq = new PriorityQueue<Node>(10,new NodePathCostComparator());
         int[][] explored = new int[MAX_ROWS][MAX_COLS];
         int[] tmp; double pathCost;
-        Node parentNode = list[start[1]][start[0]];
+        Node parentNode = list[start[0]][start[1]];
         parentNode.g = 0;
         Node edgeNode;
+        pq.add(parentNode);
         for (long l = 0; l < 1000000000; ++l){
+            System.out.println("-");
             if (pq.isEmpty()) 
                 return new int[]{-1,-1};
             parentNode = pq.poll();
-            if (parentNode.goal = true)
-                break;
             tmp = parentNode.coord;
-            explored[tmp[1]][tmp[0]] = 1;
+            explored[tmp[0]][tmp[1]] = 1;
+            if (parentNode.goal == true)
+                break;
+            //System.out.printf("current coord %d %d \n",tmp[0], tmp[1]);
             for (Edge edge: parentNode.AdjacencyList){ // each edge at node
                 tmp = edge.getDestination();
-                edgeNode = list[tmp[1]][tmp[0]];
+                //System.out.printf("potential coord %d %d ||| ",tmp[0], tmp[1]);
+                edgeNode = list[tmp[0]][tmp[1]];
                 pathCost = edge.weight + parentNode.g;
-                if (!pq.contains(edgeNode) && explored[tmp[1]][tmp[0]] == 0){
+                //System.out.println("pathcost" + pathCost);
+                if (!pq.contains(edgeNode) && explored[tmp[0]][tmp[1]] == 0 && pathCost < 1000){
                     edgeNode.g = pathCost;
                     pq.add(edgeNode);
                 }
@@ -162,7 +168,22 @@ public int[] uniformCostSearch(Graph g, int[] start){
                     edgeNode.g = pathCost;
             }
         }
+        traceNodes = explored;
         return parentNode.coord;
     }
+
+public int traceSearch(int[] start){
+    //do a simple search along the nodes in the trace
+    Node tempNode = list[start[0]][start[1]];
+    int[] tmp;
+    
+    for (Edge edge: tempNode.AdjacencyList){
+        tmp = edge.getDestination();
+        if (traceNodes[tmp[0]][tmp[1]] == 1){
+            tempNode = list[tmp[0]][tmp[1]];
+        }
+    }
+    return 0;
+}
 
 }

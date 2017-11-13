@@ -8,8 +8,8 @@ public class Node {
   double g; // start node's g should be 0
   double h;
   private char type;
-  boolean start = false;
-  boolean goal = false;
+  public boolean start = false;
+  public boolean goal = false;
   
   public Node(int r, int c){
       this.coord = new int[]{r,c};

@@ -1,10 +1,12 @@
+package generator;
+
 import javax.swing.*;
-import java.awt.*;
 import java.util.*;
 import java.io.*;
 import java.lang.*;
-import javax.swing.border.Border;
+import models.Grid;
 import util.Coordinates;
+import views.ButtonGridView;
 
 public class MapGenerator extends JFrame{
 
@@ -660,67 +662,6 @@ public class MapGenerator extends JFrame{
             return b;
         }
 
-        public void showMap(){
-          setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-          pane = new JPanel();
-          pane.setLayout(new GridLayout(row,column)); //set layout
-          //declare the border color to be used in each of the jlabels
-          Border border = BorderFactory.createLineBorder(Color.BLACK);
-          Color brown = new Color(153,76,0);
-
-          int center_x;
-          int center_y;
-          for(int x = 0; x < row; x++)
-          {
-            for(int y = 0; y < column; y++)
-            {
-              temp = new JButton(); //creates new JLabel
-
-              /*if(char_grid[x][y] == '1'){
-                  temp.setBackground(Color.r);
-                  temp.setOpaque(true);
-              }*/
-              //char_grid[coordinateArray.get(x).get_x_coordinate()][coordinateArray.get(x).get_y_coordinate()] = ;
-              /*grid[][coordinateArray.get(x).get_y_coordinate()] = temp;
-              pane.add(grid[coordinateArray.get(x).get_x_coordinate()][coordinateArray.get(x).get_y_coordinate()]);
-
-              if(x == coordinateArray.get(x).get_x_coordinate() && )
-              {
-                temp.setBackground(Color.magenta);
-                temp.setOpaque(true);
-              }*/
-
-
-              if(char_grid[x][y] == '2'){
-                temp.setBackground(brown);
-                temp.setOpaque(true);
-              }
-              if(char_grid[x][y] == '0'){
-                temp.setBackground(Color.black);
-                temp.setOpaque(true);
-              }
-
-              if(char_grid[x][y] == 'a' ){
-                temp.setBackground(Color.cyan);
-                temp.setOpaque(true);
-              }
-              if(char_grid[x][y] == 'b' ){
-                temp.setBackground(Color.blue);
-                temp.setOpaque(true);
-              }
-              temp.setBorder(border);
-              grid[x][y] = temp;
-              pane.add(grid[x][y]); //adds button to grid
-            }
-          }
-
-          pack();
-          setExtendedState(JFrame.MAXIMIZED_BOTH);
-          setLocationRelativeTo(null);
-          getContentPane().add(pane);
-          setVisible(true);
-        }
-
         public void writeGridToFile(String filename){
             PrintWriter mapFile = null;
 
@@ -756,11 +697,20 @@ public class MapGenerator extends JFrame{
             }
           }
 
-        public static void main(String[] args) {
+        public static void main(String[] args) throws Exception {
               MapGenerator puzzleGen = new MapGenerator(120,160);//makes new ButtonGrid with 2 parameters
               puzzleGen.generateMap();
-              puzzleGen.showMap();
-              puzzleGen.writeGridToFile("./Maps/PredefinedMaps/Map" + 0+"/" + "map-" + 0);
+              int[] start = new int[]{puzzleGen.startGoal.get(0).get(0).get_x_coordinate(), puzzleGen.startGoal.get(0).get(0).get_y_coordinate()};
+              int[] goal = new int[]{puzzleGen.startGoal.get(0).get(1).get_x_coordinate(), puzzleGen.startGoal.get(0).get(1).get_y_coordinate()};
+              ButtonGridView bgt = new ButtonGridView(120,160);
+              bgt.showMap(puzzleGen.char_grid, start, goal);
+              System.out.printf("printing grid with start: %d %d \n", start[0], start[1]);
+              System.out.printf("printing grid with goal: %d %d \n", goal[0], goal[1]);
+              
+              Grid grid = new Grid(puzzleGen.char_grid,start,goal);
+              int[] res =grid.g.uniformCostSearch(start);             
+              System.out.printf("result = %d, %d \n",res[0], res[1]);
+              //puzzleGen.writeGridToFile("./Maps/PredefinedMaps/Map" + 0+"/" + "map-" + 0);
         }
 }
 //reference: https://www.wikihow.com/Make-a-GUI-Grid-in-Java

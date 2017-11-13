@@ -12,26 +12,30 @@ import util.Node;
  * @author seo
  */
 public class Grid {
-    
-    static int MAX_COLS = Graph.MAX_COLS; // width
     static int MAX_ROWS = Graph.MAX_ROWS; // height
-    Graph g;
+    static int MAX_COLS = Graph.MAX_COLS; // width
+    
+    public Graph g;
     
     /**
          * Creates a graph object that represents the grid from a given character array describing
          * 
-         * Args:   arr     the character array that represents the type of terrain at each coordinate
+         * @param   arr     the character array that represents the type of terrain at each coordinate
+         * @param   start   start node coordinates
+         * @param   goal    goal node coordinates
          * Precondition:
          *      The character array fulfills all the requirements of the terrain mapping.
          *      All values in the character array have a value. (no coordinate left blank)
          * Postcondition:
          *      All edge weights and types will be filled accordingly.
         */ 
-    public Grid(char[][] arr) throws Exception{
+    public Grid(char[][] arr, int[] start, int[] goal) throws Exception{
         //TODO: note the start and end states
-        Graph g = new Graph(MAX_ROWS,MAX_COLS);
+        g = new Graph(MAX_ROWS,MAX_COLS);
         int rmin, rmax, cmin, cmax;
         double w = 0;
+        g.list[start[0]][start[1]].start = true;
+        g.list[goal[0]][goal[1]].goal = true;
         for (int r = 0; r < MAX_ROWS; ++r){
             for (int c = 0; c < MAX_COLS; ++c){
                 //g.list[r][c] = new Node();
@@ -40,11 +44,15 @@ public class Grid {
                 rmin = (r-1 < 0) ? 0 : r-1;
                 rmax = (r+1 >= MAX_ROWS) ? MAX_ROWS-1 : r+1;
                 cmin = (c-1 < 0) ? 0 : c-1;
-                cmax = (c+1 >= MAX_COLS) ? MAX_COLS-1 : r+1;
-                for (;rmin <= rmax; ++rmin){ //get each adjacent node and calculate weight based on type
-                    for(; cmin <= cmax; ++cmin){
-                        w = getWeightByTypeAndCoord(r,c,rmin,cmin,arr[r][c],arr[rmin][cmin]);
-                        g.addEdge(r,c,rmin,cmin,w);
+                cmax = (c+1 >= MAX_COLS) ? MAX_COLS-1 : c+1;
+                //System.out.printf("rmin: %d  rmax : %d  cmin: %d  cmax: %d \n", rmin,rmax,cmin,cmax);
+                for (int rd = rmin; rd <= rmax; ++rd){ //get each adjacent node and calculate weight based on type
+                    for (int cd = cmin; cd <= cmax; ++cd){
+                        if(r != rd || c != cd){ // no edge to self
+                            w = getWeightByTypeAndCoord(r,c,rd,cd,arr[r][c],arr[rd][cd]);
+                            g.addEdge(r,c,rd,cd,w);
+                            //System.out.printf("edge added to %d %d \n", r, c);
+                        }
                     }
                 }
                 
@@ -53,7 +61,7 @@ public class Grid {
     }
     
     public static double getWeightByTypeAndCoord(int sr, int sc, int dr, int dc, char stype, char dtype) throws Exception{
-        if (stype == '0' || dtype == '0') return 0; // blocked type
+        if (stype == '0' || dtype == '0') return 1000; // blocked type
         double sw;
         double dw;
         boolean sh = false;

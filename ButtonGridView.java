@@ -1,5 +1,3 @@
-package views;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -18,7 +16,6 @@ public class ButtonGridView extends JFrame{
 
         //TODO: Make constructor read the map directly from the file
         public ButtonGridView(int rows, int columns){ //constructor
-          this.row = rows; this.column = columns;
           setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
           pane = new JPanel();
           pane.setLayout(new GridLayout(rows,columns)); //set layout
@@ -55,7 +52,7 @@ public class ButtonGridView extends JFrame{
           getContentPane().add(pane);
         }
         
-        public void showMap(char[][] char_grid, int[]start, int[]goal){
+        public void showMap(){
           setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
           pane = new JPanel();
           pane.setLayout(new GridLayout(row,column)); //set layout
@@ -84,6 +81,8 @@ public class ButtonGridView extends JFrame{
                 temp.setBackground(Color.magenta);
                 temp.setOpaque(true);
               }*/
+
+
               if(char_grid[x][y] == '2'){
                 temp.setBackground(brown);
                 temp.setOpaque(true);
@@ -101,14 +100,6 @@ public class ButtonGridView extends JFrame{
                 temp.setBackground(Color.blue);
                 temp.setOpaque(true);
               }
-              if (x == start[0] && y == start[1]){
-                temp.setText("S");
-                temp.setOpaque(false);
-              }
-              if (x == goal[0] && y == goal[1]){
-                temp.setText("G");
-                temp.setOpaque(false);
-              }
               temp.setBorder(border);
               grid[x][y] = temp;
               pane.add(grid[x][y]); //adds button to grid
@@ -121,8 +112,8 @@ public class ButtonGridView extends JFrame{
           getContentPane().add(pane);
           setVisible(true);
         }
-        
-        public void addCellListener(ActionListener cellListener){
+
+        void addCellListener(ActionListener cellListener){
           for (int i = 0; i < rowSize; i++) {
             for (int j = 0; j < columnSize; j++) {
               grid[i][j].addActionListener(cellListener);
