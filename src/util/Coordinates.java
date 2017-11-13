@@ -15,4 +15,12 @@ public class Coordinates{
   public int get_y_coordinate(){
     return y;
   }
+
+  public void set_x_coordinate(int x){
+    this.x = x;
+  }
+
+  public void set_y_coordinate(int y){
+    this.y = y;
+  }
 }
