@@ -11,6 +11,10 @@ public class MapController {
 	private MapModel theModel;
 
 	  MapController(ButtonGridView theBGView, MapView theMapView, MapModel theModel) {
+		//this.theBGQ1View
+		//this.theBGQ2View
+		//this.theBGQ3View
+		//this.theBGQ4View
 		this.theMapView = theMapView;
 		this.theBGView  = theBGView;
 		this.theModel   = theModel;
@@ -44,7 +48,7 @@ public class MapController {
 					}
 				}
 			}
-			
+
 			// Surround interactions with the view with
 			// a try block in case numbers weren't
 			// properly entered
@@ -55,6 +59,10 @@ public class MapController {
 
 				theMapView.setColumnLabel(column);
 				theMapView.setRowLabel(row);
+				//theMapView.set_f_Label();
+				//theMapView.set_g_label();
+				//theMapView.set_h_label();
+				//theMapView.set_time_label();
 			}
 			catch(NumberFormatException ex){
 				System.out.println(ex);
