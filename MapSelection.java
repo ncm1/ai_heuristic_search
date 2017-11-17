@@ -14,6 +14,8 @@ public class MapSelection extends JFrame implements ActionListener{
 
         JButton confirm;
         JButton back;
+        JTextField fileInputField = new JTextField("Input File Name");
+
         private String selectedMap;
         private static final String PredefinedMaps   =  "./Maps/PredefinedMaps/Map";
         private static final String UserGeneratedMap =  "./Maps/UserGeneratedMaps/";
@@ -39,10 +41,10 @@ public class MapSelection extends JFrame implements ActionListener{
         public MapSelection(){ //constructor
           super("Predefined Map Selection");
           setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-          JPanel pane = new JPanel(new GridLayout(3, 1, 8, 8));
+          JPanel pane = new JPanel(new GridLayout(4, 1, 8, 8));
 
           //Setting the Title and location
-          JLabel title = new JLabel("Predefined Map Selection", SwingConstants.CENTER);
+          JLabel title = new JLabel("Main Menu", SwingConstants.CENTER);
           title.setVerticalAlignment(SwingConstants.CENTER);
           Font font = new Font("Cambria", Font.BOLD, 30);
           title.setFont(font);
@@ -56,6 +58,7 @@ public class MapSelection extends JFrame implements ActionListener{
           mapSelection.addItem(Map3);
           mapSelection.addItem(Map4);
           mapSelection.addItem(Map5);
+          mapSelection.addItem(GENERATEDMAP);
           ((JLabel)mapSelection.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
           ((JLabel)mapSelection.getRenderer()).setVerticalAlignment(SwingConstants.CENTER);
 
@@ -84,6 +87,15 @@ public class MapSelection extends JFrame implements ActionListener{
           parentPanel1.add(variantSelection);
           parentPanel1.add(nullLabel2);
 
+          // Null labels for null in gridlayout
+          JLabel nullLabel3 = new JLabel("");
+          JLabel nullLabel4 = new JLabel("");
+          JPanel parentPanel2 = new JPanel(new GridLayout(0,3));
+          parentPanel2.add(nullLabel3);
+          parentPanel2.add(fileInputField);
+          parentPanel2.add(nullLabel4);
+          //parentPanel1.add(fileInput);
+
           //confirm icon as a button on the gui
           ImageIcon confirm_Icon  = new ImageIcon("icons/confirm.png");
           confirm = new JButton(confirm_Icon);
@@ -101,13 +113,14 @@ public class MapSelection extends JFrame implements ActionListener{
           back.setBorderPainted(false);
           back.addActionListener(this);
 
-          JPanel parentPanel2 = new JPanel(new GridLayout(0,2));
-          parentPanel2.add(back);
-          parentPanel2.add(confirm);
+          JPanel parentPanel3 = new JPanel(new GridLayout(0,2));
+          parentPanel3.add(back);
+          parentPanel3.add(confirm);
           //Add the title, mapSelection, and confirm icon to the interface
           pane.add(title);
           pane.add(parentPanel1);
           pane.add(parentPanel2);
+          pane.add(parentPanel3);
           //pane.add(mapSelection);
           //pane.add(variantSelection);
           //pane.add(confirm);
@@ -128,10 +141,12 @@ public class MapSelection extends JFrame implements ActionListener{
               String selectedVariant = (String)variantSelection.getSelectedItem();
 
               String fileName = "";
+              String path = (String)fileInputField.getText();
+
               if(selectedMap == GENERATEDMAP)
-                  return;
+                  fileName += UserGeneratedMap + path;
               else
-                fileName += PredefinedMaps + getConcatenation(selectedMap, selectedVariant);
+                fileName  += PredefinedMaps + getConcatenation(selectedMap, selectedVariant);
 
               MapReader mapreader = new MapReader(fileName);
               setVisible(false);
