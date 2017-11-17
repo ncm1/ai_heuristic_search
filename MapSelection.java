@@ -135,9 +135,11 @@ public class MapSelection extends JFrame implements ActionListener{
                 fileName  += PredefinedMaps + getConcatenation(selectedMap, selectedVariant);
 
               MapReader mapreader = new MapReader(fileName);
-              setVisible(false);
-              RunMVCTest runMVC = new RunMVCTest(mapreader.get_char_map(), mapreader.getStartGoalPair());
-              //onSelected(selected);
+              if(mapreader.wasSuccessful())
+              {
+                setVisible(false);
+                RunMVCTest runMVC = new RunMVCTest(mapreader.get_char_map(), mapreader.getStartGoalPair());
+              }
           }
         }
         public String getConcatenation(String m, String v)

@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 public class MapReader{
 
+  private Boolean success;
   char[][] char_map;
   final static int ROWS = 120;
   final static int COLUMNS = 160;
@@ -57,17 +58,24 @@ public class MapReader{
 
         start_end_goal_pair.add(start_goal);
         start_end_goal_pair.add(end_goal);
+        success = true;
     }
     catch(FileNotFoundException ex) {
         System.out.println(
             "Unable to open file '" +
             fileName + "'");
+        success = false;
     }
     catch(IOException ex) {
         System.out.println(
             "Error reading file '"
             + fileName + "'");
+        success = false;
     }
+  }
+
+  public Boolean wasSuccessful(){
+    return success;
   }
 
   public void getStartGoal(String s[]){
