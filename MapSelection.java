@@ -39,12 +39,12 @@ public class MapSelection extends JFrame implements ActionListener{
         private static final String Var10 = "Variation 10";
 
         public MapSelection(){ //constructor
-          super("Predefined Map Selection");
+          super("Main Menu - Map Selection");
           setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
           JPanel pane = new JPanel(new GridLayout(4, 1, 8, 8));
 
           //Setting the Title and location
-          JLabel title = new JLabel("Main Menu", SwingConstants.CENTER);
+          JLabel title = new JLabel("Main Menu - Map Selection", SwingConstants.CENTER);
           title.setVerticalAlignment(SwingConstants.CENTER);
           Font font = new Font("Cambria", Font.BOLD, 30);
           title.setFont(font);
@@ -94,7 +94,6 @@ public class MapSelection extends JFrame implements ActionListener{
           parentPanel2.add(nullLabel3);
           parentPanel2.add(fileInputField);
           parentPanel2.add(nullLabel4);
-          //parentPanel1.add(fileInput);
 
           //confirm icon as a button on the gui
           ImageIcon confirm_Icon  = new ImageIcon("icons/confirm.png");
@@ -104,27 +103,14 @@ public class MapSelection extends JFrame implements ActionListener{
           confirm.setContentAreaFilled(false);
           confirm.setBorderPainted(false);
           confirm.addActionListener(this);
-          //back icon as a button on gui
-          ImageIcon back_Icon = new ImageIcon("icons/back.png");
-          back = new JButton(back_Icon);
 
-          back.setOpaque(false);
-          back.setContentAreaFilled(false);
-          back.setBorderPainted(false);
-          back.addActionListener(this);
-
-          JPanel parentPanel3 = new JPanel(new GridLayout(0,2));
-          parentPanel3.add(back);
+          JPanel parentPanel3 = new JPanel(new GridLayout(0,1));
           parentPanel3.add(confirm);
           //Add the title, mapSelection, and confirm icon to the interface
           pane.add(title);
           pane.add(parentPanel1);
           pane.add(parentPanel2);
           pane.add(parentPanel3);
-          //pane.add(mapSelection);
-          //pane.add(variantSelection);
-          //pane.add(confirm);
-          //pane.add(back);
 
           getContentPane().add(pane);
           setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -150,13 +136,8 @@ public class MapSelection extends JFrame implements ActionListener{
 
               MapReader mapreader = new MapReader(fileName);
               setVisible(false);
-              //TODO: RunMVCTest(pass map and variant);
               RunMVCTest runMVC = new RunMVCTest(mapreader.get_char_map(), mapreader.getStartGoalPair());
               //onSelected(selected);
-          }
-          else if(source == back){
-              setVisible(false);
-              MainMenu menu = new MainMenu();
           }
         }
         public String getConcatenation(String m, String v)
