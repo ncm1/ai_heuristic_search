@@ -703,8 +703,9 @@ public class MapGenerator extends JFrame{
               puzzleGen.generateMap();
               int[] start = new int[]{puzzleGen.startGoal.get(0).get(0).get_x_coordinate(), puzzleGen.startGoal.get(0).get(0).get_y_coordinate()};
               int[] goal = new int[]{puzzleGen.startGoal.get(0).get(1).get_x_coordinate(), puzzleGen.startGoal.get(0).get(1).get_y_coordinate()};
-              ButtonGridView bgt = new ButtonGridView(120,160);
-              bgt.showMap(puzzleGen.char_grid, start, goal);
+              ArrayList list = new ArrayList<Coordinates>();
+              ButtonGridView bgt = new ButtonGridView(puzzleGen.char_grid,puzzleGen.startGoal.get(0));
+              bgt.showMap(puzzleGen.char_grid,start,goal);
               System.out.printf("printing grid with start: %d %d \n", start[0], start[1]);
               System.out.printf("printing grid with goal: %d %d \n", goal[0], goal[1]);
               
