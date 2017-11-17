@@ -140,13 +140,12 @@ public class ButtonGridView extends JFrame{
                 tmp = tmp.parent;
             }
             Border border = BorderFactory.createLineBorder(Color.BLACK);
-
             path.forEach( coord -> {
-                temp = grid[coord[0]][coord[1]];
                 temp = new JButton();
                 temp.setBorder(border); 
                 temp.setBackground(Color.orange);
                 temp.setOpaque(true);
+                grid[coord[0]][coord[1]] = temp;
             });
             // for each coordinate, color the box red
         }
