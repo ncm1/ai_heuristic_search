@@ -1,17 +1,12 @@
-package main;
 
-import models.MapModel;
-import controllers.MapController;
-import views.ButtonGridView;
-import views.MapView;
+import java.util.ArrayList;
 
 public class RunMVCTest {
 
-    public RunMVCTest(String map, String variant){
+    RunMVCTest(char[][] char_map, ArrayList<Coordinates> start_end_pair){
       System.out.println("RunMVCTest()");
-      System.out.println(map + "-" + variant);
       //The map and variant will be passed to buttonGridView
-      ButtonGridView theBGView  = new ButtonGridView(120,160);
+      ButtonGridView theBGView  = new ButtonGridView(char_map, start_end_pair);
       MapView        theMapView = new MapView(theBGView);
 
     	MapModel theModel = new MapModel();
@@ -20,9 +15,6 @@ public class RunMVCTest {
       MapController theMapController = new MapController(theBGView, theMapView, theModel);
       //theMapView.setVisible(true);
 
-    }
-    public static void main(String[] args) {
-      RunMVCTest runmvc = new RunMVCTest("blank", "blank");
     }
 }
 //reference: http://www.newthinktank.com/2013/02/mvc-java-tutorial/
