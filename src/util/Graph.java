@@ -58,10 +58,11 @@ public TreeNode uniformCostSearch(int[] start){
         int[][] explored = new int[MAX_ROWS][MAX_COLS];
         TreeNode tmp, edgeNode; double pathCost;
         TreeNode parentNode = list[start[0]][start[1]];
+        parentNode.parent = null;
         parentNode.g = 0;
         pq.add(parentNode);
         for (long l = 0; l < 1000000000; ++l){
-            System.out.println("-");
+            //System.out.println("-");
             if (pq.isEmpty()) 
                 return null;
             parentNode = pq.poll();
@@ -73,12 +74,16 @@ public TreeNode uniformCostSearch(int[] start){
                 //System.out.printf("potential coord %d %d ||| ",tmp[0], tmp[1]);
                 edgeNode = list[tmp.coord[0]][tmp.coord[1]];
                 pathCost = edge.weight + parentNode.g;
+                if (edgeNode == parentNode)
+                    continue;
                 //System.out.println("pathcost" + pathCost);
                 if (!pq.contains(edgeNode) && explored[tmp.coord[0]][tmp.coord[1]] == 0 && pathCost < 1000){
                     edgeNode.g = pathCost;
+                    edgeNode.parent = parentNode;
                     pq.add(edgeNode);
                 }
                 if (pq.contains(edgeNode) && edgeNode.g > pathCost)
+                    edgeNode.parent = parentNode;
                     edgeNode.g = pathCost;
             }
         }

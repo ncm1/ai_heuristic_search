@@ -11,9 +11,14 @@ public class TreeNode{
     public ArrayList<Edge> AdjacencyList = new ArrayList<Edge>();
     public TreeNode parent;
     double g, h; // start node's g should be 0
+    
 
  public TreeNode(int r, int c) {
   this.coord = new int[]{r,c};
+ }
+ 
+ public double cost(){
+ return g;    
  }
  
  public void addChild(Edge child){

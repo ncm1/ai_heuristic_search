@@ -1,13 +1,17 @@
 package generator;
 
+import java.awt.Color;
+import java.awt.GridLayout;
 import javax.swing.*;
 import java.util.*;
 import java.io.*;
 import java.lang.*;
+import javax.swing.border.Border;
 import models.Grid;
 import util.Coordinates;
 import util.TreeNode;
 import views.ButtonGridView;
+import views.MapView;
 
 public class MapGenerator extends JFrame{
 
@@ -697,21 +701,93 @@ public class MapGenerator extends JFrame{
               mapFile.close();
             }
           }
+        
+        public void showMap(char[][] char_grid, int[]start, int[]goal){
+          setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+          pane = new JPanel();
+          pane.setLayout(new GridLayout(row,column)); //set layout
+          //declare the border color to be used in each of the jlabels
+          Border border = BorderFactory.createLineBorder(Color.BLACK);
+          Color brown = new Color(153,76,0);
 
+          int center_x;
+          int center_y;
+          for(int x = 0; x < row; x++)
+          {
+            for(int y = 0; y < column; y++)
+            {
+              temp = new JButton(); //creates new JLabel
+
+              /*if(char_grid[x][y] == '1'){
+                  temp.setBackground(Color.r);
+                  temp.setOpaque(true);
+              }*/
+              //char_grid[coordinateArray.get(x).get_x_coordinate()][coordinateArray.get(x).get_y_coordinate()] = ;
+              /*grid[][coordinateArray.get(x).get_y_coordinate()] = temp;
+              pane.add(grid[coordinateArray.get(x).get_x_coordinate()][coordinateArray.get(x).get_y_coordinate()]);
+
+              if(x == coordinateArray.get(x).get_x_coordinate() && )
+              {
+                temp.setBackground(Color.magenta);
+                temp.setOpaque(true);
+              }*/
+              if(char_grid[x][y] == '2'){
+                temp.setBackground(brown);
+                temp.setOpaque(true);
+              }
+              if(char_grid[x][y] == '0'){
+                temp.setBackground(Color.black);
+                temp.setOpaque(true);
+              }
+
+              if(char_grid[x][y] == 'a' ){
+                temp.setBackground(Color.cyan);
+                temp.setOpaque(true);
+              }
+              if(char_grid[x][y] == 'b' ){
+                temp.setBackground(Color.blue);
+                temp.setOpaque(true);
+              }
+              if (x == start[0] && y == start[1]){
+                temp.setText("S");
+                temp.setOpaque(false);
+              }
+              if (x == goal[0] && y == goal[1]){
+                temp.setText("G");
+                temp.setOpaque(false);
+              }
+              temp.setBorder(border);
+              grid[x][y] = temp;
+              pane.add(grid[x][y]); //adds button to grid
+            }
+          }
+
+          pack();
+          setExtendedState(JFrame.MAXIMIZED_BOTH);
+          setLocationRelativeTo(null);
+          getContentPane().add(pane);
+          setVisible(true);
+        }
+        
         public static void main(String[] args) throws Exception {
+              
               MapGenerator puzzleGen = new MapGenerator(120,160);//makes new ButtonGrid with 2 parameters
               puzzleGen.generateMap();
               int[] start = new int[]{puzzleGen.startGoal.get(0).get(0).get_x_coordinate(), puzzleGen.startGoal.get(0).get(0).get_y_coordinate()};
               int[] goal = new int[]{puzzleGen.startGoal.get(0).get(1).get_x_coordinate(), puzzleGen.startGoal.get(0).get(1).get_y_coordinate()};
-              ArrayList list = new ArrayList<Coordinates>();
+              
               ButtonGridView bgt = new ButtonGridView(puzzleGen.char_grid,puzzleGen.startGoal.get(0));
-              bgt.showMap(puzzleGen.char_grid,start,goal);
+              //puzzleGen.showMap(puzzleGen.char_grid,start,goal);
+              
               System.out.printf("printing grid with start: %d %d \n", start[0], start[1]);
               System.out.printf("printing grid with goal: %d %d \n", goal[0], goal[1]);
               
               Grid grid = new Grid(puzzleGen.char_grid,start,goal);
-              TreeNode res =grid.g.uniformCostSearch(start);             
+              TreeNode res = grid.g.uniformCostSearch(start);
               System.out.printf("result = %d, %d \n",res.coord[0], res.coord[1]);
+              
+              bgt.tracePath(res);
+              MapView mv = new MapView(bgt);
               //puzzleGen.writeGridToFile("./Maps/PredefinedMaps/Map" + 0+"/" + "map-" + 0);
         }
 }
