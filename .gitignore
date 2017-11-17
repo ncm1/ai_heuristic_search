@@ -2,3 +2,4 @@ build/
 .class
 .DS_STORE
 /dist/
+/nbproject/private/

@@ -3,7 +3,9 @@ package views;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import javax.swing.border.Border;
+import util.TreeNode;
 
 public class ButtonGridView extends JFrame{
 
@@ -128,6 +130,25 @@ public class ButtonGridView extends JFrame{
               grid[i][j].addActionListener(cellListener);
             }
           }
+        }
+        
+        public void tracePath(TreeNode treeNode){
+            ArrayList<int[]> path = new ArrayList<>();
+            TreeNode tmp = treeNode;
+            while (tmp != null){
+                path.add(tmp.coord);
+                tmp = tmp.parent;
+            }
+            Border border = BorderFactory.createLineBorder(Color.BLACK);
+
+            path.forEach( coord -> {
+                temp = grid[coord[0]][coord[1]];
+                temp = new JButton();
+                temp.setBorder(border); 
+                temp.setBackground(Color.orange);
+                temp.setOpaque(true);
+            });
+            // for each coordinate, color the box red
         }
 
         public JButton[][] getGrid(){

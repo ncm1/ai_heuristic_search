@@ -6,6 +6,7 @@ import java.io.*;
 import java.lang.*;
 import models.Grid;
 import util.Coordinates;
+import util.TreeNode;
 import views.ButtonGridView;
 
 public class MapGenerator extends JFrame{
@@ -708,8 +709,8 @@ public class MapGenerator extends JFrame{
               System.out.printf("printing grid with goal: %d %d \n", goal[0], goal[1]);
               
               Grid grid = new Grid(puzzleGen.char_grid,start,goal);
-              int[] res =grid.g.uniformCostSearch(start);             
-              System.out.printf("result = %d, %d \n",res[0], res[1]);
+              TreeNode res =grid.g.uniformCostSearch(start);             
+              System.out.printf("result = %d, %d \n",res.coord[0], res.coord[1]);
               //puzzleGen.writeGridToFile("./Maps/PredefinedMaps/Map" + 0+"/" + "map-" + 0);
         }
 }

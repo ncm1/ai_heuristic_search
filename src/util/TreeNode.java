@@ -5,35 +5,51 @@ import java.util.List;
 import java.util.Arrays;
 
 public class TreeNode{
- private int r;
- private int c;
- private final List<TreeNode> children = new ArrayList<>();
+    public int[] coord;
+    private char type;
+    public boolean start = false, goal = false;
+    public ArrayList<Edge> AdjacencyList = new ArrayList<Edge>();
+    public TreeNode parent;
+    double g, h; // start node's g should be 0
 
  public TreeNode(int r, int c) {
-  this.r = r;
-  this.c = c;
+  this.coord = new int[]{r,c};
  }
-
- public int[] getVertex() {
-     int[]v = {this.r, this.c};
-     return v;
- }
-
- public void addChild(TreeNode child){
-   children.add(child);
+ 
+ public void addChild(Edge child){
+   AdjacencyList.add(child);
+   child.getDest().parent = this;
  }
 
  public List<TreeNode> getChildren() {
-  return children;
+     List<TreeNode> tn = new ArrayList<>();
+     for ( Edge edge : AdjacencyList){
+         tn.add(edge.getDest());
+     }
+    return tn;
  }
 
+  public void setType(char t){
+      
+      // apply all the rules here;
+      this.type = t;
+  }
+  
+  public char getType(){
+      return this.type;
+  }
+  
+  public int[] getVertex(){
+      return coord;
+  }
+ 
  public static int findDistance(TreeNode root, int[] goalVertex){
   if(root.getChildren() == null)
     return -1;
 
   int distance = -1;
 
-  int[] rootVert = root.getVertex();
+  int[] rootVert = root.coord;
   List<TreeNode> childrenList = root.getChildren();
   int numOfChildren = childrenList.size();
 

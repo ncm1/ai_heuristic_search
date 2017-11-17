@@ -11,9 +11,9 @@ import java.util.Comparator;
  *
  * @author seobo
  */
-public class NodePathCostComparator implements Comparator<Node>{
+public class NodePathCostComparator implements Comparator<TreeNode>{
     double ep = 0.00001;
-    public int compare(Node a, Node b){
+    public int compare(TreeNode a, TreeNode b){
         if (equals(a,b))
             return 0;
         else if ((a.g - b.g) > ep){
@@ -24,7 +24,7 @@ public class NodePathCostComparator implements Comparator<Node>{
         }
         else return 0;
     }
-    public boolean equals(Node a, Node b){
+    public boolean equals(TreeNode a, TreeNode b){
         if (a.g*(1 + ep)>  b.g || a.g*(1-ep) < b.g)
             return false;
         else return true;

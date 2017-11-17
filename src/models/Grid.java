@@ -50,7 +50,8 @@ public class Grid {
                     for (int cd = cmin; cd <= cmax; ++cd){
                         if(r != rd || c != cd){ // no edge to self
                             w = getWeightByTypeAndCoord(r,c,rd,cd,arr[r][c],arr[rd][cd]);
-                            g.addEdge(r,c,rd,cd,w);
+                            //g.addEdge(r,c,rd,cd,w);
+                            g.addEdge(g.list[r][c],g.list[rd][cd],w);
                             //System.out.printf("edge added to %d %d \n", r, c);
                         }
                     }
