@@ -1,11 +1,10 @@
 package views;
 
-import views.MainMenu;
 import main.RunMVCTest;
 import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
-import java.util.*;
+import util.MapReader;
 
 public class MapSelection extends JFrame implements ActionListener{
 

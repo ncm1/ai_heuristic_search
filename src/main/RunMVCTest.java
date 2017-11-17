@@ -1,9 +1,15 @@
+package main;
 
+import controllers.MapController;
 import java.util.ArrayList;
+import models.MapModel;
+import util.Coordinates;
+import views.ButtonGridView;
+import views.MapView;
 
 public class RunMVCTest {
 
-    RunMVCTest(char[][] char_map, ArrayList<Coordinates> start_end_pair){
+    public RunMVCTest(char[][] char_map, ArrayList<Coordinates> start_end_pair){
       System.out.println("RunMVCTest()");
       //The map and variant will be passed to buttonGridView
       ButtonGridView theBGView  = new ButtonGridView(char_map, start_end_pair);

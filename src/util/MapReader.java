@@ -1,4 +1,4 @@
-package util
+package util;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ public class MapReader{
   Coordinates end_goal;
   ArrayList<Coordinates> start_end_goal_pair = new ArrayList<Coordinates>();
 
-  MapReader(String fileName){
+  public MapReader(String fileName){
     // This will reference one line at a time
     String line = null;
     try {
