@@ -12,7 +12,7 @@ import views.MapView;
 
 public class RunMVCTest {
 
-    public RunMVCTest(char[][] char_map, ArrayList<Coordinates> start_end_pair) throws Exception{
+    public RunMVCTest(char[][] char_map, ArrayList<Coordinates> start_end_pair, String selectedSearch, double weight) throws Exception{
       System.out.println("RunMVCTest()");
       //The map and variant will be passed to buttonGridView
       ButtonGridView theBGView  = new ButtonGridView(char_map, start_end_pair);
@@ -21,10 +21,22 @@ public class RunMVCTest {
       System.out.printf("printing grid with start: %d %d \n", start[0],start[1]);
       System.out.printf("printing grid with goal: %d %d \n", goal[0], goal[1]);      
       MapModel theModel = new MapModel(new Grid(char_map,start,goal));
-      //UniformCostSearch ucs = new UniformCostSearch();
-      //TreeNode res = ucs.uniformCostSearch(grid.g.list,start,goal);
-      AStarSearch ass = new AStarSearch();
-      TreeNode res = ass.aStarSearch(theModel.grid.g.list, start, goal);
+      TreeNode res;
+      if (selectedSearch.equals("Uniform Cost")){
+        UniformCostSearch ucs = new UniformCostSearch();
+        res= ucs.uniformCostSearch(theModel.grid.g.list,start,goal);    
+      }
+      else if (selectedSearch.equals("A*")){
+        AStarSearch ass = new AStarSearch();
+        res = ass.aStarSearch(theModel.grid.g.list, start, goal);
+      }
+      else if (selectedSearch.equals("Weighted A*"))
+      {
+        WeightedAStarSearch wass = new WeightedAStarSearch();
+        res = wass.weightedAStarSearch(theModel.grid.g.list, start, goal, weight);
+      }
+      else res = null;
+      
       System.out.printf("result = %d, %d \n",res.coord[0], res.coord[1]);
       theBGView.tracePath(res);
       MapView        theMapView = new MapView(theBGView);

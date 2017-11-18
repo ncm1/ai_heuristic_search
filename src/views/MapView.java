@@ -94,15 +94,27 @@ public class MapView implements ChangeListener
   }
 
   public void set_f_Label(double f){
-    fLabel.setText("f: " + f);
+    if ((int)f == -1){
+        fLabel.setText("f: -");
+    }
+    else
+        fLabel.setText("f: " + f);
   }
 
   public void set_g_label(double g){
-    gLabel.setText("g: " + g);
+    if ((int)g == -1){
+        gLabel.setText("g: -");
+    }
+    else
+        gLabel.setText("g: " + g);
   }
 
   public void set_h_label(double h){
-    hLabel.setText("h: " + h);
+    if ((int)h == -1){
+        hLabel.setText("h: -");
+    }
+    else
+      hLabel.setText("h: " + h);
   }
 
   public void set_time_label(double t){

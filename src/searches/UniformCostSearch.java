@@ -17,11 +17,7 @@ public class UniformCostSearch extends AbstractSearch{
     }
     
     @Override
-    public void calcH(TreeNode node, int[]goal){
-        //node.g = node.g + weight;
-    }
-    @Override
-    public void setF(TreeNode node){
+    public void setFandH(TreeNode node, int[] goal){
         node.f = node.g;
     }
     

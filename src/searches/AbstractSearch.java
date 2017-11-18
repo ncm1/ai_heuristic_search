@@ -19,45 +19,46 @@ import static util.Graph.MAX_ROWS;
 abstract public class AbstractSearch {
    public TreeNode abstractSearch(TreeNode[][]list, int[] start, int[] goal){
         int r,c ; // end indices
-        PriorityQueue<TreeNode> pq = new PriorityQueue<>(10,new NodePathCostComparator());
+        PriorityQueue<TreeNode> fringe = new PriorityQueue<>(10,new NodePathCostComparator());
         int[][] explored = new int[MAX_ROWS][MAX_COLS];
         TreeNode tmp, edgeNode; double pathCost;
         TreeNode parentNode = list[start[0]][start[1]];
         parentNode.parent = null;
-        parentNode.g = 0; calcH(parentNode,goal); setF(parentNode);
-        pq.add(parentNode);
-        for (long l = 0; l < 1000000000; ++l){
-            //System.out.println("-");
-            if (pq.isEmpty())
-                return null;
-            parentNode = pq.poll();
-            explored[parentNode.coord[0]][parentNode.coord[1]] = 1;
+        parentNode.g = 0; 
+        setFandH(parentNode, goal);
+        fringe.add(parentNode);
+        while(!fringe.isEmpty()){
+            parentNode = fringe.poll();
             if (parentNode.goal == true) //System.out.printf("current coord %d %d \n",tmp[0], tmp[1]);
-                break;
+                return parentNode;
+            explored[parentNode.coord[0]][parentNode.coord[1]] = 1;
             for (Edge edge: parentNode.AdjacencyList){ // each edge at node
                 tmp = edge.getDest(); //System.out.printf("potential coord %d %d ||| ",tmp[0], tmp[1]);
                 edgeNode = list[tmp.coord[0]][tmp.coord[1]];
                 pathCost = parentNode.g + edge.weight;
-                if (edgeNode == parentNode)
+                if (edgeNode == parentNode || edgeNode.g > 1000)
                     continue;
                 //System.out.println("pathcost" + pathCost);
-                if (!pq.contains(edgeNode) && explored[tmp.coord[0]][tmp.coord[1]] == 0 && edgeNode.g < 1000){ // if not to blocked cell
-                    edgeNode.g = pathCost;
-                    calcH(edgeNode,goal);
-                    setF(edgeNode);
-                    edgeNode.parent = parentNode;
-                    pq.add(edgeNode);
+                if (explored[tmp.coord[0]][tmp.coord[1]] == 0){
+                    if (!fringe.contains(edgeNode)){ 
+                        edgeNode.g = 1001;
+                        edgeNode.parent = null;
+                    }
+                    if (pathCost < edgeNode.g){
+                        edgeNode.g = pathCost;
+                        setFandH(edgeNode, goal);
+                        edgeNode.parent = parentNode;
+                        if (fringe.contains(edgeNode)){ // same node, but smaller pathcost
+                            fringe.remove(edgeNode);
+                        }
+                        fringe.add(edgeNode);
+                    }
                 }
-                if (pq.contains(edgeNode) && edgeNode.g > pathCost){ // update edgenode with parentnode cost
-                    edgeNode.g = pathCost;
-                    setF(edgeNode);
-                    edgeNode.parent = parentNode;
-                }
+                
+                
             }
         }
-        return parentNode;
+        return null;
     } 
-   
-   abstract public void calcH(TreeNode node, int[]goal);
-   abstract public void setF(TreeNode node);
+   abstract public void setFandH(TreeNode node, int[] goal);
 }

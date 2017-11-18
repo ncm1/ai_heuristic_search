@@ -16,7 +16,10 @@ public class TreeNode{
  public TreeNode(int r, int c) {
   this.coord = new int[]{r,c};
   AdjacencyList = new ArrayList<>();
-  this.f = 0;
+  this.f = -1;
+  this.g = -1;
+  this.w = -1;
+  this.h = -1;
  }
 
  public void addChild(Edge child){

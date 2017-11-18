@@ -88,6 +88,7 @@ public class ButtonGridView extends JFrame{
             while (tmp.parent != null){
                 path.add(tmp.coord);
                 tmp = tmp.parent;
+                //System.out.println(tmp.f);
             }
             Border border = BorderFactory.createLineBorder(Color.red);
             

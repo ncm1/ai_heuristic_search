@@ -31,6 +31,15 @@ public class MapController {
 		this.theBGView.addCellListener(new CellListener());
 		//this.theMapView
 	}
+         
+         public void updateModel(int row, int column){
+            theModel.updateCoordinates(row, column);
+            theMapView.setColumnLabel(column);
+            theMapView.setRowLabel(row);
+            theMapView.set_f_Label(theModel.get_f_value());
+            theMapView.set_g_label(theModel.get_g_value());
+            theMapView.set_h_label(theModel.get_h_value());
+        }
 
 	class CellListener implements ActionListener{
 
@@ -60,13 +69,7 @@ public class MapController {
 
 			try{
 				//TODO: Implement MapModel methods to find values of f,h,g
-				theModel.updateCoordinates(row, column);
-
-				theMapView.setColumnLabel(column);
-				theMapView.setRowLabel(row);
-				theMapView.set_f_Label(theModel.get_f_value());
-				theMapView.set_g_label(theModel.get_g_value());
-				theMapView.set_h_label(theModel.get_h_value());
+				updateModel(row,column);
 				//theMapView.set_time_label();
 			}
 			catch(NumberFormatException ex){

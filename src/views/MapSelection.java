@@ -16,10 +16,12 @@ public class MapSelection extends JFrame implements ActionListener{
 
         JComboBox<String> mapSelection = new JComboBox<String>();
         JComboBox<String> variantSelection = new JComboBox<String>();
+        JComboBox<String> searchSelection = new JComboBox<String>();
 
         JButton confirm;
         JButton back;
         JTextField fileInputField = new JTextField("Input File Name");
+        JTextField weightInputField = new JTextField("Input Weight");
 
         private String selectedMap;
         private static final String PredefinedMaps   =  "./Maps/PredefinedMaps/Map";
@@ -82,10 +84,18 @@ public class MapSelection extends JFrame implements ActionListener{
           variantSelection.addItem(Var10);
           ((JLabel)variantSelection.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
           ((JLabel)variantSelection.getRenderer()).setVerticalAlignment(SwingConstants.CENTER);
-
+          
+          searchSelection.setPrototypeDisplayValue("Choose a search algorithm");
+          searchSelection.addItem("Uniform Cost");
+          searchSelection.addItem("A*");
+          searchSelection.addItem("Weighted A*");
+          ((JLabel)searchSelection.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
+          ((JLabel)searchSelection.getRenderer()).setVerticalAlignment(SwingConstants.CENTER);
+          
           // Null labels for null in gridlayout
           JLabel nullLabel1 = new JLabel("");
           JLabel nullLabel2 = new JLabel("");
+          
 
           parentPanel1.add(nullLabel1);
           parentPanel1.add(mapSelection);
@@ -95,9 +105,11 @@ public class MapSelection extends JFrame implements ActionListener{
           // Null labels for null in gridlayout
           JLabel nullLabel3 = new JLabel("");
           JLabel nullLabel4 = new JLabel("");
-          JPanel parentPanel2 = new JPanel(new GridLayout(0,3));
+          JPanel parentPanel2 = new JPanel(new GridLayout(0,5));
           parentPanel2.add(nullLabel3);
           parentPanel2.add(fileInputField);
+          parentPanel2.add(searchSelection);
+          parentPanel2.add(weightInputField);
           parentPanel2.add(nullLabel4);
 
           //confirm icon as a button on the gui
@@ -130,9 +142,15 @@ public class MapSelection extends JFrame implements ActionListener{
           if(source == confirm){
               String selectedMap     = (String)mapSelection.getSelectedItem();
               String selectedVariant = (String)variantSelection.getSelectedItem();
+              String selectedSearch = (String) searchSelection.getSelectedItem();
 
               String fileName = "";
               String path = (String)fileInputField.getText();
+              Double weight;
+              if ("Weighted A*".equals(selectedSearch))
+                weight = Double.parseDouble(weightInputField.getText());
+              else weight = 1.0;
+              
 
               if(selectedMap == GENERATEDMAP)
                   fileName += UserGeneratedMap + path;
@@ -144,11 +162,12 @@ public class MapSelection extends JFrame implements ActionListener{
               {
                 setVisible(false);
                   try {
-                      RunMVCTest runMVC = new RunMVCTest(mapreader.get_char_map(), mapreader.getStartGoalPair());
+                      RunMVCTest runMVC = new RunMVCTest(mapreader.get_char_map(), mapreader.getStartGoalPair(), selectedSearch, weight);
                   } catch (Exception ex) {
                       Logger.getLogger(MapSelection.class.getName()).log(Level.SEVERE, null, ex);
                   }
               }
+              MapSelection ms = new MapSelection();
           }
         }
         public String getConcatenation(String m, String v)
