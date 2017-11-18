@@ -784,12 +784,14 @@ public class MapGenerator extends JFrame{
               System.out.printf("printing grid with goal: %d %d \n", goal[0], goal[1]);
               
               Grid grid = new Grid(puzzleGen.char_grid,start,goal);
+              /*
               UniformCostSearch ucs = new UniformCostSearch();
               TreeNode res = ucs.uniformCostSearch(grid.g.list,start);
               System.out.printf("result = %d, %d \n",res.coord[0], res.coord[1]);
               
               bgt.tracePath(res);
               MapView mv = new MapView(bgt);
+                */
               //puzzleGen.writeGridToFile("./Maps/PredefinedMaps/Map" + 0+"/" + "map-" + 0);
         }
 }

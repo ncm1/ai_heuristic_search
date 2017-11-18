@@ -12,13 +12,17 @@ import util.TreeNode;
  * @author seobo
  */
 public class UniformCostSearch extends AbstractSearch{
-    public TreeNode uniformCostSearch(TreeNode[][] list, int[] start){
-        return super.abstractSearch(list, start);
+    public TreeNode uniformCostSearch(TreeNode[][] list, int[] start,  int[] goal){
+        return super.abstractSearch(list, start, goal);
     }
     
     @Override
-    public double calcCost(TreeNode node){
-        return node.g;
+    public void calcH(TreeNode node, int[]goal){
+        //node.g = node.g + weight;
+    }
+    @Override
+    public void setF(TreeNode node){
+        node.f = node.g;
     }
     
 }

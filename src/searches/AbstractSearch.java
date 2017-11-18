@@ -17,14 +17,14 @@ import static util.Graph.MAX_ROWS;
  * @author seo
  */
 abstract public class AbstractSearch {
-   public TreeNode abstractSearch(TreeNode[][]list, int[] start){
+   public TreeNode abstractSearch(TreeNode[][]list, int[] start, int[] goal){
         int r,c ; // end indices
         PriorityQueue<TreeNode> pq = new PriorityQueue<>(10,new NodePathCostComparator());
         int[][] explored = new int[MAX_ROWS][MAX_COLS];
         TreeNode tmp, edgeNode; double pathCost;
         TreeNode parentNode = list[start[0]][start[1]];
         parentNode.parent = null;
-        setCost(parentNode,0);
+        parentNode.g = 0; calcH(parentNode,goal); setF(parentNode);
         pq.add(parentNode);
         for (long l = 0; l < 1000000000; ++l){
             //System.out.println("-");
@@ -37,26 +37,27 @@ abstract public class AbstractSearch {
             for (Edge edge: parentNode.AdjacencyList){ // each edge at node
                 tmp = edge.getDest(); //System.out.printf("potential coord %d %d ||| ",tmp[0], tmp[1]);
                 edgeNode = list[tmp.coord[0]][tmp.coord[1]];
-                pathCost = edge.weight + calcCost(parentNode);
+                pathCost = parentNode.g + edge.weight;
                 if (edgeNode == parentNode)
                     continue;
                 //System.out.println("pathcost" + pathCost);
-                if (!pq.contains(edgeNode) && explored[tmp.coord[0]][tmp.coord[1]] == 0 && pathCost < 1000){
-                    setCost(edgeNode, pathCost);
+                if (!pq.contains(edgeNode) && explored[tmp.coord[0]][tmp.coord[1]] == 0 && edgeNode.g < 1000){ // if not to blocked cell
+                    edgeNode.g = pathCost;
+                    calcH(edgeNode,goal);
+                    setF(edgeNode);
                     edgeNode.parent = parentNode;
                     pq.add(edgeNode);
                 }
-                if (pq.contains(edgeNode) && edgeNode.g > pathCost){
+                if (pq.contains(edgeNode) && edgeNode.g > pathCost){ // update edgenode with parentnode cost
+                    edgeNode.g = pathCost;
+                    setF(edgeNode);
                     edgeNode.parent = parentNode;
-                    setCost(edgeNode, pathCost);
                 }
             }
         }
         return parentNode;
     } 
    
-   abstract public double calcCost(TreeNode node);
-   public static void setCost(TreeNode node, double cost){
-       node.g = cost; // set g because g is cost to node
-   }
+   abstract public void calcH(TreeNode node, int[]goal);
+   abstract public void setF(TreeNode node);
 }

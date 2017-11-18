@@ -93,19 +93,19 @@ public class MapView implements ChangeListener
     rowLabel.setText("y: " + r);
   }
 
-  public void set_f_Label(int f){
+  public void set_f_Label(double f){
     fLabel.setText("f: " + f);
   }
 
-  public void set_g_label(int g){
+  public void set_g_label(double g){
     gLabel.setText("g: " + g);
   }
 
-  public void set_h_label(int h){
+  public void set_h_label(double h){
     hLabel.setText("h: " + h);
   }
 
-  public void set_time_label(int t){
+  public void set_time_label(double t){
     hLabel.setText("time: " + t);
   }
 

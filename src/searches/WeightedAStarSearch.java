@@ -12,15 +12,17 @@ import util.TreeNode;
  * @author seobo
  */
 public class WeightedAStarSearch extends AbstractSearch{
-    public TreeNode weightedAStarSearch(TreeNode[][] list, int[] start){
-        return super.abstractSearch(list, start);
+    public TreeNode weightedAStarSearch(TreeNode[][] list, int[] start,  int[] goal){
+        return super.abstractSearch(list, start, goal);
     }
     
+    @Override
+    public void setF(TreeNode node){
+        node.f = node.g + node.h;
+    }
     
     @Override
-    public double calcCost(TreeNode node){
+    public void calcH(TreeNode node, int[]goal){
         //node.h = getHeuristic(node);
-        
-        return node.g + node.h * node.w;
     }
 }

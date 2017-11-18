@@ -10,12 +10,13 @@ public class TreeNode{
     public boolean start = false, goal = false;
     public ArrayList<Edge> AdjacencyList;
     public TreeNode parent;
-    public double g, h, w; // start node's g should be 0
+    public double g, h, w, f; // start node's g should be 0
     
 
  public TreeNode(int r, int c) {
   this.coord = new int[]{r,c};
   AdjacencyList = new ArrayList<>();
+  this.f = 0;
  }
 
  public void addChild(Edge child){
