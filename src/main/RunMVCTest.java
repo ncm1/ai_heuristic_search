@@ -5,6 +5,7 @@ import generator.MapGenerator;
 import java.util.ArrayList;
 import models.Grid;
 import models.MapModel;
+import searches.UniformCostSearch;
 import util.Coordinates;
 import util.TreeNode;
 import views.ButtonGridView;
@@ -21,7 +22,8 @@ public class RunMVCTest {
       System.out.printf("printing grid with start: %d %d \n", start[0],start[1]);
       System.out.printf("printing grid with goal: %d %d \n", goal[0], goal[1]);      
       Grid grid = new Grid(char_map,start,goal);
-      TreeNode res = grid.g.uniformCostSearch(start);
+      UniformCostSearch ucs = new UniformCostSearch();
+      TreeNode res = ucs.uniformCostSearch(grid.g.list,start);
       System.out.printf("result = %d, %d \n",res.coord[0], res.coord[1]);
       theBGView.tracePath(res);
       MapView        theMapView = new MapView(theBGView);

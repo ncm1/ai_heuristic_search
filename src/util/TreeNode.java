@@ -10,27 +10,14 @@ public class TreeNode{
     public boolean start = false, goal = false;
     public ArrayList<Edge> AdjacencyList;
     public TreeNode parent;
-    double g, h, w; // start node's g should be 0
+    public double g, h, w; // start node's g should be 0
     
 
  public TreeNode(int r, int c) {
   this.coord = new int[]{r,c};
   AdjacencyList = new ArrayList<>();
  }
- 
- public double setCostType(char type){
-     if (type == 'u'){
-         //cost = new 
-    }
-     if (type == 'a'){
-     
-    }
-     if (type == 'w'){
-     
-    }
-     return 0;
- }
- 
+
  public void addChild(Edge child){
    AdjacencyList.add(child);
    child.getDest().parent = this;

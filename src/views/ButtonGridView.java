@@ -89,10 +89,10 @@ public class ButtonGridView extends JFrame{
                 path.add(tmp.coord);
                 tmp = tmp.parent;
             }
-            Border border = BorderFactory.createLineBorder(Color.BLACK);
+            Border border = BorderFactory.createLineBorder(Color.red);
             
             path.forEach( coord -> {
-                this.grid[coord[0]][coord[1]].setBackground(Color.orange);
+                this.grid[coord[0]][coord[1]].setBorder(border);
                 //System.out.printf("coord: %d, %d ",coord[0],coord[1]);
             });
             // for each coordinate, color the box red

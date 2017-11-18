@@ -5,7 +5,7 @@ public class Edge {
     
     private int source_r, source_c;
     private int dest_r, dest_c;
-    double weight;
+    public double weight;
 
   public Edge(int sr,int sc, int dr, int dc, double weight){
     this.source_r      = sr;
