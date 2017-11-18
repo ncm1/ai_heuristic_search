@@ -4,6 +4,8 @@ import main.RunMVCTest;
 import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import util.MapReader;
 
 public class MapSelection extends JFrame implements ActionListener{
@@ -141,7 +143,11 @@ public class MapSelection extends JFrame implements ActionListener{
               if(mapreader.wasSuccessful())
               {
                 setVisible(false);
-                RunMVCTest runMVC = new RunMVCTest(mapreader.get_char_map(), mapreader.getStartGoalPair());
+                  try {
+                      RunMVCTest runMVC = new RunMVCTest(mapreader.get_char_map(), mapreader.getStartGoalPair());
+                  } catch (Exception ex) {
+                      Logger.getLogger(MapSelection.class.getName()).log(Level.SEVERE, null, ex);
+                  }
               }
           }
         }

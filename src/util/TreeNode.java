@@ -8,17 +8,27 @@ public class TreeNode{
     public int[] coord;
     private char type;
     public boolean start = false, goal = false;
-    public ArrayList<Edge> AdjacencyList = new ArrayList<Edge>();
+    public ArrayList<Edge> AdjacencyList;
     public TreeNode parent;
-    double g, h; // start node's g should be 0
+    double g, h, w; // start node's g should be 0
     
 
  public TreeNode(int r, int c) {
   this.coord = new int[]{r,c};
+  AdjacencyList = new ArrayList<>();
  }
  
- public double cost(){
- return g;    
+ public double setCostType(char type){
+     if (type == 'u'){
+         //cost = new 
+    }
+     if (type == 'a'){
+     
+    }
+     if (type == 'w'){
+     
+    }
+     return 0;
  }
  
  public void addChild(Edge child){

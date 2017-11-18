@@ -16,16 +16,16 @@ public class NodePathCostComparator implements Comparator<TreeNode>{
     public int compare(TreeNode a, TreeNode b){
         if (equals(a,b))
             return 0;
-        else if ((a.g - b.g) > ep){
+        else if ((a.getCost() - b.getCost()) > ep){
             return 1;
         }
-        else if ((a.g - b.g) < -ep){
+        else if ((a.getCost() - b.getCost()) < -ep){
             return -1;
         }
         else return 0;
     }
     public boolean equals(TreeNode a, TreeNode b){
-        if (a.g*(1 + ep)>  b.g || a.g*(1-ep) < b.g)
+        if (a.getCost()*(1 + ep)>  b.getCost() || a.getCost()*(1-ep) < b.getCost())
             return false;
         else return true;
     }
