@@ -91,7 +91,7 @@ public class Grid {
                     break;
             default: throw new Exception("you done goofed buddy. Invalid character");
         }
-        hwm = (sh && dh) ? 0.25: 1;
+        hwm = (sh && dh && (sr == dr || sc == dc)) ? 0.25: 1;
         
         dm = (sr == dr || sc == dc) ? 1: Math.sqrt(2); // diagnol
         

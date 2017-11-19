@@ -13,6 +13,8 @@ public class MapModel {
     private double fValue;
     private double gValue;
     private double hValue;
+    private double wValue;
+    private long time;
     public Grid grid;
   
 
@@ -23,6 +25,8 @@ public class MapModel {
         gValue = grid.g.list[r][c].g;
         fValue = grid.g.list[r][c].f;
         hValue = grid.g.list[r][c].h;
+        wValue = grid.g.list[r][c].w;    
+        time = grid.g.list[r][c].elapsedTime;
     }
     public double get_f_value(){
         return fValue;
@@ -33,4 +37,11 @@ public class MapModel {
     public double get_g_value(){
         return gValue;
     }
+    public double get_w_value(){
+        return wValue;
+    }
+    public long get_time_value(){
+        return time;
+    }
+    
 }

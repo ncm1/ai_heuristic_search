@@ -3,12 +3,7 @@ package views;
 import java.awt.*;
 import java.awt.event.*;
 import java.lang.*;
-import java.math.*;
-import java.text.*;
-import java.util.*;
 import javax.swing.*;
-import java.io.*;
-import java.util.Observable;
 import javax.swing.event.*;
 
 
@@ -28,6 +23,7 @@ public class MapView implements ChangeListener
   private JLabel fLabel      = new JLabel("f: null"   , SwingConstants.CENTER);
   private JLabel gLabel      = new JLabel("g: null"   , SwingConstants.CENTER);
   private JLabel hLabel      = new JLabel("h: null"   , SwingConstants.CENTER);
+  private JLabel wLabel      = new JLabel("w: null"   , SwingConstants.CENTER);
   private JLabel timeLabel   = new JLabel("time: null", SwingConstants.CENTER);
 
   public MapView(ButtonGridView bgv)
@@ -46,6 +42,7 @@ public class MapView implements ChangeListener
     fLabel.setFont(font);
     gLabel.setFont(font);
     hLabel.setFont(font);
+    wLabel.setFont(font);
     timeLabel.setFont(font);
 
     //Adding the labels to the cell data panel
@@ -54,6 +51,7 @@ public class MapView implements ChangeListener
     cellData.add(fLabel);
     cellData.add(gLabel);
     cellData.add(hLabel);
+    cellData.add(wLabel);
     cellData.add(timeLabel);
 
     map = bgv;
@@ -116,9 +114,18 @@ public class MapView implements ChangeListener
     else
       hLabel.setText("h: " + h);
   }
+  
+  public void set_w_label(double w){
+    if ((int)w == -1){
+        wLabel.setText("w: -");
+    }
+    else
+      wLabel.setText("w: " + w);
+  }
 
-  public void set_time_label(double t){
-    hLabel.setText("time: " + t);
+  public void set_time_label(long t){
+      String str = String.format("time:  %5.4f ms", (double)t/Math.pow(10, 6));
+    timeLabel.setText(str);
   }
 
   public void stateChanged(ChangeEvent e) {

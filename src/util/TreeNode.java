@@ -11,6 +11,7 @@ public class TreeNode{
     public ArrayList<Edge> AdjacencyList;
     public TreeNode parent;
     public double g, h, w, f; // start node's g should be 0
+    public long elapsedTime;
     
 
  public TreeNode(int r, int c) {

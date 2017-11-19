@@ -14,7 +14,11 @@ import util.TreeNode;
 public class AStarSearch extends AbstractSearch{
     
     public TreeNode aStarSearch(TreeNode[][] list, int[] start, int[] goal){
-        return super.abstractSearch(list, start, goal);
+        long s = System.nanoTime();
+        TreeNode res = super.abstractSearch(list, start, goal);
+        this.elapsedTime = System.nanoTime() - s;;
+        setTime(list);
+        return res;
     }
     @Override
     public void setFandH(TreeNode node, int[] goal){
@@ -24,7 +28,7 @@ public class AStarSearch extends AbstractSearch{
     public double getHeuristic(TreeNode node, int[]goal){ // h value differences is too low, so A star approach is same as ucs 
         int ydif = Math.abs(goal[0] - node.coord[0]);
         int xdif = Math.abs(goal[1] - node.coord[1]);
-        return ((Math.max(xdif, ydif) - Math.min(xdif, ydif))+ Math.sqrt(2)*(Math.min(xdif, ydif))) * 0.25;
+        return (xdif + ydif) * 0.25;
     }
 }
 

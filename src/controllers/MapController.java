@@ -39,6 +39,8 @@ public class MapController {
             theMapView.set_f_Label(theModel.get_f_value());
             theMapView.set_g_label(theModel.get_g_value());
             theMapView.set_h_label(theModel.get_h_value());
+            theMapView.set_w_label(theModel.get_w_value());
+            theMapView.set_time_label(theModel.get_time_value());
         }
 
 	class CellListener implements ActionListener{

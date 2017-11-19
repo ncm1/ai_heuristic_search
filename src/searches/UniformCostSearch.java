@@ -13,7 +13,11 @@ import util.TreeNode;
  */
 public class UniformCostSearch extends AbstractSearch{
     public TreeNode uniformCostSearch(TreeNode[][] list, int[] start,  int[] goal){
-        return super.abstractSearch(list, start, goal);
+        long s = System.nanoTime();
+        TreeNode res = super.abstractSearch(list, start, goal);
+        this.elapsedTime = System.nanoTime() - s;
+        setTime(list);
+        return res;
     }
     
     @Override

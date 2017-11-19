@@ -16,7 +16,11 @@ public class WeightedAStarSearch extends AbstractSearch{
     
     public TreeNode weightedAStarSearch(TreeNode[][] list, int[] start,  int[] goal, double w){
         this.w = w;
-        return super.abstractSearch(list, start, goal);
+        long s = System.nanoTime();
+        TreeNode res =  super.abstractSearch(list, start, goal);
+        this.elapsedTime = System.nanoTime() - s;
+        setTime(list);
+        return res;
     }
     @Override
     public void setFandH(TreeNode node, int[] goal){
