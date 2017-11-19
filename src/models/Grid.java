@@ -39,7 +39,7 @@ public class Grid {
         for (int r = 0; r < MAX_ROWS; ++r){
             for (int c = 0; c < MAX_COLS; ++c){
                 //g.list[r][c] = new Node();
-                g.list[r][c].setType(arr[r][c]);
+                g.list[r][c].type = (arr[r][c]);
                 
                 rmin = (r-1 < 0) ? 0 : r-1;
                 rmax = (r+1 >= MAX_ROWS) ? MAX_ROWS-1 : r+1;
@@ -102,7 +102,7 @@ public class Grid {
         char[][]res = new char[MAX_ROWS][MAX_COLS];
         for (int r = 0; r < MAX_ROWS; ++r){
             for ( int c = 0; c < MAX_COLS; ++c){
-                res[r][c] = g.list[r][c].getType();
+                res[r][c] = g.list[r][c].type;
             }
         }
         return res;
@@ -112,7 +112,7 @@ public class Grid {
         
         for (int r = 0; r < MAX_ROWS; ++r){
             for ( int c = 0; c < MAX_COLS; ++c){
-                g.list[r][c].setType('0');
+                g.list[r][c].type = '0';
             }
         }
         
@@ -125,7 +125,7 @@ public class Grid {
         String res = "";
         for (int r = 0; r < MAX_ROWS; ++r){
             for (int c = 0; c < MAX_COLS; ++c){
-                res = res + g.list[r][c].getType() + " " ;
+                res = res + g.list[r][c].type + " " ;
             }
             res = res + "\n";
         }

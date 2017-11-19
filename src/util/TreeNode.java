@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 public class TreeNode{
     public int[] coord;
-    private char type;
+    public char type;
     public boolean start = false, goal = false;
     public ArrayList<Edge> AdjacencyList;
     public TreeNode parent;
@@ -35,20 +35,6 @@ public class TreeNode{
      }
     return tn;
  }
-
-  public void setType(char t){
-      
-      // apply all the rules here;
-      this.type = t;
-  }
-  
-  public char getType(){
-      return this.type;
-  }
-  
-  public int[] getVertex(){
-      return coord;
-  }
  
  public static int findDistance(TreeNode root, int[] goalVertex){
   if(root.getChildren() == null)

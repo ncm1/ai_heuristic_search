@@ -32,7 +32,7 @@ public class Graph {
 
    int distance = -1;
 
-   int[] rootVert = root.getVertex();
+   int[] rootVert = root.coord;
    List<TreeNode> childrenList = root.getChildren();
    int numOfChildren = childrenList.size();
 

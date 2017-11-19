@@ -5,6 +5,12 @@
  */
 package searches;
 
+import heuristics.AbstractHeuristic;
+import heuristics.H1;
+import heuristics.H2;
+import heuristics.H3;
+import heuristics.H4;
+import heuristics.H5;
 import util.TreeNode;
 
 /**
@@ -14,7 +20,8 @@ import util.TreeNode;
 public class WeightedAStarSearch extends AbstractSearch{
     private double w;
     
-    public TreeNode weightedAStarSearch(TreeNode[][] list, int[] start,  int[] goal, double w){
+    public TreeNode weightedAStarSearch(TreeNode[][] list, int[] start,  int[] goal, double w, String heur){
+        chooseHeuristic(heur);
         this.w = w;
         long s = System.nanoTime();
         TreeNode res =  super.abstractSearch(list, start, goal);
@@ -25,14 +32,8 @@ public class WeightedAStarSearch extends AbstractSearch{
     @Override
     public void setFandH(TreeNode node, int[] goal){
         node.w = this.w;
-        node.h = getHeuristic(node,goal);
+        node.h = h.getHeuristic(node,goal);
         node.f = node.g + node.w * node.h;
-    }
-    
-    public double getHeuristic(TreeNode node, int[]goal){ // h value differences is too low, so A star approach is same as ucs 
-        int ydif = Math.abs(goal[0] - node.coord[0]);
-        int xdif = Math.abs(goal[1] - node.coord[1]);
-        return ((Math.max(xdif, ydif) - Math.min(xdif, ydif))+ Math.sqrt(2)*(Math.min(xdif, ydif))) * 0.25;
     }
     
 }

@@ -17,11 +17,13 @@ public class MapSelection extends JFrame implements ActionListener{
         JComboBox<String> mapSelection = new JComboBox<String>();
         JComboBox<String> variantSelection = new JComboBox<String>();
         JComboBox<String> searchSelection = new JComboBox<String>();
+        JComboBox<String> hSelection = new JComboBox<String>();
 
         JButton confirm;
         JButton back;
         JTextField fileInputField = new JTextField("Input File Name");
         JTextField weightInputField = new JTextField("Input Weight");
+        JTextField weightInputField2 = new JTextField("Input Weight 2");
 
         private String selectedMap;
         private static final String PredefinedMaps   =  "./Maps/PredefinedMaps/Map";
@@ -44,11 +46,16 @@ public class MapSelection extends JFrame implements ActionListener{
         private static final String Var8  = "Variation 8";
         private static final String Var9  = "Variation 9";
         private static final String Var10 = "Variation 10";
+        
+        public static final String ucs = "Uniform Cost";
+        public static final String a = "A*";
+        public static final String wa = "Weighted A*";
+        public static final String sa = "Sequential A*";
 
         public MapSelection(){ //constructor
           super("Main Menu - Map Selection");
           setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-          JPanel pane = new JPanel(new GridLayout(4, 1, 8, 8));
+          JPanel pane = new JPanel(new GridLayout(5, 1, 8, 8));
 
           //Setting the Title and location
           JLabel title = new JLabel("Main Menu - Map Selection", SwingConstants.CENTER);
@@ -86,11 +93,21 @@ public class MapSelection extends JFrame implements ActionListener{
           ((JLabel)variantSelection.getRenderer()).setVerticalAlignment(SwingConstants.CENTER);
           
           searchSelection.setPrototypeDisplayValue("Choose a search algorithm");
-          searchSelection.addItem("Uniform Cost");
-          searchSelection.addItem("A*");
-          searchSelection.addItem("Weighted A*");
+          searchSelection.addItem(ucs);
+          searchSelection.addItem(a);
+          searchSelection.addItem(wa);
+          searchSelection.addItem(sa);
           ((JLabel)searchSelection.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
           ((JLabel)searchSelection.getRenderer()).setVerticalAlignment(SwingConstants.CENTER);
+          
+          hSelection.setPrototypeDisplayValue("Choose a heuristic");
+          hSelection.addItem("H1");
+          hSelection.addItem("H2");
+          hSelection.addItem("H3");
+          //hSelection.addItem("H4");
+          //hSelection.addItem("H5");
+          ((JLabel)hSelection.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
+          ((JLabel)hSelection.getRenderer()).setVerticalAlignment(SwingConstants.CENTER);
           
           // Null labels for null in gridlayout
           JLabel nullLabel1 = new JLabel("");
@@ -105,11 +122,10 @@ public class MapSelection extends JFrame implements ActionListener{
           // Null labels for null in gridlayout
           JLabel nullLabel3 = new JLabel("");
           JLabel nullLabel4 = new JLabel("");
-          JPanel parentPanel2 = new JPanel(new GridLayout(0,5));
+          JPanel parentPanel2 = new JPanel(new GridLayout(0,4));
           parentPanel2.add(nullLabel3);
           parentPanel2.add(fileInputField);
           parentPanel2.add(searchSelection);
-          parentPanel2.add(weightInputField);
           parentPanel2.add(nullLabel4);
 
           //confirm icon as a button on the gui
@@ -120,14 +136,24 @@ public class MapSelection extends JFrame implements ActionListener{
           confirm.setContentAreaFilled(false);
           confirm.setBorderPainted(false);
           confirm.addActionListener(this);
-
-          JPanel parentPanel3 = new JPanel(new GridLayout(0,1));
-          parentPanel3.add(confirm);
+          
+          JLabel nullLabel5 = new JLabel("");
+          JLabel nullLabel6 = new JLabel("");
+          JPanel parentPanel3 = new JPanel(new GridLayout(0,5));
+          parentPanel3.add(nullLabel5);
+            parentPanel3.add(weightInputField);
+            parentPanel3.add(weightInputField2);
+            parentPanel3.add(hSelection);
+          parentPanel3.add(nullLabel6);  
+            
+            JPanel parentPanel4 = new JPanel(new GridLayout(0,1));
+          parentPanel4.add(confirm);
           //Add the title, mapSelection, and confirm icon to the interface
           pane.add(title);
           pane.add(parentPanel1);
           pane.add(parentPanel2);
           pane.add(parentPanel3);
+          pane.add(parentPanel4);
 
           getContentPane().add(pane);
           setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -143,13 +169,23 @@ public class MapSelection extends JFrame implements ActionListener{
               String selectedMap     = (String)mapSelection.getSelectedItem();
               String selectedVariant = (String)variantSelection.getSelectedItem();
               String selectedSearch = (String) searchSelection.getSelectedItem();
+              String selectedH = (String) hSelection.getSelectedItem();
 
               String fileName = "";
               String path = (String)fileInputField.getText();
-              Double weight;
-              if ("Weighted A*".equals(selectedSearch))
+              Double weight, w2;
+              if (wa.equals(selectedSearch)){
                 weight = Double.parseDouble(weightInputField.getText());
-              else weight = 1.0;
+                w2 = 1.0;
+              }
+              else if (sa.equals(selectedSearch)){
+                weight = Double.parseDouble(weightInputField.getText());
+                w2 = Double.parseDouble(weightInputField2.getText());
+              }
+              else{ 
+                weight = 1.0;
+                w2 = 1.0;
+              }
               
 
               if(selectedMap == GENERATEDMAP)
@@ -162,7 +198,7 @@ public class MapSelection extends JFrame implements ActionListener{
               {
                 setVisible(false);
                   try {
-                      RunMVCTest runMVC = new RunMVCTest(mapreader.get_char_map(), mapreader.getStartGoalPair(), selectedSearch, weight);
+                      RunMVCTest runMVC = new RunMVCTest(mapreader.get_char_map(), mapreader.getStartGoalPair(), selectedSearch, selectedH, weight, w2);
                   } catch (Exception ex) {
                       Logger.getLogger(MapSelection.class.getName()).log(Level.SEVERE, null, ex);
                   }

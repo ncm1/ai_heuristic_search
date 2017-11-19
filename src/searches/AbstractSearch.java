@@ -5,6 +5,12 @@
  */
 package searches;
 
+import heuristics.AbstractHeuristic;
+import heuristics.H1;
+import heuristics.H2;
+import heuristics.H3;
+import heuristics.H4;
+import heuristics.H5;
 import java.util.PriorityQueue;
 import util.Edge;
 import util.NodePathCostComparator;
@@ -19,9 +25,10 @@ import models.Grid;
  */
 abstract public class AbstractSearch {
     long elapsedTime;
+    AbstractHeuristic h;
     
    public TreeNode abstractSearch(TreeNode[][]list, int[] start, int[] goal){
-        PriorityQueue<TreeNode> fringe = new PriorityQueue<>(10,new NodePathCostComparator());
+        PriorityQueue<TreeNode> fringe = new PriorityQueue<>(1000,new NodePathCostComparator());
         int[][] explored = new int[MAX_ROWS][MAX_COLS];
         TreeNode tmp, edgeNode; double pathCost;
         
@@ -71,4 +78,31 @@ abstract public class AbstractSearch {
            }
        }
    }
+   
+   public void chooseHeuristic(String heur){
+        switch (heur){
+            case "H1":  this.h = new H1();
+                        break;
+            case "H2":  this.h = new H2();
+                        break;
+            case "H3":  this.h = new H3();
+                        break;
+            case "H4":  this.h = new H4();
+                        break;
+            case "H5":  this.h = new H5();
+                        break;
+            case "0" :  this.h = new H1();
+                        break;
+            case "1" :  this.h = new H2();
+                        break;
+            case "2" :  this.h = new H3();
+                        break;
+            case "3" :  this.h = new H4();
+                        break;
+            case "4" :  this.h = new H5();
+                        break;
+            default:    this.h = new H1();
+                        break;
+        }
+    }
 }
