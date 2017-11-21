@@ -7,7 +7,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 
 
-public class MapView implements ChangeListener
+public class MapView extends JFrame
 {
   //Create main tabePane object where each of the tabs will be place
   JTabbedPane tabPane;
@@ -26,17 +26,20 @@ public class MapView implements ChangeListener
   private JLabel wLabel      = new JLabel("w: null"   , SwingConstants.CENTER);
   private JLabel timeLabel   = new JLabel("time: null", SwingConstants.CENTER);
 
+  JButton back;
+  Frame frame;
+
   public MapView(ButtonGridView bgv)
   {
     //frame in constructor and not an attribute as doesn't need to be visible to whole class
-    Frame frame 		= new Frame("simple MVC");
+    frame 		= new Frame("simple MVC");
 
     tabPane  = new JTabbedPane();
     //Adding all the components together to create the JFram
     parentPanel     = new JPanel(new BorderLayout());
-    JPanel cellData = new JPanel(new GridLayout(0,6));
+    JPanel cellData = new JPanel(new GridLayout(1,6));
 
-    Font font = new Font("Cambria", Font.BOLD, 28);
+    Font font = new Font("Cambria", Font.BOLD, 20);
     rowLabel.setFont(font);
     columnLabel.setFont(font);
     fLabel.setFont(font);
@@ -45,6 +48,21 @@ public class MapView implements ChangeListener
     wLabel.setFont(font);
     timeLabel.setFont(font);
 
+    ImageIcon back_Icon  = new ImageIcon("icons/back.png");
+    back = new JButton(back_Icon);
+
+    back.setOpaque(false);
+    back.setContentAreaFilled(false);
+    back.setBorderPainted(false);
+    back.addActionListener(new ActionListener(){
+      public void actionPerformed(ActionEvent e) {
+        frame.setVisible(false);
+        System.out.println("Clicked back button");
+      }
+    });
+
+    JPanel holdingPanel = new JPanel(new GridLayout(0,1));
+    holdingPanel.add(back);
     //Adding the labels to the cell data panel
     cellData.add(rowLabel);
     cellData.add(columnLabel);
@@ -53,6 +71,7 @@ public class MapView implements ChangeListener
     cellData.add(hLabel);
     cellData.add(wLabel);
     cellData.add(timeLabel);
+    //cellData.add(parentPanel);
 
     map = bgv;
     //TODO: Implement partial MapViews to allow splitting the map into quadrants
@@ -76,19 +95,19 @@ public class MapView implements ChangeListener
     tabPane.addTab("Map - Q4", q4.getContentPane());
     */
 
-    tabPane.addChangeListener(this);
-    frame.add(tabPane);
-    frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-    frame.pack();
-    frame.setVisible(true);
-  }
-
-  public void setColumnLabel(int c){
-    columnLabel.setText("x: " + c);
+    //tabPane.addChangeListener(this);
+    add(tabPane);
+    setExtendedState(JFrame.MAXIMIZED_BOTH);
+    pack();
+    setVisible(true);
   }
 
   public void setRowLabel(int r){
-    rowLabel.setText("y: " + r);
+    rowLabel.setText("x: " + r);
+  }
+
+  public void setColumnLabel(int c){
+    columnLabel.setText("y: " + c);
   }
 
   public void set_f_Label(double f){
@@ -96,7 +115,7 @@ public class MapView implements ChangeListener
         fLabel.setText("f: -");
     }
     else
-        fLabel.setText("f: " + f);
+        fLabel.setText("f: " + String.format("%.4f",f));
   }
 
   public void set_g_label(double g){
@@ -104,7 +123,7 @@ public class MapView implements ChangeListener
         gLabel.setText("g: -");
     }
     else
-        gLabel.setText("g: " + g);
+        gLabel.setText("g: " + String.format("%.4f",g));
   }
 
   public void set_h_label(double h){
@@ -112,20 +131,20 @@ public class MapView implements ChangeListener
         hLabel.setText("h: -");
     }
     else
-      hLabel.setText("h: " + h);
+      hLabel.setText("h: " + String.format("%.4f",h));
   }
-  
+
   public void set_w_label(double w){
     if ((int)w == -1){
         wLabel.setText("w: -");
     }
     else
-      wLabel.setText("w: " + w);
+      wLabel.setText("w: " + String.format("%.4f",w));
   }
 
   public void set_time_label(long t){
       String str = String.format("time:  %5.4f ms", (double)t/Math.pow(10, 6));
-    timeLabel.setText(str);
+      timeLabel.setText(str);
   }
 
   public void stateChanged(ChangeEvent e) {
@@ -136,8 +155,9 @@ public class MapView implements ChangeListener
   public static class CloseListener extends WindowAdapter {
     public void windowClosing(WindowEvent e) {
       e.getWindow().setVisible(false);
+      System.out.println("System exit");
       System.exit(0);
     } //windowClosing()
-  } //CloseListener
+  } //CloseListener*/
 
 }//end of MapView.java

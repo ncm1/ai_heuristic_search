@@ -20,7 +20,6 @@ public class MapSelection extends JFrame implements ActionListener{
         JComboBox<String> hSelection = new JComboBox<String>();
 
         JButton confirm;
-        JButton back;
         JTextField fileInputField = new JTextField("Input File Name");
         JTextField weightInputField = new JTextField("Input Weight");
         JTextField weightInputField2 = new JTextField("Input Weight 2");
@@ -46,7 +45,7 @@ public class MapSelection extends JFrame implements ActionListener{
         private static final String Var8  = "Variation 8";
         private static final String Var9  = "Variation 9";
         private static final String Var10 = "Variation 10";
-        
+
         public static final String ucs = "Uniform Cost";
         public static final String a = "A*";
         public static final String wa = "Weighted A*";
@@ -91,7 +90,7 @@ public class MapSelection extends JFrame implements ActionListener{
           variantSelection.addItem(Var10);
           ((JLabel)variantSelection.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
           ((JLabel)variantSelection.getRenderer()).setVerticalAlignment(SwingConstants.CENTER);
-          
+
           searchSelection.setPrototypeDisplayValue("Choose a search algorithm");
           searchSelection.addItem(ucs);
           searchSelection.addItem(a);
@@ -99,7 +98,7 @@ public class MapSelection extends JFrame implements ActionListener{
           searchSelection.addItem(sa);
           ((JLabel)searchSelection.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
           ((JLabel)searchSelection.getRenderer()).setVerticalAlignment(SwingConstants.CENTER);
-          
+
           hSelection.setPrototypeDisplayValue("Choose a heuristic");
           hSelection.addItem("H1");
           hSelection.addItem("H2");
@@ -108,11 +107,11 @@ public class MapSelection extends JFrame implements ActionListener{
           //hSelection.addItem("H5");
           ((JLabel)hSelection.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
           ((JLabel)hSelection.getRenderer()).setVerticalAlignment(SwingConstants.CENTER);
-          
+
           // Null labels for null in gridlayout
           JLabel nullLabel1 = new JLabel("");
           JLabel nullLabel2 = new JLabel("");
-          
+
 
           parentPanel1.add(nullLabel1);
           parentPanel1.add(mapSelection);
@@ -122,10 +121,10 @@ public class MapSelection extends JFrame implements ActionListener{
           // Null labels for null in gridlayout
           JLabel nullLabel3 = new JLabel("");
           JLabel nullLabel4 = new JLabel("");
-          JPanel parentPanel2 = new JPanel(new GridLayout(0,4));
+          JPanel parentPanel2 = new JPanel(new GridLayout(0,3));
           parentPanel2.add(nullLabel3);
           parentPanel2.add(fileInputField);
-          parentPanel2.add(searchSelection);
+          //parentPanel2.add(searchSelection);
           parentPanel2.add(nullLabel4);
 
           //confirm icon as a button on the gui
@@ -136,17 +135,18 @@ public class MapSelection extends JFrame implements ActionListener{
           confirm.setContentAreaFilled(false);
           confirm.setBorderPainted(false);
           confirm.addActionListener(this);
-          
+
           JLabel nullLabel5 = new JLabel("");
           JLabel nullLabel6 = new JLabel("");
-          JPanel parentPanel3 = new JPanel(new GridLayout(0,5));
+          JPanel parentPanel3 = new JPanel(new GridLayout(0,6));
           parentPanel3.add(nullLabel5);
-            parentPanel3.add(weightInputField);
-            parentPanel3.add(weightInputField2);
-            parentPanel3.add(hSelection);
-          parentPanel3.add(nullLabel6);  
-            
-            JPanel parentPanel4 = new JPanel(new GridLayout(0,1));
+          parentPanel3.add(searchSelection);
+          parentPanel3.add(weightInputField);
+          parentPanel3.add(weightInputField2);
+          parentPanel3.add(hSelection);
+          parentPanel3.add(nullLabel6);
+
+          JPanel parentPanel4 = new JPanel(new GridLayout(0,1));
           parentPanel4.add(confirm);
           //Add the title, mapSelection, and confirm icon to the interface
           pane.add(title);
@@ -168,25 +168,25 @@ public class MapSelection extends JFrame implements ActionListener{
           if(source == confirm){
               String selectedMap     = (String)mapSelection.getSelectedItem();
               String selectedVariant = (String)variantSelection.getSelectedItem();
-              String selectedSearch = (String) searchSelection.getSelectedItem();
-              String selectedH = (String) hSelection.getSelectedItem();
+              String selectedSearch  = (String) searchSelection.getSelectedItem();
+              String selectedH       = (String) hSelection.getSelectedItem();
 
               String fileName = "";
               String path = (String)fileInputField.getText();
               Double weight, w2;
               if (wa.equals(selectedSearch)){
                 weight = Double.parseDouble(weightInputField.getText());
-                w2 = 1.0;
+                w2     = 1.0;
               }
               else if (sa.equals(selectedSearch)){
                 weight = Double.parseDouble(weightInputField.getText());
-                w2 = Double.parseDouble(weightInputField2.getText());
+                w2     = Double.parseDouble(weightInputField2.getText());
               }
-              else{ 
+              else{
                 weight = 1.0;
-                w2 = 1.0;
+                w2     = 1.0;
               }
-              
+
 
               if(selectedMap == GENERATEDMAP)
                   fileName += UserGeneratedMap + path;
@@ -203,9 +203,10 @@ public class MapSelection extends JFrame implements ActionListener{
                       Logger.getLogger(MapSelection.class.getName()).log(Level.SEVERE, null, ex);
                   }
               }
-              MapSelection ms = new MapSelection();
+              //MapSelection ms = new MapSelection();
           }
         }
+
         public String getConcatenation(String m, String v)
         {
           String result = "";
