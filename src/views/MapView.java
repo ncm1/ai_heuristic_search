@@ -31,6 +31,7 @@ public class MapView extends JFrame
 
   public MapView(ButtonGridView bgv)
   {
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     //frame in constructor and not an attribute as doesn't need to be visible to whole class
     frame 		= new Frame("simple MVC");
 
@@ -48,7 +49,7 @@ public class MapView extends JFrame
     wLabel.setFont(font);
     timeLabel.setFont(font);
 
-    ImageIcon back_Icon  = new ImageIcon("icons/back.png");
+    ImageIcon back_Icon  = new ImageIcon("icons/backArrow.png");
     back = new JButton(back_Icon);
 
     back.setOpaque(false);
@@ -56,14 +57,15 @@ public class MapView extends JFrame
     back.setBorderPainted(false);
     back.addActionListener(new ActionListener(){
       public void actionPerformed(ActionEvent e) {
-        frame.setVisible(false);
-        System.out.println("Clicked back button");
+        setVisible(false);
+        MapSelection ms = new MapSelection();
       }
     });
 
     JPanel holdingPanel = new JPanel(new GridLayout(0,1));
     holdingPanel.add(back);
     //Adding the labels to the cell data panel
+    cellData.add(holdingPanel);
     cellData.add(rowLabel);
     cellData.add(columnLabel);
     cellData.add(fLabel);
@@ -71,7 +73,6 @@ public class MapView extends JFrame
     cellData.add(hLabel);
     cellData.add(wLabel);
     cellData.add(timeLabel);
-    //cellData.add(parentPanel);
 
     map = bgv;
     //TODO: Implement partial MapViews to allow splitting the map into quadrants
@@ -94,7 +95,6 @@ public class MapView extends JFrame
     tabPane.addTab("Map - Q3", q3.getContentPane());
     tabPane.addTab("Map - Q4", q4.getContentPane());
     */
-
     //tabPane.addChangeListener(this);
     add(tabPane);
     setExtendedState(JFrame.MAXIMIZED_BOTH);

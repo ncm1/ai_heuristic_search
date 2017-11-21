@@ -54,7 +54,7 @@ public class MapSelection extends JFrame implements ActionListener{
         public MapSelection(){ //constructor
           super("Main Menu - Map Selection");
           setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-          JPanel pane = new JPanel(new GridLayout(5, 1, 8, 8));
+          JPanel pane = new JPanel(new GridLayout(6, 1, 8, 8));
 
           //Setting the Title and location
           JLabel title = new JLabel("Main Menu - Map Selection", SwingConstants.CENTER);
@@ -124,7 +124,6 @@ public class MapSelection extends JFrame implements ActionListener{
           JPanel parentPanel2 = new JPanel(new GridLayout(0,3));
           parentPanel2.add(nullLabel3);
           parentPanel2.add(fileInputField);
-          //parentPanel2.add(searchSelection);
           parentPanel2.add(nullLabel4);
 
           //confirm icon as a button on the gui
@@ -136,13 +135,19 @@ public class MapSelection extends JFrame implements ActionListener{
           confirm.setBorderPainted(false);
           confirm.addActionListener(this);
 
+          JLabel nullLabel7 = new JLabel("");
+          JLabel nullLabel8 = new JLabel("");
+          JPanel holderPanel = new JPanel(new GridLayout(0,4));
+          holderPanel.add(nullLabel7);
+          holderPanel.add(weightInputField);
+          holderPanel.add(weightInputField2);
+          holderPanel.add(nullLabel8);
+
           JLabel nullLabel5 = new JLabel("");
           JLabel nullLabel6 = new JLabel("");
-          JPanel parentPanel3 = new JPanel(new GridLayout(0,6));
+          JPanel parentPanel3 = new JPanel(new GridLayout(0,4));
           parentPanel3.add(nullLabel5);
           parentPanel3.add(searchSelection);
-          parentPanel3.add(weightInputField);
-          parentPanel3.add(weightInputField2);
           parentPanel3.add(hSelection);
           parentPanel3.add(nullLabel6);
 
@@ -151,8 +156,9 @@ public class MapSelection extends JFrame implements ActionListener{
           //Add the title, mapSelection, and confirm icon to the interface
           pane.add(title);
           pane.add(parentPanel1);
-          pane.add(parentPanel2);
           pane.add(parentPanel3);
+          pane.add(holderPanel);
+          pane.add(parentPanel2);
           pane.add(parentPanel4);
 
           getContentPane().add(pane);

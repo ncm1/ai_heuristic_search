@@ -56,8 +56,6 @@ public class MapController {
 					if (source == (grid[i][j])){
 						row = i; column = j;
 
-						if(i == rowSize -1)
-							theBGView.closeView();
 					}
 				}
 			}
