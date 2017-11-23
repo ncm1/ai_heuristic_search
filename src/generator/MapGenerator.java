@@ -18,7 +18,7 @@ public class MapGenerator extends JFrame{
 
         JButton[][] grid; //names the grid of buttons
         char[][] char_grid;
-        ArrayList<Coordinates> coordinateArray = new ArrayList<Coordinates>();
+        ArrayList<Coordinates> coordinateArray      = new ArrayList<Coordinates>();
         ArrayList<ArrayList<Coordinates>> startGoal = new ArrayList<ArrayList<Coordinates>>();
         JFrame self;
         JButton temp;
@@ -424,22 +424,22 @@ public class MapGenerator extends JFrame{
         }
 
         public Coordinates adjustCoordinate(Coordinates c){
-                  Coordinates newC = new Coordinates(c.get_x_coordinate(),c.get_y_coordinate());
+            Coordinates newC = new Coordinates(c.get_x_coordinate(),c.get_y_coordinate());
 
-                  if(c.get_x_coordinate() > row - 1)
-                    newC.set_x_coordinate(row - 1);
+            if(c.get_x_coordinate() > row - 1)
+              newC.set_x_coordinate(row - 1);
 
-                  else if(c.get_x_coordinate() < 0)
-                    newC.set_x_coordinate(0);
+            else if(c.get_x_coordinate() < 0)
+              newC.set_x_coordinate(0);
 
-                  if(c.get_y_coordinate() > column - 1)
-                    newC.set_y_coordinate(column - 1);
+            if(c.get_y_coordinate() > column - 1)
+              newC.set_y_coordinate(column - 1);
 
-                  else if(c.get_y_coordinate() < 0)
-                    newC.set_y_coordinate(0);
+            else if(c.get_y_coordinate() < 0)
+              newC.set_y_coordinate(0);
 
-                  return newC;
-                }
+            return newC;
+        }
 
         public int getRandomBound(int min, int max){
           double bound;
@@ -702,7 +702,7 @@ public class MapGenerator extends JFrame{
               mapFile.close();
             }
           }
-        
+
         public void showMap(char[][] char_grid, int[]start, int[]goal){
           setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
           pane = new JPanel();
@@ -769,26 +769,26 @@ public class MapGenerator extends JFrame{
           getContentPane().add(pane);
           setVisible(true);
         }
-        
+
         public static void main(String[] args) throws Exception {
-              
+
               MapGenerator puzzleGen = new MapGenerator(120,160);//makes new ButtonGrid with 2 parameters
               puzzleGen.generateMap();
               int[] start = new int[]{puzzleGen.startGoal.get(0).get(0).get_x_coordinate(), puzzleGen.startGoal.get(0).get(0).get_y_coordinate()};
               int[] goal = new int[]{puzzleGen.startGoal.get(0).get(1).get_x_coordinate(), puzzleGen.startGoal.get(0).get(1).get_y_coordinate()};
-              
+
               ButtonGridView bgt = new ButtonGridView(puzzleGen.char_grid,puzzleGen.startGoal.get(0));
               //puzzleGen.showMap(puzzleGen.char_grid,start,goal);
-              
+
               System.out.printf("printing grid with start: %d %d \n", start[0], start[1]);
               System.out.printf("printing grid with goal: %d %d \n", goal[0], goal[1]);
-              
+
               Grid grid = new Grid(puzzleGen.char_grid,start,goal);
               /*
               UniformCostSearch ucs = new UniformCostSearch();
               TreeNode res = ucs.uniformCostSearch(grid.g.list,start);
               System.out.printf("result = %d, %d \n",res.coord[0], res.coord[1]);
-              
+
               bgt.tracePath(res);
               MapView mv = new MapView(bgt);
                 */
