@@ -39,9 +39,9 @@ public class MapReader{
             //Split the line of values into seperate strings of ints
             String[] values = line.split(" ");
             if(counter == 0)
-              getStartGoal(values);
+              setStartGoal(values);
             else if(counter == 1)
-              getEndGoal(values);
+              setEndGoal(values);
 
             if(values.length >= 5)
             {
@@ -80,7 +80,7 @@ public class MapReader{
     return success;
   }
 
-  public void getStartGoal(String s[]){
+  public void setStartGoal(String s[]){
 
     int x = Integer.parseInt(String.valueOf(s[0]));
     int y = Integer.parseInt(String.valueOf(s[1]));
@@ -88,7 +88,7 @@ public class MapReader{
     start_goal = new Coordinates(x, y);
   }
 
-  public void getEndGoal(String s[]){
+  public void setEndGoal(String s[]){
     int x = Integer.parseInt(String.valueOf(s[0]));
     int y = Integer.parseInt(String.valueOf(s[1]));
     System.out.println("End goal - x: " + x + " y: " + y);

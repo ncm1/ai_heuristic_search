@@ -10,18 +10,18 @@ import util.TreeNode;
 
 public class ButtonGridView extends JFrame{
 
-        JButton[][] grid; //names the grid of buttons
-        JFrame self;
-        JButton temp;
-        JPanel pane;
-        private static final int ROWS    = 120;
-        private static final int COLUMNS = 160;
-        private int row = -1;
-        private int column = -1;
-        private int rowSize = 0;
-        private int columnSize = 0;
+  JButton[][] grid; //names the grid of buttons
+  JFrame self;
+  JButton temp;
+  JPanel pane;
+  private static final int ROWS    = 120;
+  private static final int COLUMNS = 160;
+  private int row = -1;
+  private int column = -1;
+  private int rowSize = 0;
+  private int columnSize = 0;
 
-        public ButtonGridView(char[][] char_grid, ArrayList<Coordinates> s_e_pair){ //constructor
+  public ButtonGridView(char[][] char_grid, ArrayList<Coordinates> s_e_pair){ //constructor
 
           setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
           pane = new JPanel();
@@ -32,7 +32,7 @@ public class ButtonGridView extends JFrame{
           Border border = BorderFactory.createLineBorder(Color.BLACK);
 
           Color lightBrown = new Color(166, 123, 91);
-          Color lightBlue  = new Color(173, 216, 230);
+          Color blue  = new Color(0, 0, 255);
           Color greenestGreen = new Color(0,255,0);
 
 
@@ -51,7 +51,7 @@ public class ButtonGridView extends JFrame{
                 temp.setBackground(Color.black);
 
               if(char_grid[x][y] == 'a' || char_grid[x][y] == 'b' )
-                temp.setBackground(lightBlue);
+                temp.setBackground(blue);
 
               temp.setOpaque(true);
               temp.setBorder(border);
@@ -68,18 +68,17 @@ public class ButtonGridView extends JFrame{
           int goal_x  = s_e_pair.get(1).get_x_coordinate();
           int goal_y  = s_e_pair.get(1).get_y_coordinate();
 
-          
+
           grid[goal_x][goal_y].setBackground(greenestGreen);
 
           grid[start_x][start_y].setBackground(Color.red);
-          
-          
+
+
           pack();
           setExtendedState(JFrame.MAXIMIZED_BOTH);
           setLocationRelativeTo(null);
           getContentPane().add(pane);
       }
-
 
 	public void tracePath(TreeNode treeNode){
             ArrayList<int[]> path = new ArrayList<>();
@@ -91,7 +90,7 @@ public class ButtonGridView extends JFrame{
                 //System.out.println(tmp.f);
             }
             Border border = BorderFactory.createLineBorder(Color.red);
-            
+
             path.forEach( coord -> {
                 this.grid[coord[0]][coord[1]].setBorder(border);
                 //System.out.printf("coord: %d, %d ",coord[0],coord[1]);
@@ -99,16 +98,17 @@ public class ButtonGridView extends JFrame{
             // for each coordinate, color the box red
         }
 
-        public void addCellListener(ActionListener cellListener){
-          for (int i = 0; i < ROWS; i++) {
-            for (int j = 0; j < COLUMNS; j++) {
-              grid[i][j].addActionListener(cellListener);
-            }
+  public void addCellListener(ActionListener cellListener){
+        for (int i = 0; i < ROWS; i++) {
+          for (int j = 0; j < COLUMNS; j++) {
+            grid[i][j].addActionListener(cellListener);
           }
         }
+  }
 
-        public JButton[][] getGrid(){
-          return grid;
-        }
+  public JButton[][] getGrid(){
+      return grid;
+  }
+
 }
 //reference: https://www.wikihow.com/Make-a-GUI-Grid-in-Java
