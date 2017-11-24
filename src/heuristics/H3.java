@@ -19,7 +19,19 @@ public class H3 extends AbstractHeuristic{
         double ydif_sqr = (double) ydif * ydif;
         double xdif_sqr = (double) xdif * xdif;
 
-        //Manhattan Distance
-        return Math.sqrt(ydif_sqr + xdif_sqr);
+        //Diagonal Distance
+        /*
+            return D * (dx + dy) + (D2 - 2 * D) * min(dx, dy)
+            Same as the  Chebyshev distance
+        */
+        return 0.25 * (xdif + ydif) + (0.25 - 2 * 0.25) * Math.min(xdif, ydif);
     }
 }
+
+/*
+If h(n) is sometimes greater than the cost of moving from n to the goal,
+then A* is not guaranteed to find a shortest path, but it can run faster.
+
+The Manhattan shows a good example of this since the solution is suboptimal, although
+found faster relative to the other heuristics
+*/
