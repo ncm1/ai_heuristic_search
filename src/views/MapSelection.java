@@ -103,7 +103,7 @@ public class MapSelection extends JFrame implements ActionListener{
           hSelection.addItem("H1");
           hSelection.addItem("H2");
           hSelection.addItem("H3");
-          //hSelection.addItem("H4");
+          hSelection.addItem("H4");
           //hSelection.addItem("H5");
           ((JLabel)hSelection.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
           ((JLabel)hSelection.getRenderer()).setVerticalAlignment(SwingConstants.CENTER);

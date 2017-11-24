@@ -25,16 +25,18 @@ import models.Grid;
  */
 abstract public class AbstractSearch {
     long elapsedTime;
+    int exploredCount = 0;
     AbstractHeuristic h;
-    
+
    public TreeNode abstractSearch(TreeNode[][]list, int[] start, int[] goal){
         PriorityQueue<TreeNode> fringe = new PriorityQueue<>(1000,new NodePathCostComparator());
         int[][] explored = new int[MAX_ROWS][MAX_COLS];
         TreeNode tmp, edgeNode; double pathCost;
-        
+
         TreeNode parentNode = list[start[0]][start[1]];
+        int exploredCount = 0;
         parentNode.parent = null;
-        parentNode.g = 0; 
+        parentNode.g = 0;
         setFandH(parentNode, goal);
         fringe.add(parentNode);
         while(!fringe.isEmpty()){
@@ -42,15 +44,17 @@ abstract public class AbstractSearch {
             if (parentNode.goal == true) //System.out.printf("current coord %d %d \n",tmp[0], tmp[1]);
                 return parentNode;
             explored[parentNode.coord[0]][parentNode.coord[1]] = 1;
+            exploredCount++;
             for (Edge edge: parentNode.AdjacencyList){ // each edge at node
                 tmp = edge.getDest(); //System.out.printf("potential coord %d %d ||| ",tmp[0], tmp[1]);
                 edgeNode = list[tmp.coord[0]][tmp.coord[1]];
+
                 if (edgeNode == parentNode || edgeNode.g > 1000)
                     continue;
                 pathCost = parentNode.g + edge.weight;
                 //System.out.println("pathcost" + pathCost);
                 if (explored[tmp.coord[0]][tmp.coord[1]] == 0){
-                    if (!fringe.contains(edgeNode)){ 
+                    if (!fringe.contains(edgeNode)){
                         edgeNode.g = 1001;
                         edgeNode.parent = null;
                     } // by default
@@ -63,14 +67,14 @@ abstract public class AbstractSearch {
                         fringe.add(edgeNode);
                     }
                 }
-                
-                
+
+
             }
         }
         return null;
-    } 
+    }
    abstract public void setFandH(TreeNode node, int[] goal);
-   
+
    public void setTime(TreeNode[][] list){
        for (int i = 0; i < MAX_ROWS; ++i){
            for (int j =0; j < MAX_COLS; ++j){
@@ -78,7 +82,11 @@ abstract public class AbstractSearch {
            }
        }
    }
-   
+
+   public int getExploredCount(){
+     return exploredCount;
+   }
+
    public void chooseHeuristic(String heur){
         switch (heur){
             case "H1":  this.h = new H1();

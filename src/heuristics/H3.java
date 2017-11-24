@@ -29,9 +29,5 @@ public class H3 extends AbstractHeuristic{
 }
 
 /*
-If h(n) is sometimes greater than the cost of moving from n to the goal,
-then A* is not guaranteed to find a shortest path, but it can run faster.
 
-The Manhattan shows a good example of this since the solution is suboptimal, although
-found faster relative to the other heuristics
 */
