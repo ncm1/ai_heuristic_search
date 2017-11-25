@@ -13,8 +13,13 @@ import util.TreeNode;
  */
 public class H4 extends AbstractHeuristic{
     public double getHeuristic(TreeNode node, int[]goal){ // h value differences is too low, so A star approach is same as ucs
-        int ydif = Math.abs(goal[0] - node.coord[0]);
-        int xdif = Math.abs(goal[1] - node.coord[1]);
-        return ((Math.max(xdif, ydif) - Math.min(xdif, ydif))+ Math.sqrt(2)*(Math.min(xdif, ydif))) * 0.25;
+      int ydif = Math.abs(goal[0] - node.coord[0]);
+      int xdif = Math.abs(goal[1] - node.coord[1]);
+
+      double xdif_sqr = xdif * xdif;
+      double ydif_sqr = ydif * ydif;
+      //Manhattan distance - admissible since set to the lowest distance
+      return (xdif + ydif) / 4;
     }
 }
+//http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html

@@ -16,9 +16,6 @@ public class H3 extends AbstractHeuristic{
         int ydif = Math.abs(goal[0] - node.coord[0]);
         int xdif = Math.abs(goal[1] - node.coord[1]);
 
-        double ydif_sqr = (double) ydif * ydif;
-        double xdif_sqr = (double) xdif * xdif;
-
         //Diagonal Distance
         /*
             return D * (dx + dy) + (D2 - 2 * D) * min(dx, dy)
@@ -29,9 +26,5 @@ public class H3 extends AbstractHeuristic{
 }
 
 /*
-If h(n) is sometimes greater than the cost of moving from n to the goal,
-then A* is not guaranteed to find a shortest path, but it can run faster.
 
-The Manhattan shows a good example of this since the solution is suboptimal, although
-found faster relative to the other heuristics
 */

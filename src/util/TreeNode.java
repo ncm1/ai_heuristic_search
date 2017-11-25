@@ -12,7 +12,7 @@ public class TreeNode{
     public TreeNode parent;
     public double g, h, w, f; // start node's g should be 0
     public long elapsedTime;
-    
+
 
  public TreeNode(int r, int c) {
   this.coord = new int[]{r,c};
@@ -35,7 +35,7 @@ public class TreeNode{
      }
     return tn;
  }
- 
+
  public static int findDistance(TreeNode root, int[] goalVertex){
   if(root.getChildren() == null)
     return -1;
