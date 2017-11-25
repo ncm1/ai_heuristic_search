@@ -104,7 +104,7 @@ public class MapSelectionExperimental extends JFrame implements ActionListener{
           hSelection.addItem("H2");
           hSelection.addItem("H3");
           hSelection.addItem("H4");
-          //hSelection.addItem("H5");
+          hSelection.addItem("H5");
           ((JLabel)hSelection.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
           ((JLabel)hSelection.getRenderer()).setVerticalAlignment(SwingConstants.CENTER);
 
@@ -193,6 +193,8 @@ public class MapSelectionExperimental extends JFrame implements ActionListener{
                 w2     = 1.0;
               }
 
+              
+              for(int j = 0; j < 5; j++){
 
               for(int i = 0; i < 10; i++){
 
@@ -201,7 +203,7 @@ public class MapSelectionExperimental extends JFrame implements ActionListener{
               if(selectedMap == GENERATEDMAP)
                   fileName = UserGeneratedMap + path;
               else
-                fileName  = PredefinedMaps + getConcatenationVer2(selectedMap, i);
+                fileName  = PredefinedMaps + getConcatenationVer2(j, i);
 
               MapReader mapreader = new MapReader(fileName);
               if(mapreader.wasSuccessful())
@@ -219,6 +221,7 @@ public class MapSelectionExperimental extends JFrame implements ActionListener{
               //MapSelection ms = new MapSelection();
 
             }//end for loop
+            }//end second for loop
           }
         }
 
@@ -271,21 +274,21 @@ public class MapSelectionExperimental extends JFrame implements ActionListener{
           return result;
         }
 
-        public String getConcatenationVer2(String m, int v)
+        public String getConcatenationVer2(int m, int v)
         {
           String result = "";
 
           switch(m)
           {
-            case Map1: result = "0/map-0-v";
+            case 0:    result = "0/map-0-v";
                        break;
-            case Map2: result = "1/map-1-v";
+            case 1:    result = "1/map-1-v";
                        break;
-            case Map3: result = "2/map-2-v";
+            case 2:    result = "2/map-2-v";
                        break;
-            case Map4: result = "3/map-3-v";
+            case 3:    result = "3/map-3-v";
                        break;
-            case Map5: result = "4/map-4-v";
+            case 4:    result = "4/map-4-v";
                        break;
             default:   result = "INVALID";
                        break;

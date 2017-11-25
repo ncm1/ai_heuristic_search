@@ -98,6 +98,7 @@ public class ButtonGridView extends JFrame{
             // for each coordinate, color the box red
             System.out.println("Path Length: " + path.size() );
         }
+        
 
   public void addCellListener(ActionListener cellListener){
         for (int i = 0; i < ROWS; i++) {

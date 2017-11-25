@@ -1,0 +1,150 @@
+Explored Count: 14239
+f-value: 147.5685
+Total time: time:  39.962 ms
+Explored Count: 7728
+f-value: 78.5637
+Total time: time:  17.172 ms
+Explored Count: 8377
+f-value: 103.3627
+Total time: time:  10.257 ms
+Explored Count: 13909
+f-value: 155.2585
+Total time: time:  12.186 ms
+Explored Count: 13570
+f-value: 138.5367
+Total time: time:  12.517 ms
+Explored Count: 12481
+f-value: 114.3308
+Total time: time:  14.369 ms
+Explored Count: 13361
+f-value: 122.1017
+Total time: time:  14.186 ms
+Explored Count: 14639
+f-value: 144.6225
+Total time: time:  15.388 ms
+Explored Count: 10807
+f-value: 105.1961
+Total time: time:  12.908 ms
+Explored Count: 8011
+f-value: 90.9558
+Total time: time:  8.144 ms
+Explored Count: 11326
+f-value: 112.8063
+Total time: time:  13.449 ms
+Explored Count: 11197
+f-value: 97.4240
+Total time: time:  14.707 ms
+Explored Count: 6523
+f-value: 78.5808
+Total time: time:  5.918 ms
+Explored Count: 13359
+f-value: 102.0992
+Total time: time:  15.222 ms
+Explored Count: 6436
+f-value: 73.9853
+Total time: time:  5.460 ms
+Explored Count: 5264
+f-value: 72.5563
+Total time: time:  4.234 ms
+Explored Count: 9279
+f-value: 95.8774
+Total time: time:  7.853 ms
+Explored Count: 6596
+f-value: 88.8174
+Total time: time:  9.139 ms
+Explored Count: 14472
+f-value: 106.1703
+Total time: time:  19.867 ms
+Explored Count: 10897
+f-value: 92.5674
+Total time: time:  10.603 ms
+Explored Count: 11977
+f-value: 136.4779
+Total time: time:  9.248 ms
+Explored Count: 8981
+f-value: 87.4706
+Total time: time:  9.343 ms
+Explored Count: 12742
+f-value: 148.4840
+Total time: time:  12.045 ms
+Explored Count: 8077
+f-value: 105.7916
+Total time: time:  5.971 ms
+Explored Count: 11135
+f-value: 124.9779
+Total time: time:  10.121 ms
+Explored Count: 14549
+f-value: 156.7830
+Total time: time:  13.013 ms
+Explored Count: 9482
+f-value: 117.9264
+Total time: time:  8.295 ms
+Explored Count: 9634
+f-value: 130.3480
+Total time: time:  8.281 ms
+Explored Count: 8004
+f-value: 93.5845
+Total time: time:  7.235 ms
+Explored Count: 2755
+f-value: 50.2635
+Total time: time:  2.611 ms
+Explored Count: 7741
+f-value: 74.4142
+Total time: time:  9.429 ms
+Explored Count: 14598
+f-value: 120.6813
+Total time: time:  17.107 ms
+Explored Count: 12082
+f-value: 100.1421
+Total time: time:  14.397 ms
+Explored Count: 7660
+f-value: 82.0992
+Total time: time:  8.801 ms
+Explored Count: 12327
+f-value: 107.9448
+Total time: time:  15.892 ms
+Explored Count: 13319
+f-value: 123.0563
+Total time: time:  16.361 ms
+Explored Count: 14243
+f-value: 108.1090
+Total time: time:  16.239 ms
+Explored Count: 10253
+f-value: 98.6421
+Total time: time:  10.612 ms
+Explored Count: 14899
+f-value: 115.6421
+Total time: time:  19.588 ms
+Explored Count: 7401
+f-value: 95.5833
+Total time: time:  6.650 ms
+Explored Count: 9504
+f-value: 114.9779
+Total time: time:  9.862 ms
+Explored Count: 14036
+f-value: 108.5772
+Total time: time:  13.969 ms
+Explored Count: 12305
+f-value: 103.6495
+Total time: time:  15.203 ms
+Explored Count: 14948
+f-value: 131.6924
+Total time: time:  16.734 ms
+Explored Count: 4743
+f-value: 54.4853
+Total time: time:  4.412 ms
+Explored Count: 12475
+f-value: 85.1924
+Total time: time:  13.132 ms
+Explored Count: 5713
+f-value: 78.1569
+Total time: time:  5.698 ms
+Explored Count: 11445
+f-value: 112.6140
+Total time: time:  11.796 ms
+Explored Count: 14656
+f-value: 123.0588
+Total time: time:  17.475 ms
+Explored Count: 14365
+f-value: 118.1274
+Total time: time:  14.453 ms

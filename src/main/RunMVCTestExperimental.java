@@ -44,7 +44,6 @@ public class RunMVCTestExperimental {
 
         output.println("Explored Count: " + ucs.getExploredCount());
         output.println("f-value: "        + String.format("%.4f",theModel.get_f_value()));
-        output.println("g-value: "        + String.format("%.4f",theModel.get_g_value()));
         output.println("Total time: "     + String.format("time:  %.3f ms", (double)theModel.get_time_value() / Math.pow(10, 6)));
       }
 
@@ -55,15 +54,21 @@ public class RunMVCTestExperimental {
         theModel.updateCoordinates(goal[0],goal[1]);
         output.println("Explored Count: " + ass.getExploredCount());
         output.println("f-value: "        + String.format("%.4f",theModel.get_f_value()));
-        output.println("g-value: "        + String.format("%.4f",theModel.get_g_value()));
         output.println("Total time: "     + String.format("time:  %.3f ms", (double)theModel.get_time_value() / Math.pow(10, 6)));
       }
-      /*
+      
       else if (selectedSearch.equals(wa))
       {
         WeightedAStarSearch wass = new WeightedAStarSearch();
         res = wass.weightedAStarSearch(theModel.grid.g.list, start, goal, weight,selectedH);
+        
+        theModel.updateCoordinates(goal[0],goal[1]);
+        output.println("Explored Count: " + wass.getExploredCount());
+        output.println("f-value: "        + String.format("%.4f",theModel.get_f_value()));
+        output.println("Total time: "     + String.format("time:  %.3f ms", (double)theModel.get_time_value() / Math.pow(10, 6)));
       }
+      
+      /*
       else if (selectedSearch.equals(sa)){
           SequentialAStarSearch sass = new SequentialAStarSearch();
           res =  sass.sequentialAStarSearch(theModel.grid.g.list, start, goal, weight, w2);
