@@ -199,18 +199,19 @@ public class MapSelectionExperimental extends JFrame implements ActionListener{
 
 
               if(selectedMap == GENERATEDMAP)
-                  fileName += UserGeneratedMap + path;
+                  fileName = UserGeneratedMap + path;
               else
-                fileName  += PredefinedMaps + getConcatenationVer2(selectedMap, i);
+                fileName  = PredefinedMaps + getConcatenationVer2(selectedMap, i);
 
               MapReader mapreader = new MapReader(fileName);
               if(mapreader.wasSuccessful())
               {
                 setVisible(false);
                   try {
-                      weight = 0.0;
-                      w2 = 0.0;
-                      RunMVCTestExperimental runMVC = new RunMVCTestExperimental(mapreader.get_char_map(), mapreader.getStartGoalPair());
+                      //weight = 0.0;
+                      //w2 = 0.0;
+                      RunMVCTestExperimental runMVC = new RunMVCTestExperimental(mapreader.get_char_map(), mapreader.getStartGoalPair(),  selectedSearch, selectedH, weight, w2);
+                      //RunMVCTest runMVC = new RunMVCTest(mapreader.get_char_map(), mapreader.getStartGoalPair(), selectedSearch, selectedH, weight, w2);
                   } catch (Exception ex) {
                       Logger.getLogger(MapSelection.class.getName()).log(Level.SEVERE, null, ex);
                   }
@@ -320,7 +321,7 @@ public class MapSelectionExperimental extends JFrame implements ActionListener{
         }
 
         public static void main(String[] args) {
-                MapSelection ms = new MapSelection();//makes new ButtonGrid with 2 parameters
+                MapSelectionExperimental ms = new MapSelectionExperimental();//makes new ButtonGrid with 2 parameters
         }
 }
 //reference: https://www.wikihow.com/Make-a-GUI-Grid-in-Java
