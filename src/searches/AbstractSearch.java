@@ -34,7 +34,6 @@ abstract public class AbstractSearch {
         TreeNode tmp, edgeNode; double pathCost;
 
         TreeNode parentNode = list[start[0]][start[1]];
-        int exploredCount = 0;
         parentNode.parent = null;
         parentNode.g = 0;
         setFandH(parentNode, goal);
@@ -71,6 +70,7 @@ abstract public class AbstractSearch {
 
             }
         }
+        exploredCount = fringe.size();
         return null;
     }
    abstract public void setFandH(TreeNode node, int[] goal);

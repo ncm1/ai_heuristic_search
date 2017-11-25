@@ -17,12 +17,13 @@ public class UniformCostSearch extends AbstractSearch{
         TreeNode res = super.abstractSearch(list, start, goal);
         this.elapsedTime = System.nanoTime() - s;
         setTime(list);
+        System.out.println("Explored ");
         return res;
     }
-    
+
     @Override
     public void setFandH(TreeNode node, int[] goal){
         node.f = node.g;
     }
-    
+
 }
