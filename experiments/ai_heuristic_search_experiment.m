@@ -143,8 +143,7 @@ clear DATASIZE, clear nodes_explored, clear path_length,
 clear path_cost, clear time_ms;
 
 
-%% Time
-clc
+%% Mean Time
 
 ucs_mean_time  = mean(ucs_time);
 
@@ -177,7 +176,7 @@ fprintf("a_star_weighted_h3_mean_time: %.4f ms\n", a_star_weighted_h3_mean_time)
 fprintf("a_star_weighted_h4_mean_time: %.4f ms\n", a_star_weighted_h4_mean_time);
 fprintf("a_star_weighted_h5_mean_time: %.4f ms\n", a_star_weighted_h5_mean_time);
 fprintf("---------------------------------\n");
-fprintf("a_star_sequential_mean_time: %.4f ms\n", a_star_sequential_mean_time);
+fprintf("a_star_sequential_mean_time: %.4f ms\n\n", a_star_sequential_mean_time);
 
 %%
 %Clearing uneeded data
@@ -187,10 +186,7 @@ clear a_star_weighted_h1_time, clear a_star_weighted_h2_time,
 clear a_star_weighted_h3_time , clear a_star_weighted_h4_time,
 clear a_star_weighted_h5, clear a_star_sequential_time;
 
-%% Nodes Explored
-
-clc
-
+%% Mean Nodes Explored
 ucs_mean_nodes  = mean(ucs_nodes);
 
 a_star_h1_mean_nodes = mean(a_star_h1_nodes);
@@ -222,18 +218,97 @@ fprintf("a_star_weighted_h3_mean_nodes: %.4f  \n", a_star_weighted_h3_mean_nodes
 fprintf("a_star_weighted_h4_mean_nodes: %.4f  \n", a_star_weighted_h4_mean_nodes);
 fprintf("a_star_weighted_h5_mean_nodes: %.4f  \n", a_star_weighted_h5_mean_nodes);
 fprintf("---------------------------------\n");
-fprintf("a_star_sequential_mean_nodes: %.4f  \n", a_star_sequential_mean_nodes);
+fprintf("a_star_sequential_mean_nodes: %.4f  \n\n", a_star_sequential_mean_nodes);
 
 
 %%
+%Clearing uneeded data
+clear ucs_nodes, clear a_star_h1_nodes, clear a_star_h2_nodes, 
+clear a_star_h3_nodes, clear a_star_h4_nodes, clear a_star_h5_nodes,
+clear a_star_weighted_h1_nodes, clear a_star_weighted_h2_nodes, 
+clear a_star_weighted_h3_nodes , clear a_star_weighted_h4_nodes,
+clear a_star_weighted_h5, clear a_star_sequential_nodes;
+%% Mean Path Length
 
-%plot(ucs_length, a_star_h1_length);
-%hold on
-scatter(ucs_length, a_star_h2_length);
+ucs_mean_length  = mean(ucs_length);
+
+a_star_h1_mean_length = mean(a_star_h1_length);
+a_star_h2_mean_length = mean(a_star_h2_length);
+a_star_h3_mean_length = mean(a_star_h3_length);
+a_star_h4_mean_length = mean(a_star_h4_length);
+a_star_h5_mean_length = mean(a_star_h5_length);
+
+a_star_weighted_h1_mean_length = mean(a_star_weighted_h1_length);
+a_star_weighted_h2_mean_length = mean(a_star_weighted_h2_length);
+a_star_weighted_h3_mean_length = mean(a_star_weighted_h3_length);
+a_star_weighted_h4_mean_length = mean(a_star_weighted_h4_length);
+a_star_weighted_h5_mean_length = mean(a_star_weighted_h5_length);
+
+a_star_sequential_mean_length = mean(a_star_sequential_length);
+
+
+fprintf("ucs_mean_length:  %.4f  \n", ucs_mean_length);
+fprintf("---------------------------------\n");
+fprintf("a_star_h1_mean_length: %1.4f  \n", a_star_h1_mean_length);
+fprintf("a_star_h2_mean_length: %1.4f  \n", a_star_h2_mean_length);
+fprintf("a_star_h3_mean_length: %1.4f  \n", a_star_h3_mean_length);
+fprintf("a_star_h4_mean_length: %1.4f  \n", a_star_h4_mean_length);
+fprintf("a_star_h5_mean_length: %1.4f  \n", a_star_h5_mean_length);
+fprintf("---------------------------------\n");
+fprintf("a_star_weighted_h1_mean_length: %.4f  \n", a_star_weighted_h1_mean_length);
+fprintf("a_star_weighted_h2_mean_length: %.4f  \n", a_star_weighted_h2_mean_length);
+fprintf("a_star_weighted_h3_mean_length: %.4f  \n", a_star_weighted_h3_mean_length);
+fprintf("a_star_weighted_h4_mean_length: %.4f  \n", a_star_weighted_h4_mean_length);
+fprintf("a_star_weighted_h5_mean_length: %.4f  \n", a_star_weighted_h5_mean_length);
+fprintf("---------------------------------\n");
+fprintf("a_star_sequential_mean_length: %.4f  \n\n", a_star_sequential_mean_length);
+
 %%
-plot(ucs_length, a_star_h3_length);
-plot(ucs_length, a_star_h4_length);
-plot(ucs_length, a_star_h5_length);
+clear ucs_length, clear a_star_h1_length, clear a_star_h2_length, 
+clear a_star_h3_length, clear a_star_h4_length, clear a_star_h5_length,
+clear a_star_weighted_h1_length, clear a_star_weighted_h2_length, 
+clear a_star_weighted_h3_length , clear a_star_weighted_h4_length,
+clear a_star_weighted_h5, clear a_star_sequential_length;
+%% Mean Path Cost
 
+ucs_mean_cost  = mean(ucs_cost);
+
+a_star_h1_mean_cost = mean(a_star_h1_cost);
+a_star_h2_mean_cost = mean(a_star_h2_cost);
+a_star_h3_mean_cost = mean(a_star_h3_cost);
+a_star_h4_mean_cost = mean(a_star_h4_cost);
+a_star_h5_mean_cost = mean(a_star_h5_cost);
+
+a_star_weighted_h1_mean_cost = mean(a_star_weighted_h1_cost);
+a_star_weighted_h2_mean_cost = mean(a_star_weighted_h2_cost);
+a_star_weighted_h3_mean_cost = mean(a_star_weighted_h3_cost);
+a_star_weighted_h4_mean_cost = mean(a_star_weighted_h4_cost);
+a_star_weighted_h5_mean_cost = mean(a_star_weighted_h5_cost);
+
+a_star_sequential_mean_cost = mean(a_star_sequential_cost);
+
+
+fprintf("ucs_mean_cost:  %.4f  \n", ucs_mean_cost);
+fprintf("---------------------------------\n");
+fprintf("a_star_h1_mean_cost: %1.4f  \n", a_star_h1_mean_cost);
+fprintf("a_star_h2_mean_cost: %1.4f  \n", a_star_h2_mean_cost);
+fprintf("a_star_h3_mean_cost: %1.4f  \n", a_star_h3_mean_cost);
+fprintf("a_star_h4_mean_cost: %1.4f  \n", a_star_h4_mean_cost);
+fprintf("a_star_h5_mean_cost: %1.4f  \n", a_star_h5_mean_cost);
+fprintf("---------------------------------\n");
+fprintf("a_star_weighted_h1_mean_cost: %.4f  \n", a_star_weighted_h1_mean_cost);
+fprintf("a_star_weighted_h2_mean_cost: %.4f  \n", a_star_weighted_h2_mean_cost);
+fprintf("a_star_weighted_h3_mean_cost: %.4f  \n", a_star_weighted_h3_mean_cost);
+fprintf("a_star_weighted_h4_mean_cost: %.4f  \n", a_star_weighted_h4_mean_cost);
+fprintf("a_star_weighted_h5_mean_cost: %.4f  \n", a_star_weighted_h5_mean_cost);
+fprintf("---------------------------------\n");
+fprintf("a_star_sequential_mean_cost: %.4f  \n\n", a_star_sequential_mean_cost);
+
+%%
+clear ucs_cost, clear a_star_h1_cost, clear a_star_h2_cost, 
+clear a_star_h3_cost, clear a_star_h4_cost, clear a_star_h5_cost,
+clear a_star_weighted_h1_cost, clear a_star_weighted_h2_cost, 
+clear a_star_weighted_h3_cost , clear a_star_weighted_h4_cost,
+clear a_star_weighted_h5, clear a_star_sequential_cost;
 
 
