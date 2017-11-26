@@ -187,13 +187,53 @@ clear a_star_weighted_h1_time, clear a_star_weighted_h2_time,
 clear a_star_weighted_h3_time , clear a_star_weighted_h4_time,
 clear a_star_weighted_h5, clear a_star_sequential_time;
 
-%% Total Path Cost
-
 %% Nodes Explored
 
+clc
+
+ucs_mean_nodes  = mean(ucs_nodes);
+
+a_star_h1_mean_nodes = mean(a_star_h1_nodes);
+a_star_h2_mean_nodes = mean(a_star_h2_nodes);
+a_star_h3_mean_nodes = mean(a_star_h3_nodes);
+a_star_h4_mean_nodes = mean(a_star_h4_nodes);
+a_star_h5_mean_nodes = mean(a_star_h5_nodes);
+
+a_star_weighted_h1_mean_nodes = mean(a_star_weighted_h1_nodes);
+a_star_weighted_h2_mean_nodes = mean(a_star_weighted_h2_nodes);
+a_star_weighted_h3_mean_nodes = mean(a_star_weighted_h3_nodes);
+a_star_weighted_h4_mean_nodes = mean(a_star_weighted_h4_nodes);
+a_star_weighted_h5_mean_nodes = mean(a_star_weighted_h5_nodes);
+
+a_star_sequential_mean_nodes = mean(a_star_sequential_nodes);
 
 
+fprintf("ucs_mean_nodes:  %.4f  \n", ucs_mean_nodes);
+fprintf("---------------------------------\n");
+fprintf("a_star_h1_mean_nodes: %1.4f  \n", a_star_h1_mean_nodes);
+fprintf("a_star_h2_mean_nodes: %1.4f  \n", a_star_h2_mean_nodes);
+fprintf("a_star_h3_mean_nodes: %1.4f  \n", a_star_h3_mean_nodes);
+fprintf("a_star_h4_mean_nodes: %1.4f  \n", a_star_h4_mean_nodes);
+fprintf("a_star_h5_mean_nodes: %1.4f  \n", a_star_h5_mean_nodes);
+fprintf("---------------------------------\n");
+fprintf("a_star_weighted_h1_mean_nodes: %.4f  \n", a_star_weighted_h1_mean_nodes);
+fprintf("a_star_weighted_h2_mean_nodes: %.4f  \n", a_star_weighted_h2_mean_nodes);
+fprintf("a_star_weighted_h3_mean_nodes: %.4f  \n", a_star_weighted_h3_mean_nodes);
+fprintf("a_star_weighted_h4_mean_nodes: %.4f  \n", a_star_weighted_h4_mean_nodes);
+fprintf("a_star_weighted_h5_mean_nodes: %.4f  \n", a_star_weighted_h5_mean_nodes);
+fprintf("---------------------------------\n");
+fprintf("a_star_sequential_mean_nodes: %.4f  \n", a_star_sequential_mean_nodes);
 
+
+%%
+
+%plot(ucs_length, a_star_h1_length);
+%hold on
+scatter(ucs_length, a_star_h2_length);
+%%
+plot(ucs_length, a_star_h3_length);
+plot(ucs_length, a_star_h4_length);
+plot(ucs_length, a_star_h5_length);
 
 
 
