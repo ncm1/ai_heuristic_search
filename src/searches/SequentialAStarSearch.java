@@ -28,7 +28,7 @@ public class SequentialAStarSearch extends AbstractSearch{
         TreeNode res;
         long s = System.nanoTime();
         res = search(list,start,goal,w1,w2);
-        this.elapsedTime = System.nanoTime() - s;;
+        this.elapsedTime = System.nanoTime() - s;
         setTime(list);
         return res;
     }
@@ -46,6 +46,7 @@ public class SequentialAStarSearch extends AbstractSearch{
         for ( int i = 0; i < numH; ++i){
             fringes.add(new PriorityQueue<TreeNode>(1000,new NodePathCostComparator()));
             closed.add(new int[MAX_ROWS][MAX_COLS]);
+            this.exploredCount++;
             for( int j = 0; j < MAX_ROWS; j++){
                 for(int k = 0; k < MAX_COLS; k++){
                     closed.get(i)[j][j] = 0;
