@@ -15,6 +15,10 @@ public class H5 extends AbstractHeuristic{
     public double getHeuristic(TreeNode node, int[]goal){ // h value differences is too low, so A star approach is same as ucs
         int ydif = Math.abs(goal[0] - node.coord[0]);
         int xdif = Math.abs(goal[1] - node.coord[1]);
-        return ((Math.max(xdif, ydif) - Math.min(xdif, ydif))+ Math.sqrt(2)*(Math.min(xdif, ydif))) * 0.25;
+
+        double xdif_sqr = xdif * xdif;
+        double ydif_sqr = ydif * ydif;
+        //Euclidean Distance
+        return Math.sqrt(xdif_sqr + ydif_sqr) / 4;
     }
 }
