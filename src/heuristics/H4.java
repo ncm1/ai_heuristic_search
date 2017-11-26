@@ -16,8 +16,6 @@ public class H4 extends AbstractHeuristic{
       int ydif = Math.abs(goal[0] - node.coord[0]);
       int xdif = Math.abs(goal[1] - node.coord[1]);
 
-      double xdif_sqr = xdif * xdif;
-      double ydif_sqr = ydif * ydif;
       //Manhattan distance - admissible since set to the lowest distance
       return (xdif + ydif) / 4;
     }

@@ -1,10 +1,14 @@
 package main;
 
 import controllers.MapController;
+import java.awt.Color;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import static javax.script.ScriptEngine.FILENAME;
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+import javax.swing.border.Border;
 import models.Grid;
 import models.MapModel;
 import searches.*;
@@ -21,7 +25,7 @@ public class RunMVCTestExperimental {
 
     public RunMVCTestExperimental(char[][] char_map, ArrayList<Coordinates> start_end_pair, String selectedSearch, String selectedH, double weight, double w2) throws Exception{
       //The map and variant will be passed to buttonGridView
-      ButtonGridView theBGView  = new ButtonGridView(char_map, start_end_pair);
+      //ButtonGridView theBGView  = new ButtonGridView(char_map, start_end_pair);
       int[] start = new int[] {start_end_pair.get(0).get_x_coordinate(), start_end_pair.get(0).get_y_coordinate()};
       int[] goal = new int[] {start_end_pair.get(1).get_x_coordinate(), start_end_pair.get(1).get_y_coordinate()};
 
@@ -29,7 +33,7 @@ public class RunMVCTestExperimental {
       TreeNode res;
 
 
-      String FILENAME = selectedSearch;
+      String FILENAME = "./experiments/" + selectedSearch;
 
       if(!selectedSearch.equals(ucs))
           FILENAME += selectedH;
@@ -42,9 +46,10 @@ public class RunMVCTestExperimental {
         res = ucs.uniformCostSearch(theModel.grid.g.list,start,goal);
         theModel.updateCoordinates(goal[0],goal[1]);
 
-        output.println("Explored Count: " + ucs.getExploredCount());
-        output.println("f-value: "        + String.format("%.4f",theModel.get_f_value()));
-        output.println("Total time: "     + String.format("time:  %.3f ms", (double)theModel.get_time_value() / Math.pow(10, 6)));
+        output.println(ucs.getExploredCount());
+        output.println(getPathSize(res) + "");
+        output.println(String.format("%.4f",theModel.get_f_value()));
+        output.println(String.format("%.3f", (double)theModel.get_time_value() / Math.pow(10, 6)));
       }
 
       else if (selectedSearch.equals(a)){
@@ -52,9 +57,10 @@ public class RunMVCTestExperimental {
         res = ass.aStarSearch(theModel.grid.g.list, start, goal,selectedH);
 
         theModel.updateCoordinates(goal[0],goal[1]);
-        output.println("Explored Count: " + ass.getExploredCount());
-        output.println("f-value: "        + String.format("%.4f",theModel.get_f_value()));
-        output.println("Total time: "     + String.format("time:  %.3f ms", (double)theModel.get_time_value() / Math.pow(10, 6)));
+        output.println(ass.getExploredCount());
+        output.println(getPathSize(res) + "");
+        output.println(String.format("%.4f",theModel.get_f_value()));
+        output.println(String.format("%.3f", (double)theModel.get_time_value() / Math.pow(10, 6)));
       }
       
       else if (selectedSearch.equals(wa))
@@ -63,9 +69,10 @@ public class RunMVCTestExperimental {
         res = wass.weightedAStarSearch(theModel.grid.g.list, start, goal, weight,selectedH);
         
         theModel.updateCoordinates(goal[0],goal[1]);
-        output.println("Explored Count: " + wass.getExploredCount());
-        output.println("f-value: "        + String.format("%.4f",theModel.get_f_value()));
-        output.println("Total time: "     + String.format("time:  %.3f ms", (double)theModel.get_time_value() / Math.pow(10, 6)));
+        output.println(wass.getExploredCount());
+        output.println(getPathSize(res) + "");
+        output.println(String.format("%.4f",theModel.get_f_value()));
+        output.println(String.format("%.3f", (double)theModel.get_time_value() / Math.pow(10, 6)));
       }
       
       /*
@@ -86,9 +93,22 @@ public class RunMVCTestExperimental {
       MapController theMapController = new MapController(theBGView, theMapView, theModel);
       //theMapView.setVisible(true);
       */
-
-
-
+      output.flush();
+      output.close();
+      
+}
+ 
+    public int getPathSize(TreeNode treeNode){
+        ArrayList<int[]> path = new ArrayList<>();
+        TreeNode tmp = treeNode.parent; // okay because start and goal at least 10 apart
+        while (tmp.parent != null){
+            path.add(tmp.coord);
+             tmp = tmp.parent;
+            //System.out.println(tmp.f);
+        }
+           // for each coordinate, color the box red
+            return path.size();
     }
 }
+    
 //reference: http://www.newthinktank.com/2013/02/mvc-java-tutorial/
