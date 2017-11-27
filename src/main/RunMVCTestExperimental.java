@@ -35,7 +35,7 @@ public class RunMVCTestExperimental {
 
       String FILENAME = "./experiments/" + selectedSearch;
 
-      if(!selectedSearch.equals(ucs))
+      if(!selectedSearch.equals(ucs) && !selectedSearch.equals(sa))
           FILENAME += selectedH;
 
       PrintStream output = new PrintStream(new FileOutputStream(FILENAME + ".txt", true));
@@ -63,8 +63,7 @@ public class RunMVCTestExperimental {
         output.println(String.format("%.3f", (double)theModel.get_time_value() / Math.pow(10, 6)));
       }
       
-      else if (selectedSearch.equals(wa))
-      {
+      else if (selectedSearch.equals(wa)){
         WeightedAStarSearch wass = new WeightedAStarSearch();
         res = wass.weightedAStarSearch(theModel.grid.g.list, start, goal, weight,selectedH);
         
@@ -74,28 +73,23 @@ public class RunMVCTestExperimental {
         output.println(String.format("%.4f",theModel.get_f_value()));
         output.println(String.format("%.3f", (double)theModel.get_time_value() / Math.pow(10, 6)));
       }
-      
-      /*
+
       else if (selectedSearch.equals(sa)){
-          SequentialAStarSearch sass = new SequentialAStarSearch();
-          res =  sass.sequentialAStarSearch(theModel.grid.g.list, start, goal, weight, w2);
+        SequentialAStarSearch sass = new SequentialAStarSearch();
+        res =  sass.sequentialAStarSearch(theModel.grid.g.list, start, goal, weight, w2);
+          
+        theModel.updateCoordinates(goal[0],goal[1]);
+        output.println(sass.getExploredCount());
+        output.println(getPathSize(res) + "");
+        output.println(String.format("%.4f",theModel.get_f_value()));
+        output.println(String.format("%.3f", (double)theModel.get_time_value() / Math.pow(10, 6)));
       }
+      
       else res = null;
       if (res == null) throw new Exception("goal not found");
 
-      output.printf("result = %d, %d \n",res.coord[0], res.coord[1]);
-      theBGView.tracePath(res);
-
-      MapView        theMapView = new MapView(theBGView);
-
-
-      //MapController theMapController = new MapController(theMapView,theModel);
-      MapController theMapController = new MapController(theBGView, theMapView, theModel);
-      //theMapView.setVisible(true);
-      */
       output.flush();
-      output.close();
-      
+      output.close();    
 }
  
     public int getPathSize(TreeNode treeNode){

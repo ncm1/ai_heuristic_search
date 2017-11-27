@@ -203,7 +203,7 @@ public class MapSelectionExperimental extends JFrame implements ActionListener{
               else if (sa.equals(selectedSearch)){
                 weight = Double.parseDouble(weightInputField.getText());
                 w2     = Double.parseDouble(weightInputField2.getText());
-                loopHeuristics = true;
+                //loopHeuristics = true;
               }
               else if(a.equals(selectedSearch))
                   loopHeuristics = true;
