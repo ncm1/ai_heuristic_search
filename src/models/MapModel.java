@@ -16,7 +16,7 @@ public class MapModel {
     private double wValue;
     private long time;
     public Grid grid;
-  
+
 
     public MapModel(Grid grid){
         this.grid = grid;
@@ -25,8 +25,8 @@ public class MapModel {
         gValue = grid.g.list[r][c].g;
         fValue = grid.g.list[r][c].f;
         hValue = grid.g.list[r][c].h;
-        wValue = grid.g.list[r][c].w;    
-        time = grid.g.list[r][c].elapsedTime;
+        wValue = grid.g.list[r][c].w;
+        time   = grid.g.list[r][c].elapsedTime;
     }
     public double get_f_value(){
         return fValue;
@@ -43,5 +43,5 @@ public class MapModel {
     public long get_time_value(){
         return time;
     }
-    
+
 }

@@ -14,12 +14,12 @@ import util.Node;
 public class Grid {
     static int MAX_ROWS = Graph.MAX_ROWS; // height
     static int MAX_COLS = Graph.MAX_COLS; // width
-    
+
     public Graph g;
-    
+
     /**
          * Creates a graph object that represents the grid from a given character array describing
-         * 
+         *
          * @param   arr     the character array that represents the type of terrain at each coordinate
          * @param   start   start node coordinates
          * @param   goal    goal node coordinates
@@ -28,7 +28,7 @@ public class Grid {
          *      All values in the character array have a value. (no coordinate left blank)
          * Postcondition:
          *      All edge weights and types will be filled accordingly.
-        */ 
+        */
     public Grid(char[][] arr, int[] start, int[] goal) throws Exception{
         //TODO: note the start and end states
         g = new Graph(MAX_ROWS,MAX_COLS);
@@ -40,7 +40,7 @@ public class Grid {
             for (int c = 0; c < MAX_COLS; ++c){
                 //g.list[r][c] = new Node();
                 g.list[r][c].type = (arr[r][c]);
-                
+
                 rmin = (r-1 < 0) ? 0 : r-1;
                 rmax = (r+1 >= MAX_ROWS) ? MAX_ROWS-1 : r+1;
                 cmin = (c-1 < 0) ? 0 : c-1;
@@ -56,11 +56,11 @@ public class Grid {
                         }
                     }
                 }
-                
+
             }
         }
     }
-    
+
     public static double getWeightByTypeAndCoord(int sr, int sc, int dr, int dc, char stype, char dtype) throws Exception{
         if (stype == '0' || dtype == '0') return 1000; // blocked type
         double sw;
@@ -70,7 +70,7 @@ public class Grid {
         double hwm = 1; // highway multiplier;
         double dm = 1; // direction multiplier
         switch (stype){
-            case '1': sw = 0.5; 
+            case '1': sw = 0.5;
                     break;
             case '2': sw = 1;
                     break;
@@ -81,7 +81,7 @@ public class Grid {
             default: throw new Exception("you done goofed buddy. Invalid character");
         }
         switch (dtype){
-            case '1': dw = 0.5; 
+            case '1': dw = 0.5;
                     break;
             case '2': dw = 1;
                     break;
@@ -92,12 +92,12 @@ public class Grid {
             default: throw new Exception("you done goofed buddy. Invalid character");
         }
         hwm = (sh && dh && (sr == dr || sc == dc)) ? 0.25: 1;
-        
+
         dm = (sr == dr || sc == dc) ? 1: Math.sqrt(2); // diagnol
-        
+
         return (sw+dw)*dm*hwm;
     }
-    
+
     public char[][] toCharArray(){
         char[][]res = new char[MAX_ROWS][MAX_COLS];
         for (int r = 0; r < MAX_ROWS; ++r){
@@ -107,18 +107,16 @@ public class Grid {
         }
         return res;
     }
-    
+
     public void randomizeGrid(){
-        
+
         for (int r = 0; r < MAX_ROWS; ++r){
             for ( int c = 0; c < MAX_COLS; ++c){
                 g.list[r][c].type = '0';
             }
         }
-        
-    }
-    
 
+    }
     
     @Override
     public String toString(){
@@ -131,5 +129,5 @@ public class Grid {
         }
         return res;
     }
-            
+
 }
