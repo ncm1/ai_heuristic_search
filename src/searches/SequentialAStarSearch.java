@@ -46,7 +46,6 @@ public class SequentialAStarSearch extends AbstractSearch{
         for ( int i = 0; i < numH; ++i){
             fringes.add(new PriorityQueue<TreeNode>(1000,new NodePathCostComparator()));
             closed.add(new int[MAX_ROWS][MAX_COLS]);
-            this.exploredCount++;
             for( int j = 0; j < MAX_ROWS; j++){
                 for(int k = 0; k < MAX_COLS; k++){
                     closed.get(i)[j][j] = 0;
@@ -59,6 +58,7 @@ public class SequentialAStarSearch extends AbstractSearch{
             bp.get(i)[start[0]][start[1]] = null;
             bp.get(i)[goal[0]][goal[1]] = null;
             fringes.get(i).add(list[start[0]][start[1]]);
+            this.exploredCount++;
         }
         TreeNode s;
         while (fringes.get(0).peek().f < 1000){
@@ -75,6 +75,7 @@ public class SequentialAStarSearch extends AbstractSearch{
                         s = fringes.get(i).poll();
                         expandState(s,fringes.get(i),closed.get(i),list,goal,g.get(i), bp.get(i), i);
                         closed.get(i)[s.coord[0]][s.coord[1]] = 1;
+                        this.exploredCount++;
                     }    
                 }
                 else{
@@ -88,6 +89,7 @@ public class SequentialAStarSearch extends AbstractSearch{
                         s = fringes.get(0).poll();
                         expandState(s,fringes.get(0),closed.get(0),list,goal,g.get(0), bp.get(0), 0);
                         closed.get(0)[s.coord[0]][s.coord[1]] = 1;
+                        this.exploredCount++;
                     }
                 }
             }
