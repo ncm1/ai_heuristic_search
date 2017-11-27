@@ -4,7 +4,7 @@ uniformCostSearch = "Uniform Cost.txt";
 
 A_Star_H1 = "A*H1.txt";
 A_Star_H2 = "A*H2.txt";
-A_Star_H3 = "A*H3.txt";
+A_Star_H3 = "A*H3.txt"; 
 A_Star_H4 = "A*H4.txt";
 A_Star_H5 = "A*H5.txt";
 
@@ -249,19 +249,19 @@ a_star_sequential_mean_length = mean(a_star_sequential_length);
 
 fprintf("ucs_mean_length:  %.4f  \n", ucs_mean_length);
 fprintf("---------------------------------\n");
-fprintf("a_star_h1_mean_length: %1.4f  \n", a_star_h1_mean_length);
-fprintf("a_star_h2_mean_length: %1.4f  \n", a_star_h2_mean_length);
-fprintf("a_star_h3_mean_length: %1.4f  \n", a_star_h3_mean_length);
-fprintf("a_star_h4_mean_length: %1.4f  \n", a_star_h4_mean_length);
-fprintf("a_star_h5_mean_length: %1.4f  \n", a_star_h5_mean_length);
+fprintf("a_star_h1_mean_length: %1.4f  \n", percentFrom(a_star_h1_mean_length,ucs_mean_length));
+fprintf("a_star_h2_mean_length: %1.4f  \n", percentFrom(a_star_h2_mean_length,ucs_mean_length));
+fprintf("a_star_h3_mean_length: %1.4f  \n", percentFrom(a_star_h3_mean_length,ucs_mean_length));
+fprintf("a_star_h4_mean_length: %1.4f  \n", percentFrom(a_star_h4_mean_length,ucs_mean_length));
+fprintf("a_star_h5_mean_length: %1.4f  \n", percentFrom(a_star_h5_mean_length,ucs_mean_length));
 fprintf("---------------------------------\n");
-fprintf("a_star_weighted_h1_mean_length: %.4f  \n", a_star_weighted_h1_mean_length);
-fprintf("a_star_weighted_h2_mean_length: %.4f  \n", a_star_weighted_h2_mean_length);
-fprintf("a_star_weighted_h3_mean_length: %.4f  \n", a_star_weighted_h3_mean_length);
-fprintf("a_star_weighted_h4_mean_length: %.4f  \n", a_star_weighted_h4_mean_length);
-fprintf("a_star_weighted_h5_mean_length: %.4f  \n", a_star_weighted_h5_mean_length);
+fprintf("a_star_weighted_h1_mean_length: %.4f  \n", percentFrom(a_star_weighted_h1_mean_length,ucs_mean_length));
+fprintf("a_star_weighted_h2_mean_length: %.4f  \n", percentFrom(a_star_weighted_h2_mean_length,ucs_mean_length));
+fprintf("a_star_weighted_h3_mean_length: %.4f  \n", percentFrom(a_star_weighted_h3_mean_length,ucs_mean_length));
+fprintf("a_star_weighted_h4_mean_length: %.4f  \n", percentFrom(a_star_weighted_h4_mean_length,ucs_mean_length));
+fprintf("a_star_weighted_h5_mean_length: %.4f  \n", percentFrom(a_star_weighted_h5_mean_length,ucs_mean_length));
 fprintf("---------------------------------\n");
-fprintf("a_star_sequential_mean_length: %.4f  \n\n", a_star_sequential_mean_length);
+fprintf("a_star_sequential_mean_length: %.4f  \n\n", percentFrom(a_star_sequential_mean_length,ucs_mean_length));
 
 %%
 clear ucs_length, clear a_star_h1_length, clear a_star_h2_length, 
