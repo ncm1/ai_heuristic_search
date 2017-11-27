@@ -17,7 +17,7 @@ public class H4 extends AbstractHeuristic{
       int xdif = Math.abs(goal[1] - node.coord[1]);
 
       //Manhattan distance - admissible since set to the lowest distance
-      return (xdif + ydif) / 4;
+      return (xdif + ydif);
     }
 }
 //http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html

@@ -19,6 +19,6 @@ public class H5 extends AbstractHeuristic{
         double xdif_sqr = xdif * xdif;
         double ydif_sqr = ydif * ydif;
         //Euclidean Distance
-        return Math.sqrt(xdif_sqr + ydif_sqr) / 4;
+        return Math.sqrt(xdif_sqr + ydif_sqr);
     }
 }

@@ -72,19 +72,31 @@ When the current node is a regular unblocked cell:
 This heuristic is advantageous because since it uses the current node type, it is computationally inexpensive. 
 
 \subsubsection{H3: Expected Value}
-This method will take into account the number of blocked cells and the number of hard to traverse cells. The value that's generated from the heuristic will take the probability of . The heuristic value will be the average cost of each step combined with a value thats proportional to the node's distance to the goal.
+This method will take into account the number of blocked cells and the number of hard to traverse cells. The value that's generated from the heuristic will take the probability of each type of cell occurring and the required cost to traverse this path. The heuristic value will be the average cost of each step combined with a value thats proportional to the node's distance to the goal. The Euclidian distance will be used.
 
-Average cost of step = summation of: probability of scenario * cost of scenario
+Average cost of step = summation of: probability of scenario * cost of scenario.
 
 \[average(s) = \sum{P(s)*C(s)}  \]]
-\[average(s) = (0.8 * 1 + 8*0.05*0.5*1.5 - 7*0.05*0.5*1.5  )) \]
+\[average(s) = (0.2 * 1.91 + 0.8 * ( 0.8 * 1 + 8*0.05*0.5*1.5 ) ) = 0.3 + 0.8 = 1.482\]
 
-There are 8 possible moves from a single node. 20 percent of nodes will be blocked, on average leaving 6.4 possible moves from a node. Of
+For each blocked cell, we can consider the cost to navigate around it as the cost of having the blocked cell. We consider the different cases of how a blocked cell can be overcome. 
+Approaching from a corner: \[(2 + \sqrt(2) + 2 * ( 1 + \sqrt{2}) + 2 * 2 + 2 * 1) / 7  = 2.03\]
+Approaching the blocked cell perpendicularly: \[ (2*\sqrt(2) + 2*(1 + \sqrt{2}) + 2 * (\sqrt{(2)}) + 2*1 )/ 7 ) = 1.78 \]
+
+Averaging those two values together: 1.91 cost for each blocked cell.
+
+There is an 80 percent chance that a path will be unblocked.
+For each 31x31 grid of 50 percent hard to traverse blocks, this covers up roughly 5 percent of the 120 x 160 grid. Eight 31 x 31 grids result in about 40 percent of the grid covered, consequently about 20 percent of the map is covered by hard to traverse cells.
+
+Not exactly 20 percent of the map is covered by hard to traverse cells though, as there is a chance of overlap; each hard to traverse cell is not uniquely placed. There's also a chance the cell will land on the edge and not all of the 31x31 chosen cells will be on the grid.
+
+This heuristic also ignores the probability of there being a river, so this heuristic will overestimate the path cost of reaching the goal. This heuristic can possibly be optimized by having a constant value that can be adjusted to account for the probability of rivers occurring in the optimal path.
 
 \subsubsection{H4: Neighbor-checking Heuristic}
 This heuristic will check it's neighbors to determine it's heuristic value.
 
-\subsubsection{H5: ?}
+\subsubsection{H5: Euclidean Distance}
+This
 
 
 Calculate the average path cost.
