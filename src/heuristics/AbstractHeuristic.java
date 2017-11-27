@@ -13,6 +13,6 @@ import util.TreeNode;
  */
 abstract public class AbstractHeuristic {
     public int numH = 5;
-    
+
     abstract public double getHeuristic(TreeNode node, int[]goal);
 }

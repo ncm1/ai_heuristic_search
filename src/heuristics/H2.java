@@ -12,7 +12,7 @@ import util.TreeNode;
  * @author seobo
  */
 public class H2 extends AbstractHeuristic{
-    public double getHeuristic(TreeNode node, int[]goal){ // h value differences is too low, so A star approach is same as ucs 
+    public double getHeuristic(TreeNode node, int[]goal){ // h value differences is too low, so A star approach is same as ucs
         int ydif = Math.abs(goal[0] - node.coord[0]);
         int xdif = Math.abs(goal[1] - node.coord[1]);
         if (node.type == 'a' || node.type == 'b')

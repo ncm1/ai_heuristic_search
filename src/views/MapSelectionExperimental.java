@@ -1,14 +1,15 @@
 package views;
 
-import main.RunMVCTest;
+import main.RunMVCTestExperimental;
 import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.MapReader;
 
-public class MapSelection extends JFrame implements ActionListener{
+public class MapSelectionExperimental extends JFrame implements ActionListener{
 
         JLabel[][] grid; //names the grid of buttons
         JLabel temp;
@@ -51,7 +52,7 @@ public class MapSelection extends JFrame implements ActionListener{
         public static final String wa = "Weighted A*";
         public static final String sa = "Sequential A*";
 
-        public MapSelection(){ //constructor
+        public MapSelectionExperimental(){ //constructor
           super("Main Menu - Map Selection");
           setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
           JPanel pane = new JPanel(new GridLayout(6, 1, 8, 8));
@@ -104,7 +105,7 @@ public class MapSelection extends JFrame implements ActionListener{
           hSelection.addItem("H2");
           hSelection.addItem("H3");
           hSelection.addItem("H4");
-          //hSelection.addItem("H5");
+          hSelection.addItem("H5");
           ((JLabel)hSelection.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
           ((JLabel)hSelection.getRenderer()).setVerticalAlignment(SwingConstants.CENTER);
 
@@ -171,6 +172,15 @@ public class MapSelection extends JFrame implements ActionListener{
         public void actionPerformed(ActionEvent e) {
           Object source = e.getSource();
 
+          RunMVCTestExperimental runMVC;
+
+          ArrayList<String> heuristicList = new ArrayList<String>();
+          heuristicList.add("H1");
+          heuristicList.add("H2");
+          heuristicList.add("H3");
+          heuristicList.add("H4");
+          heuristicList.add("H5");
+
           if(source == confirm){
               String selectedMap     = (String)mapSelection.getSelectedItem();
               String selectedVariant = (String)variantSelection.getSelectedItem();
@@ -178,56 +188,86 @@ public class MapSelection extends JFrame implements ActionListener{
               String selectedH       = (String) hSelection.getSelectedItem();
 
               String fileName = "";
+
+              Boolean loopHeuristics = false;
               String path = (String)fileInputField.getText();
-              Double weight, w2;
+              Double weight = 0.0;
+              Double w2 = 0.0;
+
+
               if (wa.equals(selectedSearch)){
                 weight = Double.parseDouble(weightInputField.getText());
                 w2     = 1.0;
+                loopHeuristics = true;
               }
               else if (sa.equals(selectedSearch)){
                 weight = Double.parseDouble(weightInputField.getText());
                 w2     = Double.parseDouble(weightInputField2.getText());
+                loopHeuristics = true;
               }
+              else if(a.equals(selectedSearch))
+                  loopHeuristics = true;
               else{
                 weight = 1.0;
                 w2     = 1.0;
-              }
+              } 
+              
+              //The 5 heuristics
+              for(int x = 0; x < 5; x++){
+              if(!loopHeuristics)
+                  x = 5;
+              
+              //The 5 Maps
+              for(int j = 0; j < 5; j++){
+              //The 10 Variations
+              for(int i = 0; i < 10; i++){
+
 
 
               if(selectedMap == GENERATEDMAP)
-                  fileName += UserGeneratedMap + path;
+                  fileName = UserGeneratedMap + path;
               else
-                fileName  += PredefinedMaps + getConcatenation(selectedMap, selectedVariant);
+                fileName  = PredefinedMaps + getConcatenationVer2(j, i);
 
               MapReader mapreader = new MapReader(fileName);
               if(mapreader.wasSuccessful())
               {
                 setVisible(false);
                   try {
-                      RunMVCTest runMVC = new RunMVCTest(mapreader.get_char_map(), mapreader.getStartGoalPair(), selectedSearch, selectedH, weight, w2);
+
+                     if(loopHeuristics)
+                        runMVC = new RunMVCTestExperimental(mapreader.get_char_map(), mapreader.getStartGoalPair(),  selectedSearch, heuristicList.get(x), weight, w2);
+                            
+                          
+                      else
+                       runMVC = new RunMVCTestExperimental(mapreader.get_char_map(), mapreader.getStartGoalPair(),  selectedSearch, selectedH, weight, w2);
+
                   } catch (Exception ex) {
                       Logger.getLogger(MapSelection.class.getName()).log(Level.SEVERE, null, ex);
                   }
               }
-              //MapSelection ms = new MapSelection();
+
+            }//end for loop- heuristic control
+            }//end second for loop map control
+            }//end third for loop variation control
           }
         }
 
-        public String getConcatenation(String m, String v)
+        public String getConcatenationVer2(int m, int v)
         {
           String result = "";
 
           switch(m)
           {
-            case Map1: result = "0/map-0-v";
+            case 0:    result = "0/map-0-v";
                        break;
-            case Map2: result = "1/map-1-v";
+            case 1:    result = "1/map-1-v";
                        break;
-            case Map3: result = "2/map-2-v";
+            case 2:    result = "2/map-2-v";
                        break;
-            case Map4: result = "3/map-3-v";
+            case 3:    result = "3/map-3-v";
                        break;
-            case Map5: result = "4/map-4-v";
+            case 4:    result = "4/map-4-v";
                        break;
             default:   result = "INVALID";
                        break;
@@ -235,25 +275,25 @@ public class MapSelection extends JFrame implements ActionListener{
 
           switch(v)
           {
-            case Var1:  result += "0.txt";
+            case 0:  result += "0.txt";
                         break;
-            case Var2:  result += "1.txt";
+            case 1:  result += "1.txt";
                         break;
-            case Var3:  result += "2.txt";
+            case 2:  result += "2.txt";
                         break;
-            case Var4:  result += "3.txt";
+            case 3:  result += "3.txt";
                         break;
-            case Var5:  result += "4.txt";
+            case 4:  result += "4.txt";
                         break;
-            case Var6:  result += "5.txt";
+            case 5:  result += "5.txt";
                         break;
-            case Var7:  result += "6.txt";
+            case 6:  result += "6.txt";
                         break;
-            case Var8:  result += "7.txt";
+            case 7:  result += "7.txt";
                         break;
-            case Var9:  result += "8.txt";
+            case 8:  result += "8.txt";
                         break;
-            case Var10: result += "9.txt";
+            case 9: result += "9.txt";
                         break;
             default:    result = "INVALID";
                         break;
@@ -263,7 +303,7 @@ public class MapSelection extends JFrame implements ActionListener{
         }
 
         public static void main(String[] args) {
-                MapSelection ms = new MapSelection();//makes new ButtonGrid with 2 parameters
+                MapSelectionExperimental ms = new MapSelectionExperimental();//makes new ButtonGrid with 2 parameters
         }
 }
 //reference: https://www.wikihow.com/Make-a-GUI-Grid-in-Java

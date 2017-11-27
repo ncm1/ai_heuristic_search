@@ -29,7 +29,7 @@ public class MapController {
 	}
 
   public void updateModel(int row, int column){
-  		theModel.updateCoordinates(row, column);
+      theModel.updateCoordinates(row, column);
       theMapView.setColumnLabel(column);
       theMapView.setRowLabel(row);
       theMapView.set_f_Label(theModel.get_f_value());
