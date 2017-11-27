@@ -1,6 +1,9 @@
-\section{Sub-optimality of Sequential A*}
+\section{Sequential A*}
 
+\subsection{Implementation}
 
-\[ g_0(s) <= w_1 * c^*(s) \]
+The implementation of the sequential A* algorithm is efficient because it utilizes various data structures to minimize the time needed to access the data. The frontier priority queue and the 2D closed array for each heuristic are kept in a list. This Arraylist only holds five elements, equivalent to the number of different heuristics. The Arraylist allows for random access based on the index, which is useful because the algorithm switches between the different heuristics constantly so the access times should be minimized.
 
-In the anchor search of the sequential A*, we know that the heuristic is admissible and consistent. The cost from the start to a node is less than the optimum cost * the weight
+Again, a priority heap is utilized to minimize the search time and the access time for the minimal value in the heap.
+
+The parents of all the nodes are only updated when the goal is reached. A 2D array is kept to temporarily store the parent of each node at a coordinate, and only at the end the node's actual parents are updated. Parents of a node can change often while the optimal cost path is in the process of being found, so this reduces the need to have access to the node object until the end.

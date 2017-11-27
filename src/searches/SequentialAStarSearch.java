@@ -38,7 +38,6 @@ public class SequentialAStarSearch extends AbstractSearch{
         chooseHeuristic(String.valueOf(0));
         int numH = h.numH;
         
-        
         List<PriorityQueue<TreeNode>> fringes = new ArrayList<>();
         List<int[][]> closed= new ArrayList<>(); //closed = explored
         List<Double[][]> g = new ArrayList<>();
