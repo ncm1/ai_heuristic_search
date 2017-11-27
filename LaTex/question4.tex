@@ -65,14 +65,19 @@ When the current node is a regular unblocked cell:
 \[h(s) = t1 * d1  * max(vert_dist, horiz_dist) + t2 * d2 * min(vert_dist, horiz_dist)\]
 \[h(s) = 1 * 1 *min(|s^y - s_g^y|, |s^x - s_g^x|) + 1 * \sqrt{2} * max(|s^y - s_g^y|, |s^x - s_g^x|)   \]
 
-\\ $s$ is the current node, $s_g$ is the goal node coordinates.
-\\ $t1 = t2 = 1$: multiplier for the type of block.
-\\ $d1 = 1.0$ , $d2 = \sqrt{2}$ : multiplier for direction of movement.
+ $s$ is the current node, $s_g$ is the goal node coordinates. \\
+ $t1 = t2 = 1$: multiplier for the type of block. \\
+ $d1 = 1.0$ , $d2 = \sqrt{2}$ : multiplier for direction of movement. \\
 
 This heuristic is advantageous because since it uses the current node type, it is computationally inexpensive. 
 
 \subsubsection{H3: Expected Value}
 This method will take into account the number of blocked cells and the number of hard to traverse cells. The value that's generated from the heuristic will take the probability of . The heuristic value will be the average cost of each step combined with a value thats proportional to the node's distance to the goal.
+
+Average cost of step = summation of: probability of scenario * cost of scenario
+
+\[average(s) = \sum{P(s)*C(s)}  \]]
+\[average(s) = (0.8 * 1 + 8*0.05*0.5*1.5 - 0.025*  )) \]
 
 There are 8 possible moves from a single node. 20 percent of nodes will be blocked, on average leaving 6.4 possible moves from a node. Of
 

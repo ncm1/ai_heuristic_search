@@ -7,5 +7,5 @@
 \contentsline {subsection}{Inadmissible heuristics}{5}
 \contentsline {subsubsection}{H2: Type-based Heuristic}{6}
 \contentsline {subsubsection}{H3: Expected Value}{7}
-\contentsline {subsubsection}{H4: Neighbor-checking Heuristic}{7}
-\contentsline {subsubsection}{H5: ?}{7}
+\contentsline {subsubsection}{H4: Neighbor-checking Heuristic}{8}
+\contentsline {subsubsection}{H5: ?}{8}
