@@ -1,4 +1,4 @@
-\section{Sequential A*}
+\section{(h) Sequential A*}
 
 \subsection{Implementation}
 
@@ -7,3 +7,15 @@ The implementation of the sequential A* algorithm is efficient because it utiliz
 Again, a priority heap is utilized to minimize the search time and the access time for the minimal value in the heap.
 
 The parents of all the nodes are only updated when the goal is reached. A 2D array is kept to temporarily store the parent of each node at a coordinate, and only at the end the node's actual parents are updated. Parents of a node can change often while the optimal cost path is in the process of being found, so this reduces the need to have access to the node object until the end.
+
+
+\subsection{Sequential Heuristic}
+Several weights were tested with the sequential heuristic value. Differences in W1 would be predictable as this what we observe through the Weighted A* algorithm. A higher W1 value causes a stronger heuristic and expands less nodes as it favors solutions closer to the goal.
+
+We already know that W1 has a dramatic effect on the mean time for the search algorithm. A higher W2 means that the other heuristic values are desired over the admissible heuristic. As we decrease the W2 value, we see that more nodes are expanded, alike to the admissible heuristic case (H1). Additionally, we find the path length increasing, and the path cost decreasing, which results in the optimality of the solution.
+
+It's important to note the difference in the number of nodes expanded from a change of W1 = 1.05 to W1 = 1.00, and W2 = 1.25 to 1.1. This slight change in the weights highlights the sensitivity of the heuristic. If we wanted to create a more robust heuristic, we would study the optimal weights more closely at this level - fine tuning it according to the different implemented heuristics.
+
+Overall, the sequential heuristic performed worse than the other heuristic searches. While having a high mean time (>5ms), and only surpassing one heuristic in terms of it's path cost. The sequential heuristic search performs worse, perhaps the overhead of switching between the heuristic values slows down the algorithm. There is more computation involved in this case.
+
+We can hypothesize that because the heuristics we have implemented have high values, it's not the sequential A* algorithm was not the best. The algorithm will tend towards the goal directly instead of the optimal route. If we observe the path length of the sequential algorithm, we can see that these percentages are comparable to H3, H4, H5.

@@ -1,4 +1,4 @@
-\section{Heuristic Proposals(d)}
+\section{(d) Heuristic Proposals}
 
 
 
@@ -6,9 +6,9 @@
 
 The best heuristic can be achieved by considering the minimum path cost from the start to end goal.
 
-We will consider the shortest path for three cases, and generalize the results 
+We will build the shortest path based on two cases. A straight line and diagonal movement.
 
--A path from the start node to the goal node is a straight line.
+\subsubsection{A path from the start node to the goal node is a straight line}
 
 The shortest possible path can occur if a river runs straight from the start to the goal node. This is possible because the river can possibly continue straight across the whole grid. This configuration allows the minimal past cost for this situation. The heuristic value of a node, the predicted cost from the node to the goal:
 \\ $s$ is the current node, $s_g$ is the goal node coordinates.
@@ -19,13 +19,13 @@ The shortest possible path can occur if a river runs straight from the start to 
 \[h(s) = 0.25 * 1 * max(|s^y - s_g^y|,|s^x - s_g^x|)\]
 
 
--A path from the start node to goal node has diagonals and straight lines.
+\subsubsection{A path from the start node to goal node has diagonals and straight lines.}
 
 We note that it costs less to move non-diagonally on highways than than moving diagonally along non-rivers. The cost of moving diagonally is:
 \[h(s) 4 * 0.25 * \sqrt{2} * \sqrt{2} * min(|s^y - s_g^y|,|s^x - s_g^x|))\]
 
 We note that moves can only be made vertically or horizontally on a highway. So we calculate the total amount of vertical and horizontal moves.
-\[h(s) = t * d  * (vert_dist + horiz_dist) \]
+\[h(s) = t * d  * (vert dist + horiz dist) \]
 \[h(s) = 0.25 * 1 * ( |s^y - s_g^y| + |s^x - s_g^x| )\]
 We can clearly see that this heuristic is minimized.
 
@@ -37,10 +37,11 @@ Condition:
 \[h(s) - h(s') <= min(c(s,s'))\]
 To find the maximal heuristic that fits this condition, we must find the minimum possible cost value.
 With a high range of values for the cost we find that:
-\[h(s) - h(s') << average(c(s,s'))\]
+\[h(s) - h(s') <= average(c(s,s'))\]
 
+We desire a heuristic that is comparable to the average cost of traversal, as this heuristic will be inadmissible, but it will likely make a larger difference in how nodes are prioritized.
 
-In other words, the case where the path is strictly on a river or highway is very unlikely, yet it is still possible. This in turn reduces the maximum heuristic value to force the heuristic to be admissible, and in turn renders the heuristic value to minimally affect the estimated path cost. This is why the admissible and consistent A* implementation almost exactly follows the Uniform Cost Search algorithm.
+The case where the path is strictly on a river or highway is very unlikely, yet it is still possible. This in turn reduces the maximum heuristic value to force the heuristic to be admissible, and in turn renders the heuristic value to minimally affect the estimated path cost. This is why the admissible and consistent A* implementation almost exactly follows the Uniform Cost Search algorithm.
 
 \subsubsection{H2: Type-based Heuristic}
 Currently, the abstract algorithm tends to follow rivers because the path cost to these rivers is small. However this is computationally expensive, as these nodes will have to continuously be expanded along and not along the river. We can argue that the path should follow the river as long as this does not increase the Euclidian distance from the current node to the goal.
