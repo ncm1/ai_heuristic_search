@@ -5,141 +5,158 @@
 \newcommand{\ucstime}{21.9412 ms}
 \newcommand{\ucsnode}{12907}
 \newcommand{\ucslength}{179.66}
+\newcommand{\ucscost}{106.6067}
 
 
 \newcommand{\aStarHOnetime}{21.6008 ms}
 \newcommand{\aStarHOnenode}{10374}
 \newcommand{\aStarHOnelength}{0.000  \%}
+\newcommand{\aStarHOnecost}{106.6067}
 
 \newcommand{\aStarHTwotime}{2.9807 ms}
 \newcommand{\aStarHTwonode}{460}
 \newcommand{\aStarHTwolength}{-5.755  \%}
+\newcommand{\aStarHTwocost}{132.2630}
 
 \newcommand{\aStarHThreetime}{0.9796 ms}
 \newcommand{\aStarHThreenode}{217}
 \newcommand{\aStarHThreelength}{-28.877 \%}
+\newcommand{\aStarHThreecost}{142.9875}
 
 \newcommand{\aStarHFourtime}{1.8209 ms}
 \newcommand{\aStarHFournode}{754}
 \newcommand{\aStarHFourlength}{-16.932 \%}
+\newcommand{\aStarHFourcost}{127.2441}
 
 \newcommand{\aStarHFivetime}{3.3776 ms}
 \newcommand{\aStarHFivenode}{1660}
 \newcommand{\aStarHFivelength}{-15.886 \%}
+\newcommand{\aStarHFivecost}{115.9203}
 
 
 %Weighted A Star Table w = 1.25
 \newcommand{\aStarWeightedHOnetime}{23.4999 ms}
 \newcommand{\aStarWeightedHOnenode}{9486}
 \newcommand{\aStarWeightedHOnelength}{-1.747  \%}
+\newcommand{\aStarWeightedHOnecost}{106.6795}
 
 \newcommand{\aStarWeightedHTwotime}{4.2639 ms}
 \newcommand{\aStarWeightedHTwonode}{417}
 \newcommand{\aStarWeightedHTwolength}{-4.386  \%}
+\newcommand{\aStarWeightedHTwocost}{134.4375}
 
 \newcommand{\aStarWeightedHThreetime}{1.9081 ms}
 \newcommand{\aStarWeightedHThreenode}{136}
 \newcommand{\aStarWeightedHThreelength}{ -33.074 \%}
+\newcommand{\aStarWeightedHThreecost}{154.5221}
 
 \newcommand{\aStarWeightedHFourtime}{1.4664 ms}
 \newcommand{\aStarWeightedHFournode}{288}
 \newcommand{\aStarWeightedHFourlength}{-30.669 \%}
+\newcommand{\aStarWeightedHFourcost}{161.9392}
 
 \newcommand{\aStarWeightedHFivetime}{0.9395 ms}
 \newcommand{\aStarWeightedHFivenode}{376}
 \newcommand{\aStarWeightedHFivelength}{-22.821 \%}
+\newcommand{\aStarWeightedHFivecost}{134.1070}
 
 %Weighted A Star table w = 2
 \newcommand{\aStarWeightedTwoHOnetime}{14.2124 ms}
 \newcommand{\aStarWeightedTwoHOnenode}{6773}
 \newcommand{\aStarWeightedTwoHOnelength}{-5.143 \%}
+\newcommand{\aStarWeightedTwoHOnecost}{108.4632}
 
 \newcommand{\aStarWeightedTwoHTwotime}{2.0119 ms}
 \newcommand{\aStarWeightedTwoHTwonode}{398}
 \newcommand{\aStarWeightedTwoHTwolength}{ 0.256 \%}
+\newcommand{\aStarWeightedTwoHTwocost}{139.0249}
 
 \newcommand{\aStarWeightedTwoHThreetime}{0.4456 ms}
 \newcommand{\aStarWeightedTwoHThreenode}{120}
 \newcommand{\aStarWeightedTwoHThreelength}{ -34.220\%}
+\newcommand{\aStarWeightedTwoHThreecost}{165.8573}
 
 \newcommand{\aStarWeightedTwoHFourtime}{0.5921 ms}
 \newcommand{\aStarWeightedTwoHFournode}{131}
 \newcommand{\aStarWeightedTwoHFourlength}{ -31.882 \%}
+\newcommand{\aStarWeightedTwoHFourcost}{176.1791}
 
 \newcommand{\aStarWeightedTwoHFivetime}{ 0.3917 ms}
 \newcommand{\aStarWeightedTwoHFivenode}{127}
 \newcommand{\aStarWeightedTwoHFivelength}{-33.819 \%}
-
+\newcommand{\aStarWeightedTwoHFivecost}{157.9877}
 
 \newcommand{\aStarSequentialtime}{10.0905 ms}
 \newcommand{\aStarSequentialnode}{817}
 \newcommand{\aStarSequentiallength}{-29.967 \%}
+\newcommand{\aStarSequentialcost}{145.7170}
 
 
 
-\begin{tabu} to 0.95\textwidth { | X[c] | X[c] | X[c] | X[c]|}
+\begin{tabu} to 0.98\textwidth { | X[c] | X[c] | X[c] | X[c]| X[c]|}
  \hline
-  Algorithm & Mean Time & Mean Nodes & Optimal Path Length\\
+  Algorithm & Mean Time & Mean Nodes & Optimal Path Length & Path Cost\\
  \hline
-  Uniform Cost  &  \ucstime & \ucsnode & \ucslength \\
+  Uniform Cost  &  \ucstime & \ucsnode & \ucslength  &\ucscost\\
  \hline
 \end{tabu}
 
 
-\begin{tabu} to 0.95\textwidth { | X[c] | X[c] | X[c] | X[c] |}
+\begin{tabu} to 0.98\textwidth { | X[c] | X[c] | X[c] | X[c] | X[c]|}
  \hline
-  Algorithm & Mean Time & Mean Nodes & Percent from optimal\\
+  Algorithm & Mean Time & Mean Nodes & Percent from optimal & Path Cost\\
  \hline
-  A* - H1 & \aStarHOnetime & \aStarHOnenode & \aStarHOnelength \\
+  A* - H1 & \aStarHOnetime & \aStarHOnenode & \aStarHOnelength & \aStarHOnecost \\
  \hline
-  A* - H2 & \aStarHTwotime & \aStarHTwonode & \aStarHTwolength \\
+  A* - H2 & \aStarHTwotime & \aStarHTwonode & \aStarHTwolength & \aStarHTwocost \\
  \hline
-  A* - H3 & \aStarHThreetime & \aStarHThreenode & \aStarHThreelength \\
+  A* - H3 & \aStarHThreetime & \aStarHThreenode & \aStarHThreelength & \aStarHThreecost \\
  \hline
-  A* - H4 & \aStarHFourtime & \aStarHFournode & \aStarHFourlength \\
+  A* - H4 & \aStarHFourtime & \aStarHFournode & \aStarHFourlength & \aStarHFourcost \\
  \hline
-  A* - H5 & \aStarHFivetime & \aStarHFivenode & \aStarHFivelength \\
+  A* - H5 & \aStarHFivetime & \aStarHFivenode & \aStarHFivelength & \aStarHFivecost \\
  \hline
  \end{tabu}
 
- \begin{tabu} to 0.95\textwidth { | X[c] | X[c] | X[c] | X[c] |}
+ \begin{tabu} to 0.98\textwidth { | X[c] | X[c] | X[c] | X[c] | X[c]|}
  \hline
-  Algorithm & Mean Time & Mean Nodes & Percent from optimal\\
+  Algorithm & Mean Time & Mean Nodes & Percent from optimal & Path Cost\\
   \hline
-   W = 1.25 A* - H1 & \aStarWeightedHOnetime & \aStarWeightedHOnenode & \aStarWeightedHOnelength \\
+   A* - H1 W=1.25 & \aStarWeightedHOnetime & \aStarWeightedHOnenode & \aStarWeightedHOnelength & \aStarWeightedHOnecost \\
   \hline
-   W = 1.25 A* - H2 & \aStarWeightedHTwotime & \aStarWeightedHTwonode & \aStarWeightedHTwolength \\
+   A* - H2 W=1.25 & \aStarWeightedHTwotime & \aStarWeightedHTwonode & \aStarWeightedHTwolength & \aStarWeightedHTwocost \\
   \hline
-   W = 1.25 A* - H3 & \aStarWeightedHThreetime & \aStarWeightedHThreenode & \aStarWeightedHThreelength \\
+   A* - H3 W=1.25 & \aStarWeightedHThreetime & \aStarWeightedHThreenode & \aStarWeightedHThreelength & \aStarWeightedHThreecost \\
   \hline
-   W = 1.25 A* - H4 & \aStarWeightedHFourtime & \aStarWeightedHFournode & \aStarWeightedHFourlength \\
+   A* - H4 W=1.25 & \aStarWeightedHFourtime & \aStarWeightedHFournode & \aStarWeightedHFourlength & \aStarWeightedHFourcost \\
   \hline
-   W = 1.25 A* - H5 & \aStarWeightedHFivetime & \aStarWeightedHFivenode & \aStarWeightedHFivelength \\
+   A* - H5 W=1.25 & \aStarWeightedHFivetime & \aStarWeightedHFivenode & \aStarWeightedHFivelength & \aStarWeightedHFivecost \\
   \hline
 \end{tabu}
 
-  \begin{tabu} to 0.95\textwidth { | X[c] | X[c] | X[c] | X[c] |}
-  \hline
-   Algorithm & Mean Time & Mean Nodes & Percent from optimal\\
-   \hline
-  W = 2 A* - H1 & \aStarWeightedTwoHOnetime & \aStarWeightedTwoHOnenode & \aStarWeightedTwoHOnelength \\
+
+\begin{tabu} to 0.98\textwidth { | X[c] | X[c] | X[c] | X[c] | X[c]|}
+\hline
+ Algorithm & Mean Time & Mean Nodes & Percent from optimal & Path Cost\\
  \hline
-  W = 2 A* - H2 & \aStarWeightedTwoHTwotime & \aStarWeightedTwoHTwonode & \aStarWeightedTwoHTwolength \\
- \hline
-  W = 2 A* - H3 & \aStarWeightedTwoHThreetime & \aStarWeightedTwoHThreenode & \aStarWeightedTwoHThreelength \\
- \hline
-  W = 2 A* - H4 & \aStarWeightedTwoHFourtime & \aStarWeightedTwoHFournode & \aStarWeightedTwoHFourlength \\
- \hline
-  W = 2 A* - H5 & \aStarWeightedTwoHFivetime & \aStarWeightedTwoHFivenode & \aStarWeightedTwoHFivelength \\
- \hline
+A* - H1 W=2  & \aStarWeightedTwoHOnetime & \aStarWeightedTwoHOnenode & \aStarWeightedTwoHOnelength & \aStarWeightedTwoHOnecost \\
+\hline
+A* - H2 W=2  & \aStarWeightedTwoHTwotime & \aStarWeightedTwoHTwonode & \aStarWeightedTwoHTwolength & \aStarWeightedTwoHTwocost \\
+\hline
+A* - H3 W=2 & \aStarWeightedTwoHThreetime & \aStarWeightedTwoHThreenode & \aStarWeightedTwoHThreelength & \aStarWeightedTwoHThreecost \\
+\hline
+A* - H4 W=2  & \aStarWeightedTwoHFourtime & \aStarWeightedTwoHFournode & \aStarWeightedTwoHFourlength & \aStarWeightedTwoHFourcost \\
+\hline
+A* - H5 W=2  & \aStarWeightedTwoHFivetime & \aStarWeightedTwoHFivenode & \aStarWeightedTwoHFivelength & \aStarWeightedTwoHFivecost \\
+\hline
 \end{tabu}
 
-\begin{tabu} to 0.95\textwidth { | X[c] | X[c] | X[c] | X[c] |}
+\begin{tabu} to 0.98\textwidth { | X[c] | X[c] | X[c] | X[c] | X[c]|}
 \hline
- Algorithm & Mean Time & Mean Nodes & Percent from optimal\\
+ Algorithm & Mean Time & Mean Nodes & Percent from optimal & Path Cost\\
  \hline
-  Sequential A* & \aStarSequentialtime & \aStarSequentialnode & \aStarSequentiallength \\
-\hline
+  Sequential A* & \aStarSequentialtime & \aStarSequentialnode & \aStarSequentiallength & \aStarSequentialcost \\
+ \hline
 \end{tabu}
 
 The memory requirements for each of these heuristics were the same.
