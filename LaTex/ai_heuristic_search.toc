@@ -1,7 +1,6 @@
 \contentsline {section}{Correct Solutions from instantiations of heuristic algorithm}{2}
 \contentsline {section}{Optimization of heuristic algorithm}{3}
 \contentsline {subsection}{Overall Optimizations}{3}
-\contentsline {subsection}{Uniform Cost Search}{3}
 \contentsline {section}{Heuristic Proposals}{4}
 \contentsline {subsection}{Best admissible/consistent heuristic}{4}
 \contentsline {subsection}{Inadmissible heuristics}{5}
