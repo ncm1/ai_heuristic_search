@@ -27,24 +27,23 @@ We note that it costs less to move non-diagonally on highways than than moving d
 We note that moves can only be made vertically or horizontally on a highway. So we calculate the total amount of vertical and horizontal moves.
 \[h(s) = t * d  * (vert dist + horiz dist) \]
 \[h(s) = 0.25 * 1 * ( |s^y - s_g^y| + |s^x - s_g^x| )\]
-We can clearly see that this heuristic is minimized.
+We can clearly see that this heuristic is minimized. The heuristic can theoretically be minimized further by taking into account the maximum possible occurrences of the rivers along the path, however we decided to keep this heuristic for simplicity's sake.
 
 
 \subsection{Inadmissible heuristics}
-We argue that inadmissible heuristics should be used for the A* algorithm on this graph because the range of possible values for the path cost in this grid is high. Since the range is high, to select a admissible heuristic, we must shoot low and calculate the heuristic conservatively to not exceed the minimum path cost. Ideally, we wish for the minimum path cost to be close to the average, or the range to be smaller so that the heuristic value is not much smaller than the cost.
-Condition:
+We argue that inadmissible heuristics should be used for the A* algorithm on this graph because the range of possible values for the path cost in this grid is high. This is due to the presence of rivers and possibility of the path intersecting a region of hard to travel cells. Since the range is high, to select a admissible heuristic, we must calculate the heuristic conservatively to not exceed the minimum path cost to keep the admissibility criteria. This is why the admissible and consistent A* implementation almost exactly follows the Uniform Cost Search algorithm, because the heuristic is determined to be low and less significant than the actual cost. Ideally, we wish for the minimum path cost to be close to the average, or the range to be smaller so that the heuristic value is comparable to the actual cost.
+This is the admissibility condition:
 \[h(s) <= c(s,s') + h(s') \]
 \[h(s) - h(s') <= min(c(s,s'))\]
 To find the maximal heuristic that fits this condition, we must find the minimum possible cost value.
-With a high range of values for the cost we find that:
+Based on our argument, we'd like to propose a more relaxed condition that results in a heuristic closer to the average of the actual path cost:
 \[h(s) - h(s') <= average(c(s,s'))\]
 
 We desire a heuristic that is comparable to the average cost of traversal, as this heuristic will be inadmissible, but it will likely make a larger difference in how nodes are prioritized.
 
-The case where the path is strictly on a river or highway is very unlikely, yet it is still possible. This in turn reduces the maximum heuristic value to force the heuristic to be admissible, and in turn renders the heuristic value to minimally affect the estimated path cost. This is why the admissible and consistent A* implementation almost exactly follows the Uniform Cost Search algorithm.
 
 \subsubsection{H2: Type-based Heuristic}
-Currently, the abstract algorithm tends to follow rivers because the path cost to these rivers is small. However this is computationally expensive, as these nodes will have to continuously be expanded along and not along the river. We can argue that the path should follow the river as long as this does not increase the Euclidian distance from the current node to the goal.
+Currently, the abstract algorithm tends to follow rivers because the path cost to these rivers is small. However this is computationally expensive, as these nodes will have to continuously be expanded along and not along the river. We can argue that the path should follow the river as long as this does not increase the Euclidean distance from the current node to the goal.
 
 If the current node is on a river, then the heuristic can be calculated to be:
 \[h(s) = 0.38 * 1 * ( |s^y - s_g^y| + |s^x - s_g^x| )\]
@@ -52,16 +51,16 @@ If the river takes us away from the goal, then the heuristic will be large enoug
 
 The result is that nodes along the river going away from the goal will be expanded less, thus reducing computation time when the path is on a river.
 
-When the current node is a hard to traverse cell, we make the assumption that this region will be full, so we avoid these cells by raising the heuristic value of.
-We calculate that traversing around a 31x31 grid of hard-to-traverse cells is slightly shorter than traversing through the 31x31 grid. Since there's only a 50 percent chance of a hard-to-traverse cell of being. Note: traveling through the difficult blocks on average will yield a path cost of 1.5.
-\\Traversing around the 31x31 block: $ 30 + 30 + \sqrt{2} = 61.41$
+When the current node is a hard to traverse cell, we make the assumption that this region will be full, so we avoid these cells by raising the heuristic value.
+We calculate that traversing around a 31x31 grid of hard-to-traverse cells is slightly shorter than traversing through the 31x31 grid. Since there's only a 50 percent chance of a hard-to-traverse region of having a cell as hard to traverse. Note: traveling through the difficult blocks on average will yield a path cost of 1.5.
+\\Traversing around the 31x31 block: \[ 30 + 30 + \sqrt{2} = 61.41 \]
 \\Traversing through the 31x31 block \[ \sqrt{2} * 30 * (1 + (1 * (0.50))) = 65.76\] 
 $61.41 < 65.76$. It is advantageous to travel around the 31x31 grid.
 Though it may have a higher path cost to travel around the block, because with a larger number of blocks.
 So this heuristic should be designed to have the path best avoid these hard-to-traverse cells, not necessarily avoid them completely.
 \[h(s) = 1.5 * 1 * ( |s^y - s_g^y| + |s^x - s_g^x| )\]
 
-When the current node is a regular unblocked cell:
+When the current node is a regular unblocked cell, we a modified version of the admissible heuristic:
 
 \[h(s) = t1 * d1  * max(vert_dist, horiz_dist) + t2 * d2 * min(vert_dist, horiz_dist)\]
 \[h(s) = 1 * 1 *min(|s^y - s_g^y|, |s^x - s_g^x|) + 1 * \sqrt{2} * max(|s^y - s_g^y|, |s^x - s_g^x|)   \]
@@ -70,24 +69,29 @@ When the current node is a regular unblocked cell:
  $t1 = t2 = 1$: multiplier for the type of block. \\
  $d1 = 1.0$ , $d2 = \sqrt{2}$ : multiplier for direction of movement. \\
 
-This heuristic is advantageous because since it uses the current node type, it is computationally inexpensive. 
+This heuristic is advantageous because since it uses the current node type, it is computationally inexpensive.
 
 \subsubsection{H3: Expected Value}
-This method will take into account the number of blocked cells and the number of hard to traverse cells. The value that's generated from the heuristic will take the probability of each type of cell occurring and the required cost to traverse this path. The heuristic value will be the average cost of each step combined with a value thats proportional to the node's distance to the goal. The Euclidian distance will be used.
+This method will take into account the number of blocked cells and the number of hard to traverse cells on average on a grid. The value that's generated from the heuristic will take the probability of each type of cell occurring and the required cost to traverse this path. The heuristic value will be the average cost of each step combined with a value thats proportional to the node's distance to the goal. The Euclidean distance will be used.
 
 Average cost of step = summation of: probability of scenario * cost of scenario.
 
-\[average(s) = \sum{P(s)*C(s)}  \]]
-\[average(s) = (0.2 * 1.91 + 0.8 * ( 0.8 * 1 + 8*0.05*0.5*1.5 ) ) = 0.3 + 0.8 = 1.482\]
+\[average(s) = \sum{P(s)*C(s)}  \]
 
 For each blocked cell, we can consider the cost to navigate around it as the cost of having the blocked cell. We consider the different cases of how a blocked cell can be overcome. 
 Approaching from a corner: \[(2 + \sqrt(2) + 2 * ( 1 + \sqrt{2}) + 2 * 2 + 2 * 1) / 7  = 2.03\]
 Approaching the blocked cell perpendicularly: \[ (2*\sqrt(2) + 2*(1 + \sqrt{2}) + 2 * (\sqrt{(2)}) + 2*1 )/ 7 ) = 1.78 \]
 
-Averaging those two values together: 1.91 cost for each blocked cell.
+Averaging those two values together divided by the average number of blocks traversed: $1.91 / 1.5 = 1.27$ cost for each blocked cell.
 
 There is an 80 percent chance that a path will be unblocked.
 For each 31x31 grid of 50 percent hard to traverse blocks, this covers up roughly 5 percent of the 120 x 160 grid. Eight 31 x 31 grids result in about 40 percent of the grid covered, consequently about 20 percent of the map is covered by hard to traverse cells.
+
+
+\[average(s) = P(blocked)*Cost(blocked) + P(unblocked)*Avg(C(unblocked)) \]
+\[Avg(C(unblocked)) = P(unblocked)*Cost(unblocked) + P(hard)*Cost(hard)\]
+The result is:
+\[average(s) = (0.2 * 1.91 + 0.8 * ( 0.8 * 1 + 8*0.05*0.5*1.5 ) ) = 0.3 + 0.8 = 1.355\]
 
 Not exactly 20 percent of the map is covered by hard to traverse cells though, as there is a chance of overlap; each hard to traverse cell is not uniquely placed. There's also a chance the cell will land on the edge and not all of the 31x31 chosen cells will be on the grid.
 
@@ -95,10 +99,13 @@ This heuristic also ignores the probability of there being a river, so this heur
 
 \subsubsection{H4: Manhattan Distance}
 This heuristic will take the Manhattan distance from the current node to the end goal. This heuristic is useful when diagonal steps are not possible in the grid. This heuristic is similar to the Euclidean distance, except we assume that diagonal steps are not taken.
+\[h(s) =  |s^y - s_g^y| + |s^x - s_g^x|\]
 
 This heuristic will focus on finding the straightest route from the node to the goal. This heuristic is expected to cause the algorithm to be quick.
 
 \subsubsection{H5: Euclidean Distance}
 This heuristic will take the Euclidean distance from the current node to the end node. In other words, the distance will be calculated as a line directly from the node to the goal node. This heuristic may provide the most accurate representation of the cost from the node to the goal disregarding the presence of rivers.
+
+\[h(s) =  \sqrt{|s^y - s_g^y|^2 + |s^x - s_g^x|^2 } \]
 
 This heuristic is useful because it'll prioritize the actual distance of the goal from the current node. It will result in little nodes being expanded and focus on the straightest route to the goal.
