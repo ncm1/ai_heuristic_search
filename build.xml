@@ -13,7 +13,7 @@
         <mkdir dir="build/jar"/>
         <jar destfile="build/jar/HelloWorld.jar" basedir="build/classes">
             <manifest>
-                <attribute name="Main-Class" value="views.MapSelection"/>
+                <attribute name="Main-Class" value="views.MapSelectionExperimental"/>
                 
             </manifest>
         </jar>
