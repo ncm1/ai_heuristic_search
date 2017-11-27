@@ -1,5 +1,7 @@
 
 \section{Heuristic Results and Comparisons(e and f)}
+
+\subsection{Experimental Results}
 \newcommand{\ucstime}{21.9412 ms}
 \newcommand{\ucsnode}{12907}
 \newcommand{\ucslength}{179.66}
@@ -139,3 +141,18 @@
   Sequential A* & \aStarSequentialtime & \aStarSequentialnode & \aStarSequentiallength \\
 \hline
 \end{tabu}
+
+The memory requirements for each of these heuristics were the same.
+
+\subsection{Comparison}
+
+
+
+As expected, the consistent and admissible heuristic H1 behaved similarly to the uniform cost search. It expands less nodes than the uniform cost search because the heuristic prioritizes the nodes moving towards the goal than away from the goal. The mean time was also decreased because of the less amount of nodes expanded.
+The consistent and admissible heuristic is optimal.
+
+Comparing the other four heuristics, we found that H3-5 were far from optimal and took the least amount of time.
+
+We can see the effect of having a higher weight. Especially since the heuristics are proportional to the node's distance from the goal node, we find a more direct path as the weight increases. This is evident in the weighted A* approach and from a general observation of the heuristics.
+
+H3 was based on expected value, where we took a very rough consideration for the cost of the average path traversal. Each path cost was expected to be around 1.5, when in reality this is not the case because of the presence of rivers. We omitted the probability of the path including a river, because the probability is difficult to calculate and many assumptions would have to be made. We also found it useful to notice the difference between heuristics that take into account the existence of rivers and those that didn't. H2 accounted for rivers where the others did not.

@@ -95,7 +95,9 @@ This heuristic also ignores the probability of there being a river, so this heur
 \subsubsection{H4: Manhattan Distance}
 This heuristic will take the Manhattan distance from the current node to the end goal. This heuristic is useful when diagonal steps are not possible in the grid. This heuristic is similar to the Euclidean distance, except we assume that diagonal steps are not taken.
 
+This heuristic will focus on finding the straightest route from the node to the goal. This heuristic is expected to cause the algorithm to be quick.
+
 \subsubsection{H5: Euclidean Distance}
 This heuristic will take the Euclidean distance from the current node to the end node. In other words, the distance will be calculated as a line directly from the node to the goal node. This heuristic may provide the most accurate representation of the cost from the node to the goal disregarding the presence of rivers.
 
-Calculate the average path cost.
+This heuristic is useful because it'll prioritize the actual distance of the goal from the current node. It will result in little nodes being expanded and focus on the straightest route to the goal.
